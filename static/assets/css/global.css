@@ -314,8 +314,10 @@ img {
 	margin: 0.35rem auto;
 }
 
+/* nav-links */
+
 .nav-links {
-	margin-top: 0.5rem;
+	margin: 0.5rem 0;
 }
 
 .nav-link {
@@ -326,6 +328,41 @@ img {
 
 .nav-link:hover {
 	color: #8c8c8c;
+}
+
+/* nav-tree */
+
+.nav-tree {
+	margin-left: 1.15rem;
+}
+
+.tree-item {
+	display: flex;
+	align-items: center;
+	font-size: 92%;
+	padding: 0.4rem 0.55rem 0.4rem 0.75rem;
+	border-radius: 0.3rem 0 0 0.3rem;
+	color: #484847;
+	cursor: pointer;
+	transition: background-color 0.1s;
+}
+
+.tree-item:hover {
+	background-color: rgba(188, 198, 159, 0.25);
+}
+
+.tree-items .tree-items {
+	margin-left: 0.75rem;
+}
+
+.tree-item .material-icons {
+	font-size: inherit;
+	margin-left: 0.25rem;
+}
+
+.tree-item.icon-left .material-icons {
+	margin-left: 0;
+	margin-right: 0.25rem;
 }
 
 /* topbar */
