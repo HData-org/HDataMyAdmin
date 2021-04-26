@@ -17,19 +17,19 @@ body {
 }
 
 @media only screen and (min-width: 601px) {
-	.container {
+	.container:not(.big-container) {
 		width: 96%;
 	}
 }
 
 @media only screen and (min-width: 993px) {
-	.container {
+	.container:not(.big-container) {
 		width: 85%;
 	}
 }
 
-.with-sidebar .big-container .container {
-    width: calc(100% - 12px);
+.with-sidebar .big-container.container {
+	width: calc(100% - 12px);
 }
 
 /* basics */
@@ -76,6 +76,10 @@ img {
 
 .dsp-ib {
 	display: inline-block;
+}
+
+.pos-r {
+    position: relative;
 }
 
 .rounded {
@@ -148,7 +152,8 @@ img {
 	text-shadow: 0 0 8px rgba(40, 40, 40, 0.38);
 }
 
-.txt-nolh {
+.txt-nolh,
+.txt-nlh {
 	line-height: 0;
 }
 
@@ -323,12 +328,6 @@ img {
 	color: #8c8c8c;
 }
 
-/* big-container */
-
-.big-container {
-	position: relative;
-}
-
 /* topbar */
 
 .topbar {
@@ -345,14 +344,28 @@ img {
 	left: 250px;
 }
 
+#menuBtn {
+	background-color: rgba(255, 255, 255, 0.3);
+	font-size: 1.25rem;
+	padding: 0.15rem;
+	margin-right: 0.25rem;
+	border-radius: 0 0.35rem 0.35rem 0;
+	cursor: pointer;
+}
+
+#menuBtn:hover {
+	background-color: rgba(255, 255, 255, 0.55);
+}
+
+.topbar .server-info .topbar-container {
+	min-height: 2rem;
+	padding: 0.05rem 0.5rem 0.05rem 0;
+}
+
 .topbar .server-info {
 	background-color: #dedede;
 	font-size: 0.9rem;
 	color: #595959;
-}
-
-.topbar .server-info .topbar-container {
-	padding: 0.55rem;
 }
 
 .topbar .icon {
@@ -385,16 +398,16 @@ img {
 	padding: 0.5rem 1.2rem;
 	text-decoration: none;
 	color: inherit;
-	background-color: rgba(255, 255, 255, 0.35);
+	background-color: rgba(255, 255, 255, 0.4);
 	border-radius: 5px 5px 0 0;
 	cursor: pointer;
 	transition: all 0.15s;
 }
 
 .topbar .nav-tab:hover {
-	background-color: rgba(255, 255, 255, 0.5);
+	background-color: rgba(255, 255, 255, 0.57);
 }
 
 .topbar-height {
-    height: 4.65rem;
+	height: 4.65rem;
 }

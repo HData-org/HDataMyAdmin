@@ -15,7 +15,7 @@
 </head>
 <body class="with-sidebar">
 
-	<div class="sidebar">
+	<div class="sidebar" id="sidebar">
 		<div class="sidebar-container">
 			<div class="center">
 				<a class="txt-center" href="#">
@@ -30,16 +30,19 @@
 		</div>
 	</div>
 
-	<div class="big-container">
+	<div class="pos-r">
 
 		<div class="topbar">
 			<div class="server-info">
-				<div class="topbar-container">
-					<div class="flex-center" id="serverInfo">
+				<div class="topbar-container flex-center">
+					<span class="flex-center">
+						<span class="material-icons" id="menuBtn" onclick="menuBtnClicked()" title="Hide pannel"> arrow_left </span>
+					</span>
+					<span id="serverInfo" class="flex-center">
 						<span class="material-icons icon">link</span>
 						<span>&nbsp;Server:&nbsp;</span>
 						<span>localhost:8888</span>
-					</div>
+					</span>
 				</div>
 			</div>
 			<div class="nav-tabs">
@@ -52,11 +55,13 @@
 
         <div class="topbar-height"></div>
 
-        <main class="container">
+        <main class="container big-container">
             <h1 style="margin-top: 0">Home</h1>
         </main>
 
 	</div>
 
+    <script src="./assets/js/global.js"></script>
+    <script src="./assets/js/home.js"></script>
 </body>
 </html>
