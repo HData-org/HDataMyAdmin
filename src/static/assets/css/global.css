@@ -29,7 +29,7 @@ body {
 }
 
 .with-sidebar .big-container.container {
-	width: calc(100% - 12px);
+	width: calc(100% - 1.5rem);
 }
 
 /* basics */
@@ -160,6 +160,11 @@ img {
 .center {
 	text-align: center;
 	margin: 0 auto;
+}
+
+.title {
+	margin: 1rem 0;
+	font-size: 2rem;
 }
 
 /* layout */
@@ -333,7 +338,7 @@ img {
 /* nav-tree */
 
 .nav-tree {
-	margin-left: 1.15rem;
+	margin-left: 0.5rem;
 }
 
 .tree-item {
