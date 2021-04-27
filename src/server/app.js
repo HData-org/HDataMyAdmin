@@ -5,18 +5,6 @@ var path = require('path')
 const port = 3000
 var conn;
 
-function connectTo(host, port) {
-	if(host == '') { host = '127.0.0.1'; }
-	if(port == '') { port = '8888'; }
-	console.log(`Connecting to HData Server at ${host} on port ${port}...`);
-	var options = {
-		"host": host,
-		"port": port
-	}
-	conn = new HData(options);
-  HDstatus();
-}
-
 function HDstatus() {
 	conn.status( (res, err) => {
 		if (!err) {
@@ -26,6 +14,18 @@ function HDstatus() {
 			console.log(err);
 		}
 	})
+}
+
+function connectTo(host, port) {
+	if(host == '' || host == undefined) { host = '127.0.0.1'; }
+	if(port == '' || port == undefined) { port = '8888'; }
+	console.log(`Connecting to HData Server at ${host} on port ${port}...`);
+	var options = {
+		"host": host,
+		"port": port
+	}
+	conn = new HData(options);
+  HDstatus();
 }
 
 app.get('/api/hdata/status', (req, res) => {
