@@ -31,7 +31,7 @@ function connectTo(host, port) {
 app.get('/api/hdata/status', (req, res) => {
   var response = "Not available";
   conn.status((data, err) => {
-		if (!err) {
+	if (!err) {
       response = `\n\rHData Server has the status: ${data.status}, and has ${data.jobs} pending jobs. ${data.tables} tables exist in the database.`;
 		} else {
 			console.log(err);
