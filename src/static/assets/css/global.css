@@ -121,7 +121,11 @@ img {
 }
 
 .txt-primary {
-	color: rgb(255, 214, 31);
+	color: #b1c357;
+}
+
+.txt-red {
+	color: #c91414;
 }
 
 .txt-space {
