@@ -41,7 +41,7 @@ app.get('/api/hdata/status', (req, res) => {
 	})
 })
 
-app.use('/', express.static(path.join(__dirname, '/../static')))
+app.use('/', express.static(path.join(__dirname, 'src/static/')))
 
 app.listen(port, () => {
   console.log(`HDataMyAdmin listening at http://localhost:${port}`)
