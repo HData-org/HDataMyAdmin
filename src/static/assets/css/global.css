@@ -29,7 +29,7 @@ body {
 }
 
 .with-sidebar .big-container.container {
-	width: calc(100% - 1.5rem);
+	width: calc(100% - 1.55rem);
 }
 
 /* basics */
