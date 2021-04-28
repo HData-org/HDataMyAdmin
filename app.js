@@ -1,9 +1,13 @@
 const HData = require('hdata').HData
+var conn
+var path = require('path')
 const express = require('express')
 const app = express()
-var path = require('path')
-const port = 3000
-var conn
+
+const port = process.env.PORT || 3000;
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 function HDstatus() {
 	conn.status( (res, err) => {
@@ -39,6 +43,25 @@ app.get('/api/hdata/status', (req, res) => {
 		}
     res.json(data)
 	})
+})
+
+app.post('/api/hdata/login', (req, res) => {
+	var user = req.body.username
+	var password = req.body.password
+	conn.login(user, password, function(data, err) {
+		if (!err) {
+			if (data.status == "OK") {
+				console.log(`Logged in as ${user}!`)
+				res.json('OK')
+			} else {
+				console.log("\n\rInvalid username or password")
+				res.json('BAD')
+			}
+		} else {
+			console.log(err)
+			res.json(err)
+		}
+	});
 })
 
 app.use('/', express.static(path.join(__dirname, 'src/static/')))

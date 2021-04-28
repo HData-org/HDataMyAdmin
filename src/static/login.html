@@ -26,21 +26,21 @@
         </div>
     
         <div class="card center-sm">
-            <div class="form center">
+            <form class="form center" method="POST" action="/api/hdata/login">
                 <h2 class="title">Login</h2>
                 <div class="stacked-inputs">
                     <div class="float-input">
-                        <input class="input dsp-b" type="text" placeholder="Username" autofocus>
+                        <input name="username" class="input dsp-b" type="text" placeholder="Username" autofocus>
                     </div>
                     <div class="float-input">
-                        <input class="input dsp-b" type="password" placeholder="Password">
+                        <input name="password" class="input dsp-b" type="password" placeholder="Password">
                     </div>
                 </div>
                 <div class="form-submit flex-center">
                     <span class="flex-grow"></span>
-                    <button class="button" type="submit" onclick="location = 'home.html'"><span>Go</span></button>
+                    <button class="button" type="submit"><span>Go</span></button>
                 </div>
-            </div>
+            </form>
         </div>
     
     </main>
