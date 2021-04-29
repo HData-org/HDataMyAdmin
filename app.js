@@ -86,6 +86,24 @@ app.post('/api/hdata/login', (req, res) => {
 	});
 })
 
+app.get('/api/hdata/logout', (req, res) => {
+	conn.logout(function(data, err) {
+		if(!err) {
+			if(data.status == 'OK') {
+				console.log("Successfully logged out")
+			} else if(data.status == 'NLI') {
+				console.log("You need to be logged in to logout")
+			} else {
+				console.log(data)
+			}
+			res.redirect('/login.html')
+		} else {
+			console.log(err)
+			res.json(err)
+		}
+	});
+})
+
 app.use('/', express.static(path.join(__dirname, 'src/static/')))
 
 app.listen(port, () => {
