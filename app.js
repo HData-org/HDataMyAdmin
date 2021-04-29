@@ -52,7 +52,7 @@ app.get('/api/hdata/status', (req, res) => {
   var response = "Not available"
   conn.status((data, err) => {
 	if (!err) {
-      response = `\n\rHData Server has the status: ${data.status}, and has ${data.jobs} pending jobs. ${data.tables} tables exist in the database.`
+      response = `HData Server has the status: ${data.status}, and has ${data.jobs} pending jobs. ${data.tables} tables exist in the database.\n\r`
 		} else {
 			console.log(err)
       data = err;
@@ -73,11 +73,10 @@ app.post('/api/hdata/login', (req, res) => {
 			if (data.status == "OK" || req.session.login.auth == true) {
 				req.session.login.auth = true
 				req.session.login.username = user
-				console.log(req.session.login)
 				console.log(`Logged in as ${user}!`)
 				if(req.session.login.auth == true) { res.redirect('/') }
 			} else {
-				console.log("\n\rInvalid username or password")
+				console.log("Invalid username or password")
 				res.redirect('/login.html?error='+data.status)
 			}
 		} else {
