@@ -38,7 +38,7 @@ function connectTo(host, port) {
 
 app.use(session({
 	store: new FileStore(fileStoreOptions),
-	name: 'myhdataadmin',
+	name: 'hdatamyadmin',
 	secret: '362150441',
 	resave: false,
 	saveUninitialized: true
@@ -112,8 +112,7 @@ app.get('/api/hdata/logout', (req, res) => {
 
 app.use('/', express.static(path.join(__dirname, 'src/static/')))
 
-var server = app.listen(port, () => {
-    var host = server.address().address;
-	console.log('Example app listening at http://%s:%s', host, port);
+app.listen(port, () => {
+	console.log('HDataMyAdmin listening at http://localhost:%s', port);
 	connectTo()
 })
