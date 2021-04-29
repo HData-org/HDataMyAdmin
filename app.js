@@ -34,6 +34,20 @@ function connectTo(host, port) {
 	HDstatus();
 }
 
+app.use(session({
+	name: 'myhdataadmin',
+	secret: '362150441',
+	resave: false,
+	saveUninitialized: true
+}))
+
+app.use(function (req, res, next) {
+	if (!req.session.login) {
+	  req.session.login = {}
+	}
+	next()
+})
+
 app.get('/api/hdata/status', (req, res) => {
   var response = "Not available"
   conn.status((data, err) => {
@@ -47,17 +61,24 @@ app.get('/api/hdata/status', (req, res) => {
 	})
 })
 
+app.get('/api/hdata/login', (req, res) => {
+	res.json(req.session.login);
+})
+
 app.post('/api/hdata/login', (req, res) => {
 	var user = req.body.username
 	var password = req.body.password
 	conn.login(user, password, function(data, err) {
 		if (!err) {
-			if (data.status == "OK") {
+			if (data.status == "OK" || req.session.login.auth == true) {
+				req.session.login.auth = true
+				req.session.login.username = user
+				console.log(req.session.login)
 				console.log(`Logged in as ${user}!`)
-				res.json('OK')
+				if(req.session.login.auth == true) { res.redirect('/') }
 			} else {
 				console.log("\n\rInvalid username or password")
-				res.json('BAD')
+				res.redirect('/login.html?error='+data.status)
 			}
 		} else {
 			console.log(err)
