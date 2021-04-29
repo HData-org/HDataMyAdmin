@@ -8,10 +8,10 @@ var FileStore = require('session-file-store')(session)
 var fileStoreOptions = {};
 
 const app = express()
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 function HDstatus() {
 	conn.status( (res, err) => {
@@ -33,7 +33,7 @@ function connectTo(host, port) {
 		"port": port
 	}
 	conn = new HData(options)
-	HDstatus();
+	HDstatus()
 }
 
 app.use(session({
@@ -46,7 +46,7 @@ app.use(session({
 
 app.use(function (req, res, next) {
 	if (!req.session.login) {
-	  req.session.login = {}
+		req.session.login = {}
 	}
 	next()
 })
@@ -71,13 +71,13 @@ app.get('/api/hdata/login', (req, res) => {
 app.post('/api/hdata/login', (req, res) => {
 	var user = req.body.username
 	var password = req.body.password
-	conn.login(user, password, function(data, err) {
+	conn.login(user, password, (data, err) => {
 		if (!err) {
 			if (data.status == "OK" || req.session.login.auth == true) {
 				req.session.login.auth = true
 				req.session.login.username = user
 				console.log(`Logged in as ${user}!`)
-				if(req.session.login.auth == true) { res.redirect('/') }
+				if(req.session.login.auth) { res.redirect('/') }
 			} else {
 				console.log("Invalid username or password")
 				res.redirect('/login.html?error='+data.status)
@@ -90,7 +90,7 @@ app.post('/api/hdata/login', (req, res) => {
 })
 
 app.get('/api/hdata/logout', (req, res) => {
-	conn.logout(function(data, err) {
+	conn.logout((data, err) => {
 		if(!err) {
 			if(data.status == 'OK') {
 				console.log("Successfully logged out")
@@ -99,6 +99,9 @@ app.get('/api/hdata/logout', (req, res) => {
 			} else {
 				console.log(data)
 			}
+			req.session.destroy( (err) => {
+				console.log(err)
+			})
 			res.redirect('/login.html')
 		} else {
 			console.log(err)
@@ -109,7 +112,8 @@ app.get('/api/hdata/logout', (req, res) => {
 
 app.use('/', express.static(path.join(__dirname, 'src/static/')))
 
-app.listen(port, () => {
-  console.log(`HDataMyAdmin listening at http://localhost:${port}`)
-  connectTo()
+var server = app.listen(port, () => {
+    var host = server.address().address;
+	console.log('Example app listening at http://%s:%s', host, port);
+	connectTo()
 })
