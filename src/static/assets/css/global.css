@@ -237,7 +237,21 @@ img {
 	/* 	line-height: 0; */
 }
 
-.form {
+
+/* errors */
+
+.error {
+	padding: 0.55rem 0.6rem;
+	background-color: #ffcccc;
+	border: 1px solid #e1a3a3;
+	color: #b10606;
+	border-radius: 4px;
+}
+
+/* forms and inputs */
+
+.form .error {
+	margin: 0 0 0.75rem 0;
 }
 
 .form .title {

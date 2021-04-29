@@ -28,6 +28,9 @@
         <div class="card center-sm">
             <form class="form center" method="POST" action="/api/hdata/login">
                 <h2 class="title">Login</h2>
+                <div class="error" style="display: none;">
+                    <span id="errorText">Username or password is incorrect.</span>
+                </div>
                 <div class="stacked-inputs">
                     <div class="float-input">
                         <input name="username" class="input dsp-b" type="text" placeholder="Username" autofocus>
@@ -46,5 +49,6 @@
     </main>
 
     <script src="./assets/js/global.js"></script>
+    <script src="./assets/js/login.js"></script>
 </body>
 </html>
