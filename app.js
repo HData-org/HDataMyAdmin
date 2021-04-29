@@ -4,6 +4,8 @@ var path = require('path')
 const express = require('express')
 var parseurl = require('parseurl')
 var session = require('express-session')
+var FileStore = require('session-file-store')(session)
+var fileStoreOptions = {};
 
 const app = express()
 const port = process.env.PORT || 3000;
@@ -35,6 +37,7 @@ function connectTo(host, port) {
 }
 
 app.use(session({
+	store: new FileStore(fileStoreOptions),
 	name: 'myhdataadmin',
 	secret: '362150441',
 	resave: false,
@@ -62,7 +65,7 @@ app.get('/api/hdata/status', (req, res) => {
 })
 
 app.get('/api/hdata/login', (req, res) => {
-	res.json(req.session.login);
+	res.json(req.session.login)
 })
 
 app.post('/api/hdata/login', (req, res) => {
