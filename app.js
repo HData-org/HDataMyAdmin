@@ -25,8 +25,8 @@ function HDstatus() {
 }
 
 function connectTo(host, port) {
-	if(host == '' || host == undefined) { host = '127.0.0.1' }
-	if(port == '' || port == undefined) { port = '8888' }
+	if(host == '' || host == undefined) { host = "127.0.0.1" }
+	if(port == '' || port == undefined) { port = "8888" }
 	console.log(`Connecting to HData Server at ${host} on port ${port}...`)
 	var options = {
 		"host": host,
@@ -41,31 +41,49 @@ app.use(session({
 	name: 'hdatamyadmin',
 	secret: '362150441',
 	resave: false,
-	saveUninitialized: true
+	saveUninitialized: false
 }))
+
+function clearSessionAuth(req) {
+	req.session.login = {}
+	req.session.login.auth = false
+}
 
 app.use(function (req, res, next) {
 	if (!req.session.login) {
-		req.session.login = {}
+		clearSessionAuth(req)
+		console.log("New session")
 	}
 	next()
 })
 
 app.get('/api/hdata/status', (req, res) => {
-  var response = "Not available"
-  conn.status((data, err) => {
-	if (!err) {
-      response = `HData Server has the status: ${data.status}, and has ${data.jobs} pending jobs. ${data.tables} tables exist in the database.\n\r`
+	conn.status((data, err) => {
+		if (!err) {
+			res.json(data)
 		} else {
 			console.log(err)
-      data = err;
+			res.json(err)
 		}
-    res.json(data)
 	})
 })
 
 app.get('/api/hdata/login', (req, res) => {
-	res.json(req.session.login)
+	if(req.session.login.auth) {
+		conn.getUser(req.session.login.username, (data, err) => {
+			if(!err) {
+				if(data.status == "NLI") {
+					clearSessionAuth(req)
+					console.log("Corrected auth sess: " + data.status)
+				}
+			} else {
+				console.log(err)
+			}
+			res.json(req.session.login);
+		})
+	} else {
+		res.json(req.session.login);
+	}
 })
 
 app.post('/api/hdata/login', (req, res) => {
@@ -73,41 +91,42 @@ app.post('/api/hdata/login', (req, res) => {
 	var password = req.body.password
 	conn.login(user, password, (data, err) => {
 		if (!err) {
-			if (data.status == "OK" || req.session.login.auth == true) {
+			if (data.status == "OK" || data.status == "LI") {
 				req.session.login.auth = true
 				req.session.login.username = user
 				console.log(`Logged in as ${user}!`)
-				if(req.session.login.auth) { res.redirect('/') }
+				if(req.session.login.auth) {
+					res.redirect("/")
+				}
 			} else {
+				clearSessionAuth(req)
 				console.log("Invalid username or password")
-				res.redirect('/login.html?error='+data.status)
+				res.redirect("/login.html?error="+data.status)
 			}
 		} else {
 			console.log(err)
 			res.json(err)
 		}
-	});
+	})
 })
 
 app.get('/api/hdata/logout', (req, res) => {
 	conn.logout((data, err) => {
 		if(!err) {
-			if(data.status == 'OK') {
+			if(data.status == "OK") {
 				console.log("Successfully logged out")
-			} else if(data.status == 'NLI') {
+			} else if(data.status == "NLI") {
 				console.log("You need to be logged in to logout")
 			} else {
 				console.log(data)
 			}
-			req.session.destroy( (err) => {
-				console.log(err)
-			})
-			res.redirect('/login.html')
+			clearSessionAuth(req)
+			res.redirect("/login.html")
 		} else {
 			console.log(err)
 			res.json(err)
 		}
-	});
+	})
 })
 
 app.use('/', express.static(path.join(__dirname, 'src/static/')))
