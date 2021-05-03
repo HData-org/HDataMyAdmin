@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }))
 function HDstatus() {
 	conn.status( (res, err) => {
 		if (!err) {
-      var response = `\n\rHData Server has the status: ${res.status}, and has ${res.jobs} pending jobs. ${res.tables} tables exist in the database.`
+			var response = `\n\rHData Server has the status: ${res.status}, and has ${res.jobs} pending jobs. ${res.tables} tables exist in the database.`
 			console.log(response)
 		} else {
 			console.log(err)
@@ -68,24 +68,6 @@ app.get('/api/hdata/status', (req, res) => {
 	})
 })
 
-app.get('/api/hdata/login', (req, res) => {
-	if(req.session.login.auth) {
-		conn.getUser(req.session.login.username, (data, err) => {
-			if(!err) {
-				if(data.status == "NLI") {
-					clearSessionAuth(req)
-					console.log("Corrected auth sess: " + data.status)
-				}
-			} else {
-				console.log(err)
-			}
-			res.json(req.session.login);
-		})
-	} else {
-		res.json(req.session.login);
-	}
-})
-
 app.post('/api/hdata/login', (req, res) => {
 	var user = req.body.username
 	var password = req.body.password
@@ -125,6 +107,46 @@ app.get('/api/hdata/logout', (req, res) => {
 		} else {
 			console.log(err)
 			res.json(err)
+		}
+	})
+})
+
+// needs to be logged in //
+
+app.all('/api/hdata/*', function(req, res, next){
+	if(req.session.login.auth) {
+		conn.getUser(req.session.login.username, (data, err) => {
+			if(!err) {
+				if(data.status == "NLI") {
+					clearSessionAuth(req)
+					console.log("Corrected auth sess: " + data.status)
+				}
+			} else {
+				console.log(err)
+				res.json(err)
+			}
+			if(req.session.login.auth) {
+				next()
+			} else {
+				res.json(req.session.login)
+			}
+		})
+	} else {
+		res.json(req.session.login)
+	}
+});
+
+app.get('/api/hdata/login', (req, res) => {
+	res.json(req.session.login)
+})
+
+app.get('/api/hdata/gettables', (req, res) => {
+	conn.getTables((data, err) => {
+		if (!err) {
+			res.send(data) //Should return an array ["table1","table2"]
+		} else {
+			console.log(err)
+			res.send(err)
 		}
 	})
 })

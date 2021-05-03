@@ -3,6 +3,7 @@ function updateServerInfo(data) {
     if(data.status == 'OK') {
         html = '<span class="material-icons icon">link</span> <span>&nbsp;Server:&nbsp;</span> <span>localhost:8888</span>';
     }
+    $('serverInfo').title = JSON.stringify(data);
     $('serverInfo').innerHTML = html;
 }
 
