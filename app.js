@@ -13,8 +13,8 @@ const port = process.env.PORT || 3000
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-const hdmaVersion = "0.0.1a";
-var connectionInfo;
+const hdmaVersion = "0.0.1a"
+var connectionInfo
 
 function HDstatus() {
 	conn.status( (res, err) => {
@@ -36,7 +36,7 @@ function connectTo(host, port) {
 		"port": port
 	}
 	conn = new HData(options)
-	connectionInfo = options;
+	connectionInfo = options
 	HDstatus()
 }
 
@@ -151,6 +151,29 @@ app.all('/api/hdata/*', function(req, res, next){
 
 app.get('/api/hdata/login', (req, res) => {
 	res.json(req.session.login)
+})
+
+app.post('/api/hdata/updatepassword', (req, res) => {
+	var password = req.body.newPassword
+	var retypePassword = req.body.retypePassword
+	if(password !== retypePassword) {
+		res.redirect("/changepassword.html?error=PDOM")
+	} else {
+		conn.updatePassword(req.session.login.username, password, (data, err) => {
+			if(!err) {
+				if (data.status == "OK") {
+					console.log("Password updated!")
+					res.redirect("/")
+				} else {
+					console.log("Insufficient permissions")
+					res.redirect("/changepassword.html?error="+data.status)
+				}
+			} else {
+				console.log(err)
+				res.json(err)
+			}
+		})
+	}
 })
 
 app.get('/api/hdata/gettables', (req, res) => {

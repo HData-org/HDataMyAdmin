@@ -255,24 +255,45 @@ h2.title {
 	font-weight: 600;
 	text-align: center;
 	padding: 0.5rem 1.65rem;
-	background-color: #b1c357;
-	color: rgba(255, 255, 255, 0.98);
+	background-color: #ffffff;
+	border: 1px solid #bec4ac;
+	color: #b1c357;
 	border-radius: 5px;
 	cursor: pointer;
 	transition: all 0.15s;
 }
 
 .button:hover {
+	background-color: #f1f3ea;
+}
+
+.button:active, .button:focus {
+	background-color: #e2e6d6;
+}
+
+.button.primary {
+	border-color: #b1c357;
+	background-color: #b1c357;
+	color: rgba(255, 255, 255, 0.98);
+}
+
+.button.primary:hover {
+	border-color: #b8cb5d;
 	background-color: #b8cb5d;
 }
 
-.button:active {
+.button.primary:active {
+	border-color: #78872c;
 	background-color: #78872c;
+}
+
+.button.primary:focus {
+	border-color: #a7b757;
+	background-color: #a7b757;
 }
 
 .button:focus {
 	outline: 0;
-	background-color: #a7b757;
 	box-shadow: 0 0 0 2px rgba(167, 183, 87, 0.55);
 }
 
