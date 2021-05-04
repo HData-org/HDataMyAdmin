@@ -277,6 +277,7 @@ h2.title {
 .button:focus {
 	outline: 0;
 	background-color: #a7b757;
+	box-shadow: 0 0 0 2px rgba(167, 183, 87, 0.55);
 }
 
 /* cards */
@@ -312,7 +313,7 @@ h2.title {
 .error {
 	padding: 0.55rem 0.6rem;
 	background-color: #ffcccc;
-	border: 1px solid #e1a3a3;
+	border: 1px solid #fabdbd;
 	color: #b10606;
 	border-radius: 4px;
 }
@@ -338,7 +339,7 @@ h2.title {
 	color: inherit;
 	max-width: 100%;
 	box-sizing: border-box;
-	background-color: rgba(232, 232, 227, 0.2);
+	background-color: #fff;
 	border: 1px solid #dedfd7;
 	border-radius: 5px;
 	transition: all 0.15s;
@@ -346,8 +347,8 @@ h2.title {
 
 .input:focus {
 	outline: 0;
-	background-color: #fff;
 	border-color: #a7b757;
+	box-shadow: 0 0 0 2px rgba(167, 183, 87, 0.55);
 }
 
 .input.dsp-b {
