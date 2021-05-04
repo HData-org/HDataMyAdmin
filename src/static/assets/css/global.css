@@ -46,11 +46,7 @@ a {
 }
 
 a:hover {
-	color: #96a449;
-}
-
-a.icon .material-icons {
-	/* 	font-size: inherit; */
+	color: #a2b150;
 }
 
 a.icon span {
@@ -300,6 +296,10 @@ h2.title {
 
 .card .title {
 	margin-top: 0;
+}
+
+.card li {
+	margin-bottom: 0.35rem;
 }
 
 .logo {

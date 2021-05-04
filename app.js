@@ -13,6 +13,9 @@ const port = process.env.PORT || 3000
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
+const hdmaVersion = "0.0.1a";
+var connectionInfo;
+
 function HDstatus() {
 	conn.status( (res, err) => {
 		if (!err) {
@@ -33,6 +36,7 @@ function connectTo(host, port) {
 		"port": port
 	}
 	conn = new HData(options)
+	connectionInfo = options;
 	HDstatus()
 }
 
@@ -57,6 +61,14 @@ app.use(function (req, res, next) {
 	next()
 })
 
+app.get('/api/info', (req, res) => {
+	var data = {
+		"hdmaVersion" : hdmaVersion,
+		"connectionInfo" : connectionInfo
+	};
+	res.json(data);
+})
+
 app.get('/api/hdata/status', (req, res) => {
 	conn.status((data, err) => {
 		if (!err) {
@@ -73,6 +85,7 @@ app.post('/api/hdata/login', (req, res) => {
 	var password = req.body.password
 	conn.login(user, password, (data, err) => {
 		if (!err) {
+			console.log(data.status)
 			if (data.status == "OK" || data.status == "LI") {
 				req.session.login.auth = true
 				req.session.login.username = user
