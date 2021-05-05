@@ -27,7 +27,7 @@ function errorCodeToMsg(code) {
 		case 'AERR':
 			return 'Auth error (incorrect username/password)'
 		case 'PERR':
-			return 'Permission error'
+			return 'Insufficient permissions'
 		case 'UE':
 			return 'User already exists'
 		case 'UDNE':
@@ -41,7 +41,7 @@ function errorCodeToMsg(code) {
 		case 'EVERR':
 			return 'Evaluation error (error with evaluator when querying)'
 		default:
-			return code
+			return 'Uknown error ('+code+')'
 	}
 }
 
