@@ -13,6 +13,36 @@ setTimeout(() => {
     });
 }, 100)
 
+var serverInfo;
+
+function updateInfo() {
+    fetch("/api/info")
+    .then(response => response.json())
+    .then((data) => {
+        var serverHost = data["connectionInfo"]["host"] + ":" + data["connectionInfo"]["port"];
+        $("serverHost").textContent = serverHost;
+        if(page == 'home') {
+            $("hdmaVersion").textContent = data["hdmaVersion"];
+            $("databaseInfo").innerHTML =
+            "<li>Server: " +
+            data["connectionInfo"]["host"] +
+            " on port " +
+            data["connectionInfo"]["port"] +
+            "</li>" +
+            "<li>Server type: HData</li>" +
+            "<li>HData version: " +
+            serverInfo.version +
+            "</li>" +
+            "<li>User: <span id=\"loggedInUser\">" +
+            loggedInUser +
+            "</span>@" +
+            data["connectionInfo"]["host"] +
+            "</li>"
+            ;
+        }
+    })
+}
+
 function updateServerInfo(data) {
     serverInfo = data;
     var html = '<span class="material-icons icon txt-red">link_off</span> <span>&nbsp;Server not connected</span>';
@@ -21,7 +51,9 @@ function updateServerInfo(data) {
     }
     $("serverInfo").title = JSON.stringify(serverInfo);
     $("serverInfo").innerHTML = html;
-    updateInfo();
+    try {
+        updateInfo();
+    } catch (err) {}
 }
 
 fetch("/api/hdata/status")
