@@ -16,6 +16,35 @@ app.use(express.urlencoded({ extended: true }))
 const hdmaVersion = "0.0.1a"
 var connectionInfo
 
+function errorCodeToMsg(code) {
+	switch(code) {
+		case 'OK':
+			return 'All good, no errors'
+		case 'NLI':
+			return 'Not logged in'
+		case 'LI':
+			return 'Logged in'
+		case 'AERR':
+			return 'Auth error (incorrect username/password)'
+		case 'PERR':
+			return 'Permission error'
+		case 'UE':
+			return 'User already exists'
+		case 'UDNE':
+			return 'User doesn\'t exist'
+		case 'TE':
+			return 'Table already exists'
+		case 'TDNE':
+			return 'Table doesn\'t exist'
+		case 'KDNE':
+			return 'Key doesn\'t exist'
+		case 'EVERR':
+			return 'Evaluation error (error with evaluator when querying)'
+		default:
+			return code
+	}
+}
+
 function HDstatus() {
 	conn.status( (res, err) => {
 		if (!err) {
@@ -85,7 +114,6 @@ app.post('/api/hdata/login', (req, res) => {
 	var password = req.body.password
 	conn.login(user, password, (data, err) => {
 		if (!err) {
-			console.log(data.status)
 			if (data.status == "OK" || data.status == "LI") {
 				req.session.login.auth = true
 				req.session.login.username = user
