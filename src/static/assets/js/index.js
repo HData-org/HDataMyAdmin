@@ -45,9 +45,9 @@ function updateInfo() {
 
 function updateServerInfo(data) {
     serverInfo = data;
-    var html = '<span class="material-icons icon txt-red">link_off</span> <span>&nbsp;Server not connected</span>';
+    var html = '<span class="material-icons icon txt-red">link_off</span>&nbsp;<span>Server not connected</span>';
     if(serverInfo.status == 'OK') {
-        html = '<span class="material-icons icon">link</span> <span>&nbsp;Server:&nbsp;</span> <span id="serverHost">localhost:8888</span>';
+        html = '<span class="material-icons icon">link</span>&nbsp;<span>Server:&nbsp;</span> <span id="serverHost">localhost:8888</span>';
     }
     $("serverInfo").title = JSON.stringify(serverInfo);
     $("serverInfo").innerHTML = html;

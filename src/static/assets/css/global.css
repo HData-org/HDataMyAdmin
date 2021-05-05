@@ -519,6 +519,15 @@ h2.title {
 	color: #595959;
 }
 
+#serverInfo {
+	color: #333432;
+	text-decoration: none;
+}
+
+#serverInfo:hover span:not(.material-icons) {
+	text-decoration: underline;
+}
+
 .topbar .icon {
 	font-size: 1rem;
 }
@@ -561,7 +570,7 @@ h2.title {
 }
 
 .topbar .nav-tab.active {
-	background-color: rgba(255, 255, 255, 0.9);
+	background-color: rgba(255, 255, 255, 0.84);
 }
 
 .topbar-height {

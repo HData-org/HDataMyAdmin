@@ -47,20 +47,32 @@ function errorCodeToMsg(code) {
 	}
 }
 
-var menuState = 1;
+if(localStorage.getItem == undefined || localStorage.getItem == '') {
+	localStorage.setItem("menuState", 1);
+}
+var menuState = localStorage.getItem("menuState");
 
-function menuBtnClicked() {
-	if (menuState == 1) {
-		menuState = 0;
+function menuUpdate() {
+	if(menuState == 1) {
 		$("sidebar").style.display = "none";
 		document.body.classList.remove("with-sidebar");
 		$("menuBtn").innerHTML = "arrow_right";
 		$("menuBtn").title = "Show panel";
 	} else {
-		menuState = 1;
 		$("sidebar").style.display = "block";
 		document.body.classList.add("with-sidebar");
 		$("menuBtn").innerHTML = "arrow_left";
 		$("menuBtn").title = "Hide panel";
 	}
 }
+function menuBtnClicked() {
+	if (menuState == 1) {
+		menuState = 0;
+	} else {
+		menuState = 1;
+	}
+	menuUpdate();
+	localStorage.setItem("menuState", menuState);
+}
+
+menuUpdate();
