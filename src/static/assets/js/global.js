@@ -75,4 +75,6 @@ function menuBtnClicked() {
 	localStorage.setItem("menuState", menuState);
 }
 
-menuUpdate();
+if(typeof page == 'undefined' || page !== 'login') {
+	menuUpdate();
+}

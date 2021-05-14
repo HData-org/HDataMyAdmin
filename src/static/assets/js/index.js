@@ -1,17 +1,16 @@
 var loggedInUser;
-setTimeout(() => {
-    fetch("/api/hdata/login").then(response => response.json()).then((json) => {
-        if(json.auth) {
-            console.log('Logged in as ' + json.username);
-            loggedInUser = json.username;
-            try {
-                $("loggedInUser").textContent = loggedInUser;
-            } catch (err) { }
-        } else {
-            window.location = '/login.html';
-        }
-    });
-}, 100)
+
+fetch("/api/hdata/login").then(response => response.json()).then((json) => {
+    if(json.auth) {
+        console.log('Logged in as ' + json.username);
+        loggedInUser = json.username;
+        try {
+            $("loggedInUser").textContent = loggedInUser;
+        } catch (err) { }
+    } else {
+        window.location = '/login.html';
+    }
+});
 
 var serverInfo;
 
@@ -21,7 +20,7 @@ function updateInfo() {
     .then((data) => {
         var serverHost = data["connectionInfo"]["host"] + ":" + data["connectionInfo"]["port"];
         $("serverHost").textContent = serverHost;
-        if(page == 'home') {
+        if(typeof page !== 'undefined' && page == 'home') {
             $("hdmaVersion").textContent = data["hdmaVersion"];
             $("databaseInfo").innerHTML =
             "<li>Server: " +

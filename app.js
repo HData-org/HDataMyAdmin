@@ -155,7 +155,7 @@ app.get('/api/hdata/logout', (req, res) => {
 // needs to be logged in //
 
 app.all('/api/hdata/*', function(req, res, next){
-	if(req.session.login.auth) {
+	if(req.session.login.auth && req.session.login.auth !== '') {
 		conn.getUser(req.session.login.username, (data, err) => {
 			if(!err) {
 				if(data.status == "NLI") {
@@ -219,5 +219,5 @@ app.use('/', express.static(path.join(__dirname, 'src/static/')))
 
 app.listen(port, () => {
 	console.log('HDataMyAdmin listening at http://localhost:%s', port);
-	connectTo()
+	connectTo("flolon.cc")
 })
