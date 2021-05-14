@@ -406,6 +406,40 @@ h2.title {
 	margin-top: 1rem;
 }
 
+/* tables */
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+table th, table td {
+	padding: 8px;
+}
+
+table tr {
+	border-bottom: 1px solid rgba(200, 200, 200, 0.75);
+}
+
+table tr:nth-child(even){
+	background-color: rgb(241, 241, 241);
+}
+
+table tr:hover {
+	background-color: rgb(237, 237, 237);
+	cursor: pointer;
+}
+
+table th {
+	padding-top: 12px;
+	padding-bottom: 12px;
+	text-align: left;
+	background-color: #7d9b44;
+	color: #fff;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
 /* sidebar */
 
 .sidebar {
