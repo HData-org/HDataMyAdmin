@@ -154,7 +154,7 @@ app.get('/api/hdata/logout', (req, res) => {
 
 // needs to be logged in //
 
-app.all('/api/hdata/*', function(req, res, next){
+app.all('/api/hdata/*', (req, res, next) => {
 	if(req.session.login.auth && req.session.login.auth !== '') {
 		conn.getUser(req.session.login.username, (data, err) => {
 			if(!err) {
@@ -175,7 +175,7 @@ app.all('/api/hdata/*', function(req, res, next){
 	} else {
 		res.json(req.session.login)
 	}
-});
+})
 
 app.get('/api/hdata/login', (req, res) => {
 	res.json(req.session.login)
@@ -215,8 +215,43 @@ app.get('/api/hdata/gettables', (req, res) => {
 	})
 })
 
+/* table actions */
+
+app.all("/api/hdata/*", (req, res, next) => {
+	var tableName = req.query.tableName
+	if(tableName === undefined || tableName == "") {
+		res.json({ "error": "Unknown table" })
+	} else {
+		next();
+	}
+})
+
+app.get('/api/hdata/createTable', (req, res) => {
+	var tableName = req.query.tableName
+	conn.deleteTable(tableName, function(data, err) {
+		if (!err) {
+			res.json(data)
+		} else {
+			console.log(err)
+			res.send(err)
+		}
+	})
+})
+
+app.get('/api/hdata/deleteTable', (req, res) => {
+	var tableName = req.query.tableName
+	conn.deleteTable(tableName, function(data, err) {
+		if (!err) {
+			res.json(data)
+		} else {
+			console.log(err)
+			res.send(err)
+		}
+	})
+})
+
 app.get('/api/hdata/tablekeys', (req, res) => {
-	var tableName = req.query.name
+	var tableName = req.query.tableName
 	if(tableName === undefined || tableName == "") {
 		res.json({ "error": "Unknown table" })
 	}

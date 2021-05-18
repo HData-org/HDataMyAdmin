@@ -53,7 +53,15 @@ fetch("/api/hdata/gettables").then(response => response.json()).then((data) => {
 });
 
 function deleteTable(tableName) {
-    if(confirm('Are you sure you want to delete table "'+ tableName +'"?')) {
+    if(confirm('Are you sure you want to DELETE table "'+ tableName +'"?')) {
         console.log("Deleting table"+tableName);
+        fetch("/api/hdata/deleteTable?tableName="+tableName).then(response => response.json()).then((data) => {
+            console.log(data);
+            if(data.status == "OK") {
+                location.reload();
+            } else {
+                alert("Error deleting table "+tableName+"("+data+")");
+            }
+        });
     }
 }
