@@ -68,12 +68,12 @@ function createTable1D(parentElement, tableName, data) {
     parentElement.appendChild(tables);
 }
 
-function createTable(array) {
-    var table = document.createElement('table');
+function createTable2D(array) {
+    var table = document.createElement("table");
     for (var i = 0; i < array.length; i++) {
-        var row = document.createElement('tr');
+        var row = document.createElement("tr");
         for (var j = 0; j < array[i].length; j++) {
-            var cell = document.createElement('td');
+            var cell = document.createElement("td");
             cell.textContent = array[i][j];
             row.appendChild(cell);
         }

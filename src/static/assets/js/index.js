@@ -2,13 +2,13 @@ var loggedInUser;
 
 fetch("/api/hdata/login").then(response => response.json()).then((json) => {
     if(json.auth) {
-        console.log('Logged in as ' + json.username);
+        console.log("Logged in as " + json.username);
         loggedInUser = json.username;
         try {
             $("loggedInUser").textContent = loggedInUser;
         } catch (err) { }
     } else {
-        window.location = '/login.html';
+        window.location = "/login.html";
     }
 });
 
