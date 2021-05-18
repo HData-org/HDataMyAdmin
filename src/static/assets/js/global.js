@@ -47,6 +47,24 @@ function errorCodeToMsg(code) {
 	}
 }
 
+function goToTable(tableName) {
+	window.location = "./table.html?name=" + tableName;
+}
+
+function createTable(array) {
+    var table = document.createElement('table');
+    for (var i = 0; i < array.length; i++) {
+        var row = document.createElement('tr');
+        for (var j = 0; j < array[i].length; j++) {
+            var cell = document.createElement('td');
+            cell.textContent = array[i][j];
+            row.appendChild(cell);
+        }
+        table.appendChild(row);
+    }
+    return table;
+}
+
 if(localStorage.getItem == undefined || localStorage.getItem == '') {
 	localStorage.setItem("menuState", 1);
 }

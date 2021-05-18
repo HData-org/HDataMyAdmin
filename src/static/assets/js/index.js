@@ -39,7 +39,7 @@ function updateInfo() {
             "</li>"
             ;
         }
-    })
+    });
 }
 
 function updateServerInfo(data) {
