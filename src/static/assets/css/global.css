@@ -73,6 +73,11 @@ a.icon.right .material-icons {
 	align-items: center;
 }
 
+.flex-il-center {
+	display: inline-flex;
+	align-items: center;
+}
+
 .flex-all-center {
 	display: flex;
 	align-items: center;
@@ -137,6 +142,10 @@ a.icon.right .material-icons {
 
 .txt-right {
 	text-align: right;
+}
+
+.txt-bold {
+	font-weight: bold;
 }
 
 .txt-white {
@@ -461,7 +470,6 @@ table tr:nth-child(even){
 
 table tr:hover {
 	background-color: rgb(237, 237, 237);
-	cursor: pointer;
 }
 
 table th {
@@ -470,6 +478,31 @@ table th {
 	text-align: left;
 	background-color: #7d9b44;
 	color: #fff;
+}
+
+table .icon {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+/* actions */
+
+.actions > span {
+	color: rgb(153, 153, 153);
+	transition: all 0.15s;
+	cursor: pointer;
+}
+
+.actions > span:not(:first-child) {
+	margin-left: 0.5rem;
+}
+
+.trash:hover {
+	color: rgb(250, 87, 87);
+}
+
+.browse:hover {
+	color: rgb(121, 191, 231);
 }
 
 /* sidebar */
