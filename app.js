@@ -215,6 +215,21 @@ app.get('/api/hdata/gettables', (req, res) => {
 	})
 })
 
+app.get('/api/hdata/tablekeys', (req, res) => {
+	var tableName = req.query.name
+	if(tableName === undefined || tableName == "") {
+		res.json({ "error": "Unknown table" })
+	}
+	conn.tableKeys(tableName, function(data, err) {
+		if (!err) {
+			res.json(data.keys)
+		} else {
+			console.log(err)
+			res.send(err)
+		}
+	})
+})
+
 app.use('/', express.static(path.join(__dirname, 'src/static/')))
 
 app.listen(port, () => {
