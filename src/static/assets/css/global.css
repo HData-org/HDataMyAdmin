@@ -595,11 +595,11 @@ table .icon {
 }
 
 .tree-item:hover {
-	background-color: rgba(188, 198, 159, 0.25);
+	background-color: rgba(188, 198, 159, 0.28);
 }
 
 .tree-item:active {
-	background-color: rgba(157, 167, 129, 0.28);
+	background-color: rgba(157, 167, 129, 0.32);
 	color: rgba(74, 75, 72, 0.96);
 }
 
@@ -713,7 +713,7 @@ table .icon {
 }
 
 .topbar .nav-tab.active {
-	background-color: rgba(255, 255, 255, 0.84);
+	background-color: rgba(255, 255, 255, 0.92);
 }
 
 .topbar-height {
