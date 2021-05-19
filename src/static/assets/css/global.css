@@ -575,13 +575,19 @@ table .icon {
 	font-size: 92%;
 	padding: 0.4rem 0.55rem 0.4rem 0.75rem;
 	border-radius: 0.3rem 0 0 0.3rem;
-	color: #484847;
+	color: rgb(74, 75, 72);
 	cursor: pointer;
 	transition: background-color 0.1s;
 }
 
 .tree-item:hover {
 	background-color: rgba(188, 198, 159, 0.25);
+}
+
+.tree-item:active {
+	background-color: rgba(157, 167, 129, 0.28);
+	color: rgba(74, 75, 72, 0.96);
+
 }
 
 .tree-items .tree-items {
