@@ -59,7 +59,8 @@ function deleteTable(tableName) {
             if(data.status == "OK") {
                 location.reload();
             } else {
-                alert("Error deleting table "+tableName+"("+JSON.stringify(data)+")");
+                var errMsg = errorCodeToMsg(data.status);
+                alert("Error deleting table "+tableName+" "+errMsg+" ("+JSON.stringify(data)+")");
             }
         });
     }
