@@ -502,8 +502,16 @@ table th {
 	padding-top: 12px;
 	padding-bottom: 12px;
 	text-align: left;
-	background-color: rgb(121, 156, 54);
+	background-color: rgb(114, 148, 50);
 	color: #fff;
+}
+
+table th:first-child {
+	border-top-left-radius: 5px;
+}
+
+table th:last-child {
+	border-top-right-radius: 5px;
 }
 
 table .icon {
