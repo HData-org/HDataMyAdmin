@@ -134,6 +134,7 @@ app.post('/api/hdata/login', (req, res) => {
 })
 
 app.get('/api/hdata/logout', (req, res) => {
+	clearSessionAuth(req)
 	conn.logout((data, err) => {
 		if(!err) {
 			if(data.status == "OK") {
@@ -143,7 +144,6 @@ app.get('/api/hdata/logout', (req, res) => {
 			} else {
 				console.log(data)
 			}
-			clearSessionAuth(req)
 			res.redirect("/login.html")
 		} else {
 			console.log(err)

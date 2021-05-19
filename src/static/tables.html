@@ -30,18 +30,11 @@
 		</div>
 		<div class="nav-tree">
 			<div class="tree-item icon-left" onclick="newTable();"><span class="material-icons"> add_circle </span>New Table</div>
-			<div class="tree-items">
-				<!-- <div class="tree-item">Bruh<span class="material-icons"> arrow_drop_down </span></div>
-				<div class="tree-items">
-					<div class="tree-item">Moment</div>
-					<div class="tree-item">Aight<span class="material-icons"> arrow_drop_down </span></div>
-					<div class="tree-items">
-						<div class="tree-item">E<span class="material-icons"> arrow_drop_down </span></div>
-                        <div class="tree-items">
-                            <div class="tree-item">Aaaaaaa</div>
-                        </div>
-					</div>
-				</div> -->
+			<div class="tree-items" id="navTree">
+				<div class="m-small"></div>
+				<div class="txt-center">
+                    <div class="loader small"></div>
+                </div>
 			</div>
 		</div>
 	</div>
@@ -88,7 +81,9 @@
         </main>
 
 	</div>
-
+	<script>
+		var page = "tables";
+	</script>
     <script src="./assets/js/global.js"></script>
     <script src="./assets/js/index.js"></script>
     <script src="./assets/js/tables.js"></script>

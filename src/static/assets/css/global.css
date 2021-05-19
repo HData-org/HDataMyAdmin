@@ -266,6 +266,12 @@ h2.title {
 	animation: spin 0.4s linear infinite;
 }
 
+.loader.small {
+	border-width: 3px;
+	width: 20px;
+	height: 20px;
+}
+
 @-webkit-keyframes spin {
 	0% {
 		-webkit-transform: rotate(0deg);
@@ -595,7 +601,11 @@ table .icon {
 .tree-item:active {
 	background-color: rgba(157, 167, 129, 0.28);
 	color: rgba(74, 75, 72, 0.96);
+}
 
+.tree-item.active {
+	background-color: rgba(121, 156, 54, 0.9);
+	color: rgba(255, 255, 255, 0.98);
 }
 
 .tree-items .tree-items {

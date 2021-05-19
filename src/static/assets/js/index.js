@@ -13,7 +13,11 @@ fetch("/api/hdata/login").then(response => response.json()).then((json) => {
 });
 
 function goToTable(tableName) {
-	window.location = "./table.html?name=" + tableName;
+    if(tableName == "" || tableName === undefined) {
+        window.location = "./tables.html";
+    } else {
+	    window.location = "./table.html?name=" + tableName;
+    }
 }
 
 function newTable() {
@@ -62,6 +66,43 @@ function createTable2D(array) {
     return table;
 }
 
+function updateTree() {
+    var currentTable = getAllUrlParams().name;
+    fetch("/api/hdata/gettables").then(response => response.json()).then((data) => {
+        $("navTree").innerHTML = "";
+        var treeRoot = document.createElement("div");
+        if(typeof page !== 'undefined' && page == 'tables') {
+            treeRoot.setAttribute("class", "tree-item active");
+        } else {
+            treeRoot.setAttribute("class", "tree-item");
+        }
+        treeRoot.setAttribute("onclick", "goToTable()");
+        var icon = document.createElement("span");
+        icon.setAttribute("class", "material-icons vam");
+        icon.appendChild(document.createTextNode("arrow_drop_down"));
+        treeRoot.appendChild(document.createTextNode("Tables"));
+        treeRoot.appendChild(icon);
+        $("navTree").appendChild(treeRoot);
+        var treeItems = document.createElement("div");
+        treeItems.setAttribute("class", "tree-items");
+        for(var i = 0; i <= data.value.length-1; i++) {
+            var tableName = data.value[i];
+            var treeItem = document.createElement("div");
+            if(currentTable === tableName) {
+                treeItem.setAttribute("class", "tree-item active");
+            } else {
+                treeItem.setAttribute("class", "tree-item");
+            }
+            treeItem.setAttribute("onclick", 'goToTable("'+tableName+'")');
+            treeItem.appendChild(document.createTextNode(tableName));
+            treeItems.appendChild(treeItem);
+        }
+        $("navTree").appendChild(treeItems);
+    });
+}
+
+updateTree();
+
 var serverInfo;
 
 function updateInfo() {
@@ -107,4 +148,4 @@ function updateServerInfo(data) {
 
 fetch("/api/hdata/status")
     .then(response => response.json())
-    .then(data => updateServerInfo(data))
+    .then(data => updateServerInfo(data));
