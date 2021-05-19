@@ -521,8 +521,16 @@ table .icon {
 	color: rgb(250, 87, 87);
 }
 
+.trash:active, .trash.focus {
+	color: rgb(223, 83, 83);
+}
+
 .browse:hover {
 	color: rgb(121, 191, 231);
+}
+
+.browse:active, .browse:focus {
+	color: rgb(110, 177, 216);
 }
 
 /* sidebar */
