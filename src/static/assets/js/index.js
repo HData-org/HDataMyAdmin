@@ -12,6 +12,56 @@ fetch("/api/hdata/login").then(response => response.json()).then((json) => {
     }
 });
 
+function goToTable(tableName) {
+	window.location = "./table.html?name=" + tableName;
+}
+
+function newTable() {
+	var tableName = prompt("Create a new table with the name: ");
+    if (tableName != null) {
+        console.log("Creating new table with the name: "+tableName);
+        fetch("/api/hdata/createtable?tableName="+tableName).then(response => response.json()).then((data) => {
+            if(data.status == "OK") {
+                location.reload();
+            } else {
+                var errMsg = errorCodeToMsg(data.status);
+                alert("Error creating table "+tableName+" "+errMsg+" ("+JSON.stringify(data)+")");
+            }
+        });
+    }
+}
+
+function createTable1D(parentElement, tableName, data) {
+	parentElement.innerHTML = "";
+    var tables = document.createElement('table');
+    var tableHeader = document.createElement('th');
+    tableHeader.appendChild(document.createTextNode(tableName));
+    tables.appendChild(tableHeader);
+    for(var i = 0; i <= data.length-1; i++) {
+        var key = data[i];
+        var row = document.createElement('tr');
+        var cell = document.createElement('td');
+        cell.appendChild(document.createTextNode(key));
+        row.appendChild(cell);
+        tables.appendChild(row);
+    }
+    parentElement.appendChild(tables);
+}
+
+function createTable2D(array) {
+    var table = document.createElement("table");
+    for (var i = 0; i < array.length; i++) {
+        var row = document.createElement("tr");
+        for (var j = 0; j < array[i].length; j++) {
+            var cell = document.createElement("td");
+            cell.textContent = array[i][j];
+            row.appendChild(cell);
+        }
+        table.appendChild(row);
+    }
+    return table;
+}
+
 var serverInfo;
 
 function updateInfo() {

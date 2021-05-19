@@ -47,41 +47,6 @@ function errorCodeToMsg(code) {
 	}
 }
 
-function goToTable(tableName) {
-	window.location = "./table.html?name=" + tableName;
-}
-
-function createTable1D(parentElement, tableName, data) {
-	parentElement.innerHTML = "";
-    var tables = document.createElement('table');
-    var tableHeader = document.createElement('th');
-    tableHeader.appendChild(document.createTextNode(tableName));
-    tables.appendChild(tableHeader);
-    for(var i = 0; i <= data.length-1; i++) {
-        var key = data[i];
-        var row = document.createElement('tr');
-        var cell = document.createElement('td');
-        cell.appendChild(document.createTextNode(key));
-        row.appendChild(cell);
-        tables.appendChild(row);
-    }
-    parentElement.appendChild(tables);
-}
-
-function createTable2D(array) {
-    var table = document.createElement("table");
-    for (var i = 0; i < array.length; i++) {
-        var row = document.createElement("tr");
-        for (var j = 0; j < array[i].length; j++) {
-            var cell = document.createElement("td");
-            cell.textContent = array[i][j];
-            row.appendChild(cell);
-        }
-        table.appendChild(row);
-    }
-    return table;
-}
-
 if(localStorage.getItem == undefined || localStorage.getItem == '') {
 	localStorage.setItem("menuState", 1);
 }
