@@ -104,7 +104,7 @@ app.get('/api/hdata/status', (req, res) => {
 			res.json(data)
 		} else {
 			console.log(err)
-			res.json(err)
+			res.send(err)
 		}
 	})
 })
@@ -128,7 +128,7 @@ app.post('/api/hdata/login', (req, res) => {
 			}
 		} else {
 			console.log(err)
-			res.json(err)
+			res.send(err)
 		}
 	})
 })
@@ -147,7 +147,7 @@ app.get('/api/hdata/logout', (req, res) => {
 			res.redirect("/login.html")
 		} else {
 			console.log(err)
-			res.json(err)
+			res.send(err)
 		}
 	})
 })
@@ -164,7 +164,7 @@ app.all('/api/hdata/*', (req, res, next) => {
 				}
 			} else {
 				console.log(err)
-				res.json(err)
+				res.send(err)
 			}
 			if(req.session.login.auth) {
 				next()
@@ -198,7 +198,7 @@ app.post('/api/hdata/updatepassword', (req, res) => {
 				}
 			} else {
 				console.log(err)
-				res.json(err)
+				res.send(err)
 			}
 		})
 	}
@@ -222,7 +222,7 @@ app.all("/api/hdata/*", (req, res, next) => {
 	if(tableName === undefined || tableName == "") {
 		res.json({ "error": "Table name cannot be blank" })
 	} else {
-		next();
+		next()
 	}
 })
 
@@ -238,7 +238,7 @@ app.get('/api/hdata/createtable', (req, res) => {
 				res.send(err)
 			}
 		} else {
-			console.log(err);
+			console.log(err)
 		}
 	});
 })
@@ -258,9 +258,6 @@ app.get('/api/hdata/deletetable', (req, res) => {
 
 app.get('/api/hdata/tablekeys', (req, res) => {
 	var tableName = req.query.tableName
-	if(tableName === undefined || tableName == "") {
-		res.json({ "error": "Unknown table" })
-	}
 	conn.tableKeys(tableName, function(data, err) {
 		if (!err) {
 			res.json(data.keys)
