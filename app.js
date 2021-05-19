@@ -220,28 +220,34 @@ app.get('/api/hdata/gettables', (req, res) => {
 app.all("/api/hdata/*", (req, res, next) => {
 	var tableName = req.query.tableName
 	if(tableName === undefined || tableName == "") {
-		res.json({ "error": "Unknown table" })
+		res.json({ "error": "Table name cannot be blank" })
 	} else {
 		next();
 	}
 })
 
-app.get('/api/hdata/createTable', (req, res) => {
+app.get('/api/hdata/createtable', (req, res) => {
 	var tableName = req.query.tableName
-	conn.deleteTable(tableName, function(data, err) {
+	conn.createTable(tableName, function(data, err) {
 		if (!err) {
-			res.json(data)
+			if (data.status == "OK") {
+				console.log("Table "+tableName+" created!");
+				res.json(data);
+			} else {
+				console.log(err)
+				res.send(err)
+			}
 		} else {
-			console.log(err)
-			res.send(err)
+			console.log(err);
 		}
-	})
+	});
 })
 
-app.get('/api/hdata/deleteTable', (req, res) => {
+app.get('/api/hdata/deletetable', (req, res) => {
 	var tableName = req.query.tableName
 	conn.deleteTable(tableName, function(data, err) {
 		if (!err) {
+			console.log("Table "+tableName+" deleted!");
 			res.json(data)
 		} else {
 			console.log(err)
