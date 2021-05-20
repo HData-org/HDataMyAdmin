@@ -20,13 +20,19 @@ function goToTable(tableName) {
     }
 }
 
-function newTable() {
+function newTable(redirectUrl = "browse") {
 	var tableName = prompt("Create a new table with the name: ");
     if (tableName != null) {
         console.log("Creating new table with the name: "+tableName);
         fetch("/api/hdata/createtable?tableName="+tableName).then(response => response.json()).then((data) => {
             if(data.status == "OK") {
-                location.reload();
+                if(redirectUrl === "reload") {
+                    location.reload();
+                } else if(redirectUrl === "browse"){
+                    location = './table.html?name='+tableName;
+                } else {
+                    location = redirectUrl;
+                }
             } else {
                 var errMsg = errorCodeToMsg(data.status);
                 alert("Error creating table "+tableName+" "+errMsg+" ("+JSON.stringify(data)+")");
