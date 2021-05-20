@@ -1,7 +1,6 @@
 var tableName = getAllUrlParams().name;
 
 document.title = tableName + " - Operations - HDataMyAdmin";
-$("tableTitle").textContent = tableName;
 $("tableName").setAttribute("placeholder", tableName);
 
 var navTabsInfo = {
