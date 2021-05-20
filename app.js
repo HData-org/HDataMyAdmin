@@ -256,10 +256,11 @@ app.get('/api/hdata/deletetable', (req, res) => {
 	})
 })
 
-app.get('/api/hdata/setkey', (req, res) => {
-	var tableName = req.query.tableName
-	var keyName = req.query.keyName
-	var value = req.query.value
+app.post('/api/hdata/setkey', (req, res) => {
+	var tableName = req.body.tableName
+	var keyName = req.body.keyName
+	var value = req.body.value
+	console.log(tableName)
 	conn.setKey(tableName, keyName, value, (data, err) => {
 		if (!err) {
 			if (data.status == "OK") {

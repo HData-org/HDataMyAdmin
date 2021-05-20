@@ -61,29 +61,29 @@ function deleteTable(tableName, redirectUrl = "reload") {
     }
 }
 
-// function setKey(tableName, keyName, value, redirectUrl = "reload") {
-//     if (tableName != null) {
-//         fetch('/api/hdata/setkey', {
-//             credentials: 'include',
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/x-www-form-urlencoded;',
-//             },
-//             body: "tableName="+tableName+"&keyName="+keyName+"&value="+value
-//         }).then(response => response.json()).then((data) => {
-//             if(data.status == "OK") {
-//                 if(redirectUrl === "reload") {
-//                     location.reload();
-//                 } else {
-//                     location = redirectUrl;
-//                 }
-//             } else {
-//                 var errMsg = errorCodeToMsg(data.status);
-//                 alert("Error seting key: "+tableName+" "+errMsg+" ("+JSON.stringify(data)+")");
-//             }
-//         });
-//     }
-// }
+function setKey(tableName, keyName, value, redirectUrl = "reload") {
+    if (tableName != null) {
+        fetch('/api/hdata/setkey', {
+            credentials: 'include',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded;',
+            },
+            body: new URLSearchParams("tableName="+tableName+"&keyName="+keyName+"&value="+value)
+        }).then(response => response.json()).then((data) => {
+            if(data.status == "OK") {
+                if(redirectUrl === "reload") {
+                    location.reload();
+                } else {
+                    location = redirectUrl;
+                }
+            } else {
+                var errMsg = errorCodeToMsg(data.status);
+                alert("Error seting key: "+tableName+" "+errMsg+" ("+JSON.stringify(data)+")");
+            }
+        });
+    }
+}
 
 /* page content */
 
