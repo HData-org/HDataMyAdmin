@@ -20,6 +20,8 @@ function goToTable(tableName) {
     }
 }
 
+/* HData functions */
+
 function newTable(redirectUrl = "browse") {
 	var tableName = prompt("Create a new table with the name: ");
     if (tableName != null) {
@@ -35,7 +37,7 @@ function newTable(redirectUrl = "browse") {
                 }
             } else {
                 var errMsg = errorCodeToMsg(data.status);
-                alert("Error creating table "+tableName+" "+errMsg+" ("+JSON.stringify(data)+")");
+                alert("Error creating table: "+tableName+" "+errMsg+" ("+JSON.stringify(data)+")");
             }
         });
     }
@@ -53,11 +55,37 @@ function deleteTable(tableName, redirectUrl = "reload") {
                 }
             } else {
                 var errMsg = errorCodeToMsg(data.status);
-                alert("Error deleting table "+tableName+" "+errMsg+" ("+JSON.stringify(data)+")");
+                alert("Error deleting table: "+tableName+" "+errMsg+" ("+JSON.stringify(data)+")");
             }
         });
     }
 }
+
+// function setKey(tableName, keyName, value, redirectUrl = "reload") {
+//     if (tableName != null) {
+//         fetch('/api/hdata/setkey', {
+//             credentials: 'include',
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/x-www-form-urlencoded;',
+//             },
+//             body: "tableName="+tableName+"&keyName="+keyName+"&value="+value
+//         }).then(response => response.json()).then((data) => {
+//             if(data.status == "OK") {
+//                 if(redirectUrl === "reload") {
+//                     location.reload();
+//                 } else {
+//                     location = redirectUrl;
+//                 }
+//             } else {
+//                 var errMsg = errorCodeToMsg(data.status);
+//                 alert("Error seting key: "+tableName+" "+errMsg+" ("+JSON.stringify(data)+")");
+//             }
+//         });
+//     }
+// }
+
+/* page content */
 
 function createTable1D(parentElement, tableName, data) {
 	parentElement.innerHTML = "";
@@ -90,7 +118,24 @@ function createTable2D(array) {
     return table;
 }
 
-function updateNavTabs(navTabsInfo) {
+function updateNavTabs(page) {
+    var navTabsInfo = {
+        0: {
+            "name": "Browse",
+            "page": "table",
+            "href": "./table.html"
+        },
+        1: {
+            "name": "Set Key",
+            "page": "setkey",
+            "href": "./setkey.html"
+        },
+        2: {
+            "name": "Operations",
+            "page": "operations",
+            "href": "./tablesettings.html"
+        }
+    };
     $("navTabs").innerHTML = "";
     var tabs = document.createElement("div");
     var tab = document.createElement("div");
@@ -98,17 +143,12 @@ function updateNavTabs(navTabsInfo) {
     $("navTabs").appendChild(tab);
     for (var i = 0; i < Object.keys(navTabsInfo).length; i++) {
         tabInfo = navTabsInfo[i];
-        console.log(tabInfo);
         var tab = document.createElement("a");
         tab.setAttribute("class", "nav-tab");
-        if(tabInfo.href === "currentPage") {
-            tab.setAttribute("href", window.location);
-        } else {
-            tab.setAttribute("href", tabInfo.href);
-        }
-        if(tabInfo.active) {
+        if(tabInfo.page === page) {
             tab.classList.add("active");
         }
+        tab.setAttribute("href", tabInfo.href+"?name="+getAllUrlParams().name);
         tab.appendChild(document.createTextNode(tabInfo.name));
         tabs.appendChild(tab);
     }

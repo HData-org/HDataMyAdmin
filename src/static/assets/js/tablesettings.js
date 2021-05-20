@@ -1,22 +1,9 @@
+var page = "operations";
 var tableName = getAllUrlParams().name;
+updateNavTabs(page);
 
 document.title = tableName + " - Operations - HDataMyAdmin";
 $("tableName").setAttribute("placeholder", tableName);
-
-var navTabsInfo = {
-    0: {
-        "name": "Browse",
-        "active": false,
-        "href": "./table.html?name="+tableName
-    },
-    1: {
-        "name": "Operations",
-        "active": true,
-        "href": "currentPage"
-    }
-};
-
-updateNavTabs(navTabsInfo);
 
 function tableAction(action) {
     if(action === "delete") {
