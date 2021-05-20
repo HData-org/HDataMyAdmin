@@ -35,6 +35,20 @@ function newTable() {
     }
 }
 
+function deleteTable(tableName) {
+    if(confirm('Are you sure you want to DELETE table "'+ tableName +'"?')) {
+        console.log("Deleting table"+tableName);
+        fetch("/api/hdata/deletetable?tableName="+tableName).then(response => response.json()).then((data) => {
+            if(data.status == "OK") {
+                location.reload();
+            } else {
+                var errMsg = errorCodeToMsg(data.status);
+                alert("Error deleting table "+tableName+" "+errMsg+" ("+JSON.stringify(data)+")");
+            }
+        });
+    }
+}
+
 function createTable1D(parentElement, tableName, data) {
 	parentElement.innerHTML = "";
     var tables = document.createElement('table');
@@ -64,6 +78,31 @@ function createTable2D(array) {
         table.appendChild(row);
     }
     return table;
+}
+
+function updateNavTabs(navTabsInfo) {
+    $("navTabs").innerHTML = "";
+    var tabs = document.createElement("div");
+    var tab = document.createElement("div");
+    tab.setAttribute("class", "has-shadow");
+    $("navTabs").appendChild(tab);
+    for (var i = 0; i < Object.keys(navTabsInfo).length; i++) {
+        tabInfo = navTabsInfo[i];
+        console.log(tabInfo);
+        var tab = document.createElement("a");
+        tab.setAttribute("class", "nav-tab");
+        if(tabInfo.href === "currentPage") {
+            tab.setAttribute("href", window.location);
+        } else {
+            tab.setAttribute("href", tabInfo.href);
+        }
+        if(tabInfo.active) {
+            tab.classList.add("active");
+        }
+        tab.appendChild(document.createTextNode(tabInfo.name));
+        tabs.appendChild(tab);
+    }
+    $("navTabs").appendChild(tabs);
 }
 
 function updateTree() {

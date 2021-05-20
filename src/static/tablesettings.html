@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Change Password - HDataMyAdmin</title>
+    <title>HDataMyAdmin</title>
     <!-- CSS -->
     <link href="./assets/css/global.css" rel="stylesheet">
     <!-- Fonts -->
@@ -30,7 +30,7 @@
 		</div>
 		<div class="nav-tree">
 			<div class="tree-item icon-left" onclick="newTable();"><span class="material-icons"> add_circle </span>New Table</div>
-			<div class="tree-items" id="navTree">
+						<div class="tree-items" id="navTree">
 				<div class="m-small"></div>
 				<div class="txt-center">
                     <div class="loader small"></div>
@@ -53,11 +53,10 @@
 				</div>
 			</div>
 			<div class="nav-tabs" id="navTabs">
-				<a class="nav-tab" href="./tables.html">Tables</a>
-				<a class="nav-tab" href="#">Status</a>
-				<div class="has-shadow"></div>
+                <div class="has-shadow"></div>
+				<a class="nav-tab " href="tables.html">Tables</a>
+				<a class="nav-tab " href="#">Status</a>
 			</div>
-
 		</div>
 
         <div class="topbar-height"></div>
@@ -66,27 +65,17 @@
 
 			<div class="m-smedium"></div>
 
-			<div class="card w-shadow center-sm">
-				<form class="form center" method="POST" action="/api/hdata/updatepassword">
-					<h1 class="title">Change Password</h1>
-					<div class="error" id="error" style="display: none;">
-						<span id="errorText">Password does not match.</span>
-					</div>
-					<div class="stacked-inputs">
-						<div class="float-input">
-							<input name="newPassword" class="input dsp-b" type="password" placeholder="New Password" autofocus>
-						</div>
-						<div class="float-input">
-							<input name="retypePassword" class="input dsp-b" type="password" placeholder="Password">
-						</div>
-					</div>
-					<div class="form-submit flex-center">
-						<span class="flex-grow"></span>
-						<button class="button primary" type="submit"><span>Go</span></button>
-						&nbsp;
-						<a href="./" class="button"><span>Cancel</span></a>
-					</div>
-				</form>
+			<h2 class="title" id="tableTitle"></h2>
+
+			<div class="card shadow">
+				<div class="form">
+					<!-- <h2 class="title">Options</h2> -->
+					<span>Table name: </span><input class="input" id="tableName" disabled>
+				</div>
+				<div class="m-smedium"></div>
+				<div>
+					<a class="icon left txt-red hoverUnderline" onclick="tableAction('delete')"><span class="material-icons">delete</span>Delete table</a>
+				</div>
 			</div>
 
         </main>
@@ -95,6 +84,6 @@
 
     <script src="./assets/js/global.js"></script>
     <script src="./assets/js/index.js"></script>
-    <script src="./assets/js/changepassword.js"></script>
+    <script src="./assets/js/tablesettings.js"></script>
 </body>
 </html>

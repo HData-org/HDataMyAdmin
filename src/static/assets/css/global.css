@@ -43,10 +43,19 @@ img {
 
 a {
 	color: rgb(114, 148, 50);
+	cursor: pointer;
 }
 
 a:hover {
 	color: rgb(132, 170, 63);
+}
+
+a.hoverUnderline:hover {
+	text-decoration: underline;
+}
+
+a.txt-red:hover {
+	color: #e62626;
 }
 
 a.icon span {
@@ -441,6 +450,10 @@ h2.title {
 	box-shadow: 0 0 0 2px rgba(121, 156, 54, 0.55);
 }
 
+.input:disabled {
+	cursor: not-allowed;
+}
+
 .input.dsp-b {
 	width: 100%;
 	margin-bottom: 0.35rem;
@@ -688,9 +701,11 @@ table .icon {
 }
 
 .topbar .nav-tabs {
+	display: flex;
 	position: relative;
 	background-color: #b8b8b8;
 	padding: 0.35rem 0 0 0.75rem;
+	z-index: -2;
 }
 
 .topbar .nav-tabs .has-shadow {
@@ -700,20 +715,22 @@ table .icon {
 	pointer-events: none;
 	height: 100%;
 	width: 100%;
-	box-shadow: inset -3px -1px 3px rgba(25, 25, 25, 0.15);
-	z-index: 1;
+	box-shadow: inset -3px -1px 3px rgba(25, 25, 25, 0.18);
+	z-index: -1;
 }
 
 .topbar .nav-tab {
 	display: inline-flex;
 	align-items: center;
-	padding: 0.5rem 1.2rem;
+	padding: 0.45rem 1.2rem;
 	text-decoration: none;
 	color: inherit;
 	background-color: rgba(255, 255, 255, 0.4);
 	border-radius: 5px 5px 0 0;
 	cursor: pointer;
 	transition: all 0.15s;
+	margin-right: 0.25rem;
+	z-index: 1;
 }
 
 .topbar .nav-tab:hover {
@@ -721,7 +738,8 @@ table .icon {
 }
 
 .topbar .nav-tab.active {
-	background-color: rgba(255, 255, 255, 0.92);
+	background-color: #fafafa;
+	z-index: 5;
 }
 
 .topbar-height {

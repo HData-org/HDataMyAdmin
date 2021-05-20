@@ -51,17 +51,3 @@ fetch("/api/hdata/gettables").then(response => response.json()).then((data) => {
     }
     $("tables").appendChild(tables);
 });
-
-function deleteTable(tableName) {
-    if(confirm('Are you sure you want to DELETE table "'+ tableName +'"?')) {
-        console.log("Deleting table"+tableName);
-        fetch("/api/hdata/deletetable?tableName="+tableName).then(response => response.json()).then((data) => {
-            if(data.status == "OK") {
-                location.reload();
-            } else {
-                var errMsg = errorCodeToMsg(data.status);
-                alert("Error deleting table "+tableName+" "+errMsg+" ("+JSON.stringify(data)+")");
-            }
-        });
-    }
-}
