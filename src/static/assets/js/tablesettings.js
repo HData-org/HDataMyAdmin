@@ -1,7 +1,7 @@
 var tableName = getAllUrlParams().name;
 
 document.title = tableName + " - Operations - HDataMyAdmin";
-$("tableTitle").textContent = tableName+" - Operations";
+$("tableTitle").textContent = tableName;
 $("tableName").setAttribute("placeholder", tableName);
 
 var navTabsInfo = {
@@ -21,6 +21,6 @@ updateNavTabs(navTabsInfo);
 
 function tableAction(action) {
     if(action === "delete") {
-        deleteTable(tableName);
+        deleteTable(tableName, "./tables.html");
     }
 }
