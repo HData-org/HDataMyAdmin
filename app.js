@@ -220,7 +220,7 @@ app.get('/api/hdata/gettables', (req, res) => {
 app.all("/api/hdata/*", (req, res, next) => {
 	var tableName = req.query.tableName
 	if(tableName === undefined || tableName == "") {
-		res.json({ "error": "Table name cannot be blank" })
+		res.json({ "status": "TDNE" })
 	} else {
 		next()
 	}
@@ -228,7 +228,7 @@ app.all("/api/hdata/*", (req, res, next) => {
 
 app.get('/api/hdata/createtable', (req, res) => {
 	var tableName = req.query.tableName
-	conn.createTable(tableName, function(data, err) {
+	conn.createTable(tableName, (data, err) => {
 		if (!err) {
 			if (data.status == "OK") {
 				console.log("Table "+tableName+" created!");
@@ -245,7 +245,7 @@ app.get('/api/hdata/createtable', (req, res) => {
 
 app.get('/api/hdata/deletetable', (req, res) => {
 	var tableName = req.query.tableName
-	conn.deleteTable(tableName, function(data, err) {
+	conn.deleteTable(tableName, (data, err) => {
 		if (!err) {
 			console.log("Table "+tableName+" deleted!");
 			res.json(data)
@@ -256,9 +256,28 @@ app.get('/api/hdata/deletetable', (req, res) => {
 	})
 })
 
+app.get('/api/hdata/setkey', (req, res) => {
+	var tableName = req.query.tableName
+	var keyName = req.query.keyName
+	var value = req.query.value
+	conn.setKey(tableName, keyName, value, (data, err) => {
+		if (!err) {
+			if (data.status == "OK") {
+				console.log("Key "+keyName+" for table "+tableName+" created!");
+				res.json(data);
+			} else {
+				console.log(err)
+				res.send(err)
+			}
+		} else {
+			console.log(err)
+		}
+	})
+})
+
 app.get('/api/hdata/tablekeys', (req, res) => {
 	var tableName = req.query.tableName
-	conn.tableKeys(tableName, function(data, err) {
+	conn.tableKeys(tableName, (data, err) => {
 		if (!err) {
 			res.json(data.keys)
 		} else {
