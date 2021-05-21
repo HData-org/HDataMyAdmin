@@ -575,6 +575,14 @@ table .icon {
 	margin-left: 0.5rem;
 }
 
+.browse:hover {
+	color: rgb(121, 191, 231);
+}
+
+.browse:active, .browse:focus {
+	color: rgb(110, 177, 216);
+}
+
 .setkey:hover {
 	color: rgb(125, 180, 73);
 }
@@ -583,12 +591,12 @@ table .icon {
 	color: rgb(140, 207, 77);
 }
 
-.browse:hover {
-	color: rgb(121, 191, 231);
+.operations:hover {
+	color: rgb(77, 207, 168);
 }
 
-.browse:active, .browse:focus {
-	color: rgb(110, 177, 216);
+.operations:active, .operations:focus {
+	color: rgb(73, 194, 158);
 }
 
 .trash:hover {
