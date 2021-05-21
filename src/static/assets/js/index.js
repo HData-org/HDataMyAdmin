@@ -63,13 +63,16 @@ function deleteTable(tableName, redirectUrl = "reload") {
 
 function setKey(tableName, keyName, value, redirectUrl = "reload") {
     if (tableName != null) {
+        const formData = new URLSearchParams();
+        formData.append("tableName", tableName);
+        formData.append("keyName", keyName);
+        formData.append("value", value);
         fetch('/api/hdata/setkey', {
-            credentials: 'include',
             method: 'POST',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded;',
+                'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: new URLSearchParams("tableName="+tableName+"&keyName="+keyName+"&value="+value)
+            body: formData
         }).then(response => response.json()).then((data) => {
             if(data.status == "OK") {
                 if(redirectUrl === "reload") {

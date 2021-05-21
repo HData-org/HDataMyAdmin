@@ -217,8 +217,18 @@ app.get('/api/hdata/gettables', (req, res) => {
 
 /* table actions */
 
-app.all("/api/hdata/*", (req, res, next) => {
+app.get("/api/hdata/*", (req, res, next) => {
 	var tableName = req.query.tableName
+	if(tableName === undefined || tableName == "") {
+		res.json({ "status": "TDNE" })
+	} else {
+		next()
+	}
+})
+
+app.post("/api/hdata/*", (req, res, next) => {
+	var tableName = req.body.tableName
+	console.log(req.body)
 	if(tableName === undefined || tableName == "") {
 		res.json({ "status": "TDNE" })
 	} else {
