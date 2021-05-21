@@ -35,6 +35,18 @@ fetch("/api/hdata/gettables").then(response => response.json()).then((data) => {
         action.appendChild(actionText);
         cell.appendChild(action);
         row.append(cell);
+        action = document.createElement("a");
+        action.setAttribute("href", './setkey.html?name='+tableName);
+        action.setAttribute("class", "flex-center setkey");
+        actionIcon = document.createElement("span");
+        actionIcon.setAttribute("class", "material-icons icon");
+        actionIcon.appendChild(document.createTextNode("vpn_key"));
+        action.appendChild(actionIcon);
+        actionText = document.createElement("span");
+        actionText.appendChild(document.createTextNode("Set Key"));
+        action.appendChild(actionText);
+        cell.appendChild(action);
+        row.append(cell);
         action = document.createElement("span");
         action.setAttribute("onclick", 'deleteTable("'+tableName+'")');
         action.setAttribute("class", "flex-center trash");
@@ -47,6 +59,7 @@ fetch("/api/hdata/gettables").then(response => response.json()).then((data) => {
         action.appendChild(actionText);
         cell.appendChild(action);
         row.append(cell);
+
         tables.appendChild(row);
     }
     $("tables").appendChild(tables);

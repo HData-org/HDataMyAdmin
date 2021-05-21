@@ -65,18 +65,23 @@
 
 			<div class="m-smedium"></div>
 
-			<div class="card shadow">
-				<form class="form">
-					<!-- <h2 class="title">Options</h2> -->
-                    <input name="tableName" id="tableName" type="hidden">
-					<input name="keyName" class="input dsp-b" type="text" placeholder="Key Name" autofocus>
-					<input name="Value" class="input dsp-b" type="text" placeholder="Value">
-                    <div class="form-submit flex-center">
-                        <span class="flex-grow"></span>
-                        <button type="submit" class="button primary">Go</button>
-                    </div>
-                </form>
-			</div>
+            <form action="/api/hdata/setkey/" method="POST">
+                <table class="no-hover width-xl">
+                    <tr>
+                        <th>Table Name</th>
+                        <th>Key Name</th>
+                        <th>Value</th>
+                    </tr>
+                    <tr>
+                        <td><input name="tableName" id="tableName" class="input dsp-b" type="text" placeholder=""></td>
+                        <td><input name="keyName" class="input dsp-b" type="text" placeholder="" autofocus></td>
+                        <td><input name="Value" class="input dsp-b" type="text" placeholder=""></td>
+                    </tr>
+                    <tr class="tb-footer txt-right">
+                        <td colspan="3"><button class="button primary" type="submit">Go</button></td>
+                    </tr>
+                </table>
+            </form>
 
         </main>
 

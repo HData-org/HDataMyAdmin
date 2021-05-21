@@ -231,6 +231,26 @@ h2.title {
 	margin-left: 250px;
 }
 
+.width-s {
+	max-width: 500px;
+}
+
+.width-sm {
+	max-width: 720px;
+}
+
+.width-m {
+	max-width: 812px;
+}
+
+.width-l {
+	max-width: 1080px;
+}
+
+.width-xl {
+	max-width: 1280px;
+}
+
 /* margins */
 
 .m-xsmall {
@@ -499,15 +519,15 @@ table th, table td {
 	padding: 8px;
 }
 
-table tr {
+/* table tr {
 	border-bottom: 1px solid rgba(200, 200, 200, 0.75);
-}
+} */
 
 table tr:nth-child(even){
 	background-color: rgb(241, 241, 241);
 }
 
-table tr:hover {
+table:not(.no-hover) tr:hover {
 	background-color: rgb(237, 237, 237);
 }
 
@@ -527,6 +547,16 @@ table th:last-child {
 	border-top-right-radius: 5px;
 }
 
+table .tb-footer {
+	background-color: rgb(233, 233, 233);
+}
+
+table .tb-footer td {
+	padding: 10px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
 table .icon {
 	display: inline-block;
 	vertical-align: middle;
@@ -534,22 +564,23 @@ table .icon {
 
 /* actions */
 
-.actions > span {
+.actions > span, .actions > a {
+	text-decoration: none;
 	color: rgb(153, 153, 153);
 	transition: all 0.15s;
 	cursor: pointer;
 }
 
-.actions > span:not(:first-child) {
+.actions > span:not(:first-child), .actions > a:not(:first-child) {
 	margin-left: 0.5rem;
 }
 
-.trash:hover {
-	color: rgb(250, 87, 87);
+.setkey:hover {
+	color: rgb(125, 180, 73);
 }
 
-.trash:active, .trash.focus {
-	color: rgb(223, 83, 83);
+.setkey:active, .trash.focus {
+	color: rgb(140, 207, 77);
 }
 
 .browse:hover {
@@ -558,6 +589,14 @@ table .icon {
 
 .browse:active, .browse:focus {
 	color: rgb(110, 177, 216);
+}
+
+.trash:hover {
+	color: rgb(250, 87, 87);
+}
+
+.trash:active, .trash.focus {
+	color: rgb(223, 83, 83);
 }
 
 /* sidebar */
