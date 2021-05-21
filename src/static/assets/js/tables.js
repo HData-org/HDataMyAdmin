@@ -21,45 +21,53 @@ fetch("/api/hdata/gettables").then(response => response.json()).then((data) => {
         cell.appendChild(name);
         row.appendChild(cell);
         /* actions */
+        var actionsJson = {
+            0: {
+                "name": "Browse",
+                "class": "browse",
+                "icon": "view_list",
+                "href": "./table.html"
+            },
+            1: {
+                "name": "Set Key",
+                "class": "setkey",
+                "icon": "vpn_key",
+                "href": "./setkey.html"
+            },
+            2: {
+                "name": "Operations",
+                "class": "operations",
+                "icon": "build",
+                "href": "./tablesettings.html"
+            },
+            3: {
+                "name": "Delete",
+                "class": "trash",
+                "icon": "delete",
+                "href": "#",
+                "onclick": "deleteTable(\""+tableName+"\")"
+            }
+        };
         cell = document.createElement("td");
         cell.setAttribute("class", "flex-center actions");
-        var action = document.createElement("span");
-        action.setAttribute("onclick", 'goToTable("'+tableName+'")');
-        action.setAttribute("class", "flex-center browse");
-        var actionIcon = document.createElement("span");
-        actionIcon.setAttribute("class", "material-icons icon");
-        actionIcon.appendChild(document.createTextNode("view_list"));
-        action.appendChild(actionIcon);
-        var actionText = document.createElement("span");
-        actionText.appendChild(document.createTextNode("Browse"));
-        action.appendChild(actionText);
-        cell.appendChild(action);
-        row.append(cell);
-        action = document.createElement("a");
-        action.setAttribute("href", './setkey.html?name='+tableName);
-        action.setAttribute("class", "flex-center setkey");
-        actionIcon = document.createElement("span");
-        actionIcon.setAttribute("class", "material-icons icon");
-        actionIcon.appendChild(document.createTextNode("vpn_key"));
-        action.appendChild(actionIcon);
-        actionText = document.createElement("span");
-        actionText.appendChild(document.createTextNode("Set Key"));
-        action.appendChild(actionText);
-        cell.appendChild(action);
-        row.append(cell);
-        action = document.createElement("span");
-        action.setAttribute("onclick", 'deleteTable("'+tableName+'")');
-        action.setAttribute("class", "flex-center trash");
-        actionIcon = document.createElement("span");
-        actionIcon.setAttribute("class", "material-icons icon");
-        actionIcon.appendChild(document.createTextNode("delete"));
-        action.appendChild(actionIcon);
-        actionText = document.createElement("span");
-        actionText.appendChild(document.createTextNode("Delete"));
-        action.appendChild(actionText);
-        cell.appendChild(action);
-        row.append(cell);
-
+        for (var i = 0; i < Object.keys(actionsJson).length; i++) {
+            var actionInfo = actionsJson[i];
+            action = document.createElement("a");
+            action.setAttribute("href", actionInfo.href+'?name='+tableName);
+            if(actionInfo.onclick !== undefined) {
+                action.setAttribute("onclick", actionInfo.onclick);
+            }
+            action.setAttribute("class", "flex-center "+actionInfo.class);
+            actionIcon = document.createElement("span");
+            actionIcon.setAttribute("class", "material-icons icon");
+            actionIcon.appendChild(document.createTextNode(actionInfo.icon));
+            action.appendChild(actionIcon);
+            actionText = document.createElement("span");
+            actionText.appendChild(document.createTextNode(actionInfo.name));
+            action.appendChild(actionText);
+            cell.appendChild(action);
+            row.append(cell);
+        }
         tables.appendChild(row);
     }
     $("tables").appendChild(tables);
