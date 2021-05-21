@@ -228,7 +228,6 @@ app.get("/api/hdata/*", (req, res, next) => {
 
 app.post("/api/hdata/*", (req, res, next) => {
 	var tableName = req.body.tableName
-	console.log(req.body)
 	if(tableName === undefined || tableName == "") {
 		res.json({ "status": "TDNE" })
 	} else {
@@ -270,7 +269,6 @@ app.post('/api/hdata/setkey', (req, res) => {
 	var tableName = req.body.tableName
 	var keyName = req.body.keyName
 	var value = req.body.value
-	console.log(tableName)
 	conn.setKey(tableName, keyName, value, (data, err) => {
 		if (!err) {
 			if (data.status == "OK") {
