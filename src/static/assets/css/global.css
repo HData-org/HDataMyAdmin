@@ -751,7 +751,7 @@ table .icon {
 	display: flex;
 	position: relative;
 	background-color: #b8b8b8;
-	padding: 0.35rem 0 0 0.75rem;
+	padding: 0.45rem 0 0 0.75rem;
 	z-index: -2;
 }
 
@@ -776,7 +776,7 @@ table .icon {
 	border-radius: 5px 5px 0 0;
 	cursor: pointer;
 	transition: all 0.15s;
-	margin-right: 0.25rem;
+	margin-right: 0.35rem;
 	z-index: 1;
 }
 
