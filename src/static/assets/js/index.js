@@ -26,7 +26,15 @@ function newTable(redirectUrl = "browse") {
 	var tableName = prompt("Create a new table with the name: ");
     if (tableName != null) {
         console.log("Creating new table with the name: "+tableName);
-        fetch("/api/hdata/createtable?tableName="+tableName).then(response => response.json()).then((data) => {
+        const formData = new URLSearchParams();
+        formData.append("tableName", tableName);
+        fetch('/api/hdata/createtable', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: formData
+        }).then(response => response.json()).then((data) => {
             if(data.status == "OK") {
                 if(redirectUrl === "reload") {
                     location.reload();
@@ -45,19 +53,29 @@ function newTable(redirectUrl = "browse") {
 
 function deleteTable(tableName, redirectUrl = "reload") {
     if(confirm('Are you sure you want to DELETE table "'+ tableName +'"?')) {
-        console.log("Deleting table"+tableName);
-        fetch("/api/hdata/deletetable?tableName="+tableName).then(response => response.json()).then((data) => {
-            if(data.status == "OK") {
-                if(redirectUrl === "reload") {
-                    location.reload();
+        if (tableName != null) {
+            console.log("Deleting table"+tableName);
+            const formData = new URLSearchParams();
+            formData.append("tableName", tableName);
+            fetch('/api/hdata/deletetable', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: formData
+            }).then(response => response.json()).then((data) => {
+                if(data.status == "OK") {
+                    if(redirectUrl === "reload") {
+                        location.reload();
+                    } else {
+                        location = redirectUrl;
+                    }
                 } else {
-                    location = redirectUrl;
+                    var errMsg = errorCodeToMsg(data.status);
+                    alert("Error deleting table: "+tableName+" "+errMsg+" ("+JSON.stringify(data)+")");
                 }
-            } else {
-                var errMsg = errorCodeToMsg(data.status);
-                alert("Error deleting table: "+tableName+" "+errMsg+" ("+JSON.stringify(data)+")");
-            }
-        });
+            });
+        }
     }
 }
 

@@ -235,8 +235,8 @@ app.post("/api/hdata/*", (req, res, next) => {
 	}
 })
 
-app.get('/api/hdata/createtable', (req, res) => {
-	var tableName = req.query.tableName
+app.post('/api/hdata/createtable', (req, res) => {
+	var tableName = req.body.tableName
 	conn.createTable(tableName, (data, err) => {
 		if (!err) {
 			if (data.status == "OK") {
@@ -252,8 +252,8 @@ app.get('/api/hdata/createtable', (req, res) => {
 	});
 })
 
-app.get('/api/hdata/deletetable', (req, res) => {
-	var tableName = req.query.tableName
+app.post('/api/hdata/deletetable', (req, res) => {
+	var tableName = req.body.tableName
 	conn.deleteTable(tableName, (data, err) => {
 		if (!err) {
 			console.log("Table "+tableName+" deleted!");
@@ -275,11 +275,30 @@ app.post('/api/hdata/setkey', (req, res) => {
 				console.log("Key "+keyName+" for table "+tableName+" created!");
 				res.json(data);
 			} else {
-				console.log(err)
-				res.send(err)
+				console.log(data)
+				res.send(data)
 			}
 		} else {
 			console.log(err)
+		}
+	})
+})
+
+app.post('/api/hdata/deletekey', (req, res) => {
+	var tableName = req.body.tableName
+	var keyName = req.body.keyName
+	conn.deleteKey(tableName, keyName, (data,err) => {
+		if (!err) {
+			if (res.status == "OK") {
+				console.log("Key "+keyName+" in "+tableName+" deleted!");
+				res.json(data);
+			} else {
+				console.log(data);
+				res.json(data);
+			}
+		} else {
+			console.log(err);
+			res.json(err);
 		}
 	})
 })
