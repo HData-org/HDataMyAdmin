@@ -233,6 +233,9 @@ function updateInfo() {
             "<li>HData version: " +
             serverInfo.version +
             "</li>" +
+            "<li>Number of tables: " +
+            serverInfo.tables +
+            "</li>" +
             "<li>User: <span id=\"loggedInUser\">" +
             loggedInUser +
             "</span>@" +
