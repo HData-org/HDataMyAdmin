@@ -7,6 +7,9 @@ fetch("/api/hdata/login").then(response => response.json()).then((json) => {
         try {
             $("loggedInUser").textContent = loggedInUser;
         } catch (err) { }
+        if(typeof page !== 'undefined' && page == 'users') {
+            getUser(loggedInUser);
+        }
     } else {
         window.location = "/login.html";
     }

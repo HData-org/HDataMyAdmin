@@ -561,6 +561,20 @@ table .icon {
 	vertical-align: middle;
 }
 
+/* labels */
+
+.label {
+	display: inline-block;
+	vertical-align: middle;
+	padding: 2px 4px;
+	background-color: rgba(226, 226, 226, 0.9);
+	border-radius: 2px;
+}
+
+.label:not(:last-child) {
+	margin-right: 4px;
+}
+
 /* actions */
 
 .actions > span, .actions > a {
@@ -588,6 +602,14 @@ table .icon {
 
 .setkey:active, .trash.focus {
 	color: rgb(140, 207, 77);
+}
+
+.edit:hover {
+	color: rgb(226, 210, 61);
+}
+
+.edit:active, .edit.focus {
+	color: rgb(218, 202, 60);
 }
 
 .operations:hover {
