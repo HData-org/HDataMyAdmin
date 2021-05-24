@@ -7,5 +7,5 @@ $("tableTitle").textContent = tableName;
 
 fetch("/api/hdata/tablekeys?tableName="+tableName).then(response => response.json()).then((data) => {
     console.log(data);
-    createTable1D($("table"), "Keys", data);
+    createTable1D($("table"), "Key", data);
 });
