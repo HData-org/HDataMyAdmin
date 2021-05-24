@@ -181,6 +181,18 @@ app.get('/api/hdata/login', (req, res) => {
 	res.json(req.session.login)
 })
 
+app.get('/api/hdata/getuser', (req, res) => {
+	var username = req.query.username
+	conn.getUser(username, (data, err) => {
+		if (!err) {
+			res.json(data)
+		} else {
+			console.log(err)
+			res.send(err)
+		}
+	})
+})
+
 app.post('/api/hdata/updatepassword', (req, res) => {
 	var password = req.body.newPassword
 	var retypePassword = req.body.retypePassword
