@@ -1,8 +1,20 @@
 var error = getAllUrlParams().error;
 
 if(error !== undefined && error !== "OK") {
-    $(".error")[0].style.display = "block";
+    $("loginError").style.display = "block";
     if(error !== "AERR") {
-        $(".error")[0].textContent = errorCodeToMsg(error);
+        $("loginErrorText").textContent = errorCodeToMsg(error);
     }
 }
+
+function updateServerInfo(data) {
+    serverInfo = data;
+    if(serverInfo.status !== 'OK') {
+        $("serverError").style.display = "block";
+        $("serverErrorText").title = JSON.stringify(serverInfo);
+    }
+}
+
+fetch("/api/hdata/status")
+    .then(response => response.json())
+    .then(data => updateServerInfo(data));
