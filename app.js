@@ -181,6 +181,31 @@ app.get('/api/hdata/login', (req, res) => {
 	res.json(req.session.login)
 })
 
+app.post('/api/hdata/createuser', (req, res) => {
+	var username = req.body.username
+	var password = req.body.password
+	var retypePassword = req.body.retypePassword
+	var permissions = req.body.permissions
+	if(password !== retypePassword) {
+		res.redirect("/newuser.html?error=PDOM")
+	} else {
+		conn.createUser(username, password, permissions, (data, err) => {
+			if(!err) {
+				if (data.status == "OK") {
+					console.log("User created!")
+					res.redirect("/users.html")
+				} else {
+					console.log("Insufficient permissions")
+					res.redirect("/newuser.html?error="+data.status)
+				}
+			} else {
+				console.log(err)
+				res.send(err)
+			}
+		})
+	}
+})
+
 app.get('/api/hdata/getuser', (req, res) => {
 	var username = req.query.username
 	conn.getUser(username, (data, err) => {
@@ -255,11 +280,12 @@ app.post('/api/hdata/createtable', (req, res) => {
 				console.log("Table "+tableName+" created!");
 				res.json(data);
 			} else {
-				console.log(err)
-				res.send(err)
+				console.log(data)
+				res.send(data)
 			}
 		} else {
 			console.log(err)
+			res.send(err)
 		}
 	});
 })

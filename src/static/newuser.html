@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User accounts - HDataMyAdmin</title>
+    <title>Create User - HDataMyAdmin</title>
     <!-- CSS -->
     <link href="./assets/css/global.css" rel="stylesheet">
     <!-- Fonts -->
@@ -55,7 +55,7 @@
 			<div class="nav-tabs" id="navTabs">
                 <div class="has-shadow"></div>
 				<a class="nav-tab " href="./tables.html">Tables</a>
-				<a class="nav-tab active" href="./users.html">User accounts</a>
+				<a class="nav-tab " href="./users.html">User accounts</a>
 			</div>
 		</div>
 
@@ -63,18 +63,39 @@
 
         <main class="container big-container">
 
-			<div class="m-xsmall"></div>
+			<div class="m-smedium"></div>
 
-			<div class="flex-center">
-				<h2 class="title">User accounts</h2>
-				<span class="flex-grow"></span>
-				<a class="button primary icon left" href="./newuser.html"><span class="material-icons icon"> add_circle_outline </span><span>New User</span></a>
-			</div>
+			<div class="center width-sm">
 
-			<div id="usersTable">
-				<div class="center">
-					<div class="loader"></div>
+				<div class="card w-shadow m-small">
+    
+					<form class="form center" method="POST" action="/api/hdata/createuser">
+						<h1 class="title">Create User</h1>
+						<div class="error" id="newUserError" style="display: none;">
+							<span id="newUserErrorText">Passwords do not match.</span>
+						</div>
+						<div>
+							<input name="username" class="input dsp-b" type="text" placeholder="Username" autofocus>
+						</div>
+						<div>
+							<input name="permissions" class="input dsp-b" type="text" placeholder="Permissions (array)">
+						</div>
+						<div>
+							<input name="password" class="input dsp-b" type="password" placeholder="Password">
+						</div>
+						<div>
+							<input name="retypePassword" class="input dsp-b" type="password" placeholder="Retype Password">
+						</div>
+						<div class="form-submit flex-center">
+							<span class="flex-grow"></span>
+							<button class="button primary" type="submit"><span>Go</span></button>
+							&nbsp;
+							<a href="./users.html" class="button"><span>Cancel</span></a>
+						</div>
+					</form>
+
 				</div>
+
 			</div>
 
         </main>
@@ -85,6 +106,6 @@
 	</script>
     <script src="./assets/js/global.js"></script>
     <script src="./assets/js/index.js"></script>
-    <script src="./assets/js/users.js"></script>
+    <script src="./assets/js/newuser.js"></script>
 </body>
 </html>
