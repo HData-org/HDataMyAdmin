@@ -1,17 +1,23 @@
 const HData = require('hdata').HData
 var conn
+const fs = require('fs');
 var path = require('path')
 const express = require('express')
 var parseurl = require('parseurl')
 var session = require('express-session')
 var FileStore = require('session-file-store')(session)
 var fileStoreOptions = {};
-
 const app = express()
-const port = process.env.PORT || 3000
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+
+var configpath = "config.json"
+var config = { "hdata": { "host": "127.0.0.1", "port": 8888 }, "app": { "port": 3000 } }
+
+if (fs.existsSync(configpath)) {
+	config = JSON.parse(fs.readFileSync(configpath));
+}
 
 const hdmaVersion = "0.0.1a"
 var connectionInfo
@@ -355,7 +361,7 @@ app.get('/api/hdata/tablekeys', (req, res) => {
 
 app.use('/', express.static(path.join(__dirname, 'src/static/')))
 
-app.listen(port, () => {
-	console.log('HDataMyAdmin listening at http://localhost:%s', port);
-	connectTo("flolon.cc")
+app.listen(config.app.port, () => {
+	console.log('HDataMyAdmin listening at http://localhost:%s', config.app.port);
+	connectTo(config.hdata.host, config.hdata.port)
 })
