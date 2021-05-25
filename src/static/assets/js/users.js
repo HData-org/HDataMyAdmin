@@ -6,7 +6,7 @@ function getUser(currentUser) {
         var tables = document.createElement("table");
         var tableHeader = document.createElement("tr");
         /* table headers */       
-        var tableHeaders = [ "Username", "Permissions", "Tables", "Action"];
+        var tableHeaders = ["Username", "Permissions", "Tables", "Action"];
         for(var t = 0; t < tableHeaders.length; t++) {
             var tableHeaderTitle = tableHeaders[t];
             console.log(tableHeaderTitle);
@@ -40,8 +40,9 @@ function getUser(currentUser) {
         var userTables = document.createElement("span");
         for (var t = 0; t < Object.keys(tableData.tables).length; t++) {
             var userTableName = tableData.tables[t];
-            var userTable = document.createElement("span");
+            var userTable = document.createElement("a");
             userTable.setAttribute("class", "label");
+            userTable.setAttribute("href", "./table.html?name="+userTableName);
             userTable.appendChild(document.createTextNode(userTableName));
             userTables.appendChild(userTable);
         }
