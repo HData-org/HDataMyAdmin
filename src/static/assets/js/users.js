@@ -61,7 +61,7 @@ function getUser(currentUser) {
                 "class": "trash",
                 "icon": "delete",
                 "href": "#",
-                "onclick": "deleteTable(\""+user+"\")"
+                "onclick": "alert(\"Can not delete user: "+user+"\")"
             }
         };
         cell = document.createElement("td");
