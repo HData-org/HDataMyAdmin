@@ -250,7 +250,7 @@ app.post('/api/hdata/updatepassword', (req, res) => {
 app.get('/api/hdata/gettables', (req, res) => {
 	conn.getTables((data, err) => {
 		if (!err) {
-			res.send(data) //Should return an array ["table1","table2"]
+			res.send(data)
 		} else {
 			console.log(err)
 			res.send(err)

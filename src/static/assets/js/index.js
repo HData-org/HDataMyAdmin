@@ -262,6 +262,4 @@ function updateServerInfo(data) {
     } catch (err) {}
 }
 
-fetch("/api/hdata/status")
-    .then(response => response.json())
-    .then(data => updateServerInfo(data));
+fetch("/api/hdata/status").then(response => response.json()).then(data => updateServerInfo(data));
