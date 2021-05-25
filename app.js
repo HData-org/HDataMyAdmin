@@ -258,6 +258,18 @@ app.get('/api/hdata/gettables', (req, res) => {
 	})
 })
 
+app.get('/api/hdata/queryall', (req, res) => {
+	var evaluator = req.query.evaluator
+	conn.queryAll(evaluator, (data, err) => {
+		if (!err) {
+			res.json(data)
+		} else {
+			console.log(err);
+			res.send(err)
+		}
+	})
+})
+
 /* table actions */
 
 app.get("/api/hdata/*", (req, res, next) => {
@@ -276,6 +288,19 @@ app.post("/api/hdata/*", (req, res, next) => {
 	} else {
 		next()
 	}
+})
+
+app.get('/api/hdata/querytable', (req, res) => {
+	var tableName = req.query.tableName
+	var evaluator = req.query.evaluator
+	conn.queryTable(tableName, evaluator, (data, err) => {
+		if (!err) {
+			res.json(data)
+		} else {
+			console.log(err);
+			res.send(err)
+		}
+	})
 })
 
 app.post('/api/hdata/createtable', (req, res) => {
@@ -301,6 +326,19 @@ app.post('/api/hdata/deletetable', (req, res) => {
 	conn.deleteTable(tableName, (data, err) => {
 		if (!err) {
 			console.log("Table "+tableName+" deleted!");
+			res.json(data)
+		} else {
+			console.log(err)
+			res.send(err)
+		}
+	})
+})
+
+app.get('/api/hdata/getkey', (req, res) => {
+	var tableName = req.query.tableName
+	var keyName = req.query.keyName
+	conn.getKey(tableName, keyName, (data, err) => {
+		if (!err) {
 			res.json(data)
 		} else {
 			console.log(err)
