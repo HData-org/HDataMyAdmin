@@ -389,7 +389,7 @@ app.get('/api/hdata/tablekeys', (req, res) => {
 	var tableName = req.query.tableName
 	conn.tableKeys(tableName, (data, err) => {
 		if (!err) {
-			res.json(data.keys)
+			res.json(data)
 		} else {
 			console.log(err)
 			res.send(err)

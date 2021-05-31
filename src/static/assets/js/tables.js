@@ -1,4 +1,8 @@
 fetch("/api/hdata/gettables").then(response => response.json()).then((data) => {
+    if(data.status !== "OK") {
+        $("tableError").style.display = "block";
+        $("tableErrorText").textContent = "Can not load tables: "+data.status+" ("+errorCodeToMsg(data.status)+")";
+    }
     $("tables").innerHTML = "";
     var tables = document.createElement("table");
     var tableHeader = document.createElement("tr");
