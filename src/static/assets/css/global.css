@@ -44,6 +44,7 @@ img {
 a {
 	color: rgb(114, 148, 50);
 	cursor: pointer;
+	transition: color 0.15s ease-in-out;
 }
 
 a:hover {
@@ -52,6 +53,10 @@ a:hover {
 
 a.hoverUnderline:hover {
 	text-decoration: underline;
+}
+
+a.txt-inherit:hover {
+	color: inherit;
 }
 
 a.txt-red:hover {
@@ -155,6 +160,10 @@ a.icon.right .material-icons, .button.icon.right .material-icons  {
 
 .txt-bold {
 	font-weight: bold;
+}
+
+.txt-inherit {
+	color: inherit;
 }
 
 .txt-white {
@@ -709,6 +718,18 @@ table .icon {
 .tree-item.icon-left .material-icons {
 	margin-left: 0;
 	margin-right: 0.25rem;
+}
+
+.tree-item .icon-right {
+	margin-right: 0.45rem;
+}
+
+.tree-item a.icon-right:hover {
+	color: rgb(132, 170, 63);
+}
+
+.tree-item.active a.icon-right:hover {
+	color: rgb(255, 255, 255);
 }
 
 /* topbar */

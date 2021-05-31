@@ -199,6 +199,18 @@ function updateTree() {
         icon.appendChild(document.createTextNode("arrow_drop_down"));
         treeRoot.appendChild(document.createTextNode("Tables"));
         treeRoot.appendChild(icon);
+        var flexGrow = document.createElement("span");
+        flexGrow.setAttribute("class", "flex-grow");
+        treeRoot.appendChild(flexGrow);
+        var a = document.createElement("a");
+        a.setAttribute("class", "icon-right txt-inherit");
+        a.setAttribute("title", "Search all tables");
+        a.setAttribute("href", "./search.html");
+        icon = document.createElement("span");
+        icon.setAttribute("class", "material-icons vam");
+        icon.appendChild(document.createTextNode("search"));
+        a.appendChild(icon);
+        treeRoot.appendChild(a);
         $("navTree").appendChild(treeRoot);
         var treeItems = document.createElement("div");
         treeItems.setAttribute("class", "tree-items");
