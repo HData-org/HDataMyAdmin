@@ -47,7 +47,7 @@ function errorCodeToMsg(code) {
 		case 'EVERR':
 			return 'Evaluation error (error with evaluator when querying)'
 		default:
-			return 'Uknown error ('+code+')'
+			return 'Unknown error ('+code+')'
 	}
 }
 
@@ -86,6 +86,7 @@ app.use(session({
 function clearSessionAuth(req) {
 	req.session.login = {}
 	req.session.login.auth = false
+	req.session.login.status = "NLI"
 }
 
 app.use(function (req, res, next) {
@@ -93,6 +94,11 @@ app.use(function (req, res, next) {
 		clearSessionAuth(req)
 		console.log("New session")
 	}
+	next()
+})
+
+app.all('/api/*', (req, res, next) => {
+	res.set('Cache-Control', 'no-store')
 	next()
 })
 
@@ -193,7 +199,7 @@ app.post('/api/hdata/createuser', (req, res) => {
 	var retypePassword = req.body.retypePassword
 	var permissions = req.body.permissions
 	if(password !== retypePassword) {
-		res.redirect("/newuser.html?error=PDOM")
+		res.redirect("/newuser.html?error=PDNM")
 	} else {
 		conn.createUser(username, password, permissions, (data, err) => {
 			if(!err) {
@@ -228,7 +234,7 @@ app.post('/api/hdata/updatepassword', (req, res) => {
 	var password = req.body.newPassword
 	var retypePassword = req.body.retypePassword
 	if(password !== retypePassword) {
-		res.redirect("/changepassword.html?error=PDOM")
+		res.redirect("/changepassword.html?error=PDNM")
 	} else {
 		conn.updatePassword(req.session.login.username, password, (data, err) => {
 			if(!err) {

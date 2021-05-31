@@ -11,7 +11,8 @@ fetch("/api/hdata/login").then(response => response.json()).then((json) => {
             getUser(loggedInUser);
         }
     } else {
-        window.location = "/login.html";
+        console.log("Not logged in, redirecting");
+        location = "/login.html";
     }
 });
 
@@ -182,6 +183,9 @@ function updateNavTabs(page) {
 function updateTree() {
     var currentTable = getAllUrlParams().name;
     fetch("/api/hdata/gettables").then(response => response.json()).then((data) => {
+        if(data.status !== "OK") {
+            console.log("Could not load table tree: "+data.status+" ("+errorCodeToMsg(data.status)+")");
+        }
         $("navTree").innerHTML = "";
         var treeRoot = document.createElement("div");
         if(typeof page !== 'undefined' && page == 'tables') {
