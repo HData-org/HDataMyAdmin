@@ -151,11 +151,16 @@ function updateNavTabs(page) {
             "href": "./table.html"
         },
         1: {
+            "name": "Search",
+            "page": "search",
+            "href": "./search.html"
+        },
+        2: {
             "name": "Set Key",
             "page": "setkey",
             "href": "./setkey.html"
         },
-        2: {
+        3: {
             "name": "Operations",
             "page": "operations",
             "href": "./tablesettings.html"

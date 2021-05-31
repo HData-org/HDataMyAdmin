@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HDataMyAdmin</title>
+    <title>Search - HDataMyAdmin</title>
     <!-- CSS -->
     <link href="./assets/css/global.css" rel="stylesheet">
     <!-- Fonts -->
@@ -55,7 +55,7 @@
 			<div class="nav-tabs" id="navTabs">
                 <div class="has-shadow"></div>
 				<a class="nav-tab " href="./tables.html">Tables</a>
-				<a class="nav-tab " href="./search.html">Search</a>
+				<a class="nav-tab active" href="./search.html">Search</a>
 				<a class="nav-tab " href="./users.html">User accounts</a>
 			</div>
 		</div>
@@ -66,23 +66,33 @@
 
 			<div class="m-smedium"></div>
 
-            <form action="/api/hdata/setkey/" method="POST" id="setKeyForm">
-                <table class="no-hover width-xl">
-                    <tr>
-                        <th>Table Name</th>
-                        <th>Key Name</th>
-                        <th>Value</th>
-                    </tr>
-                    <tr>
-                        <td><input name="tableName" id="tableName" class="input dsp-b" type="text" placeholder=""></td>
-                        <td><input name="keyName" class="input dsp-b" type="text" placeholder="" autofocus></td>
-                        <td><input name="value" class="input dsp-b" type="text" placeholder=""></td>
-                    </tr>
-                    <tr class="tb-footer txt-right">
-                        <td colspan="3"><button class="button primary" type="submit">Go</button></td>
-                    </tr>
-                </table>
-            </form>
+            <h2 class="title">Search</h2>
+
+			<div id="searchError" style="display: none;">
+				<div class="error">
+					<span id="searchErrorText">Could not search</span>
+				</div>
+				<div class="m-xsmall"></div>
+			</div>
+
+            <div>
+                <div class="flex">
+                    <input name="evaluator" class="input flex-grow" type="search" placeholder='Evaluator... e.g. key.startsWith("string")' autofocus>
+                </div>
+                <div class="m-small"></div>
+                <span>Search in:&nbsp;</span>
+                <span id="tables">
+                    <!-- <select name="tableName" class="input select">
+                        <option>All tables</option>
+                    </select> -->
+                    <span class="loader small vam"></span>
+                </span>
+                <div class="m-xsmall"></div>
+                <div class="flex-center">
+                    <span class="flex-grow"></span>
+                    <button class="button primary">Go</button>
+                </div>
+            </div>
 
         </main>
 
@@ -90,6 +100,6 @@
 
     <script src="./assets/js/global.js"></script>
     <script src="./assets/js/index.js"></script>
-    <script src="./assets/js/setkey.js"></script>
+    <script src="./assets/js/search.js"></script>
 </body>
 </html>
