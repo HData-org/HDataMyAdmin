@@ -43,7 +43,7 @@ function errorCodeToMsg(code) {
 		case 'EVERR':
 			return 'Evaluation error (error with evaluator when querying)'
 		default:
-			return 'Uknown error ('+code+')'
+			return 'Unknown error ('+code+')'
 	}
 }
 
