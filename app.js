@@ -276,6 +276,18 @@ app.get('/api/hdata/queryall', (req, res) => {
 	})
 })
 
+app.post('/api/hdata/queryall', (req, res) => {
+	var evaluator = req.body.evaluator
+	conn.queryAll(evaluator, (data, err) => {
+		if (!err) {
+			res.json(data)
+		} else {
+			console.log(err);
+			res.send(err)
+		}
+	})
+})
+
 /* table actions */
 
 app.get("/api/hdata/*", (req, res, next) => {
@@ -297,8 +309,21 @@ app.post("/api/hdata/*", (req, res, next) => {
 })
 
 app.get('/api/hdata/querytable', (req, res) => {
-	var tableName = req.query.tableName
-	var evaluator = req.query.evaluator
+	var tableName = req.body.tableName
+	var evaluator = req.body.evaluator
+	conn.queryTable(tableName, evaluator, (data, err) => {
+		if (!err) {
+			res.json(data)
+		} else {
+			console.log(err);
+			res.send(err)
+		}
+	})
+})
+
+app.post('/api/hdata/querytable', (req, res) => {
+	var tableName = req.body.tableName
+	var evaluator = req.body.evaluator
 	conn.queryTable(tableName, evaluator, (data, err) => {
 		if (!err) {
 			res.json(data)

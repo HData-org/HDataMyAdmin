@@ -76,9 +76,9 @@
 				<div class="m-xsmall"></div>
 			</div>
 
-            <div>
+            <form id="searchForm">
                 <div class="flex">
-                    <input name="evaluator" class="input flex-grow" type="search" placeholder='Evaluator... e.g. key.startsWith("string")' autofocus>
+                    <input name="evaluator" id="evaluator" class="input flex-grow" type="search" placeholder='Evaluator... e.g. key.startsWith("string")' autofocus>
                 </div>
                 <div class="m-small"></div>
                 <span>Search in:&nbsp;</span>
@@ -91,7 +91,14 @@
                 <div class="m-xsmall"></div>
                 <div class="flex-center">
                     <span class="flex-grow"></span>
-                    <button class="button primary">Go</button>
+                    <button id="submit" class="button primary">Go</button>
+                </div>
+            </form>
+            
+            <div id="results" style="display: none;">
+                <h2>Results</h2>
+                <div id="searchResults">
+                    <div class="loader"></div>
                 </div>
             </div>
 
