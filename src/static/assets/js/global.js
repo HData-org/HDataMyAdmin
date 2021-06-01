@@ -19,7 +19,7 @@ function $(id) {
 }
 
 function errorCodeToMsg(code) {
-	switch(code) {
+	switch (code) {
 		case 'OK':
 			return 'All good, no errors'
 		case 'NLI':
@@ -43,17 +43,17 @@ function errorCodeToMsg(code) {
 		case 'EVERR':
 			return 'Evaluation error (error with evaluator when querying)'
 		default:
-			return 'Unknown error ('+code+')'
+			return 'Unknown error (' + code + ')'
 	}
 }
 
-if(localStorage.getItem == undefined || localStorage.getItem == '') {
+if (localStorage.getItem == undefined || localStorage.getItem == '') {
 	localStorage.setItem("menuState", 1);
 }
 var menuState = localStorage.getItem("menuState");
 
 function menuUpdate() {
-	if(menuState == 1) {
+	if (menuState == 1) {
 		$("sidebar").style.display = "none";
 		document.body.classList.remove("with-sidebar");
 		$("menuBtn").innerHTML = "arrow_right";
@@ -75,6 +75,6 @@ function menuBtnClicked() {
 	localStorage.setItem("menuState", menuState);
 }
 
-if(typeof page == 'undefined' || page !== 'login') {
+if (typeof page == 'undefined' || page !== 'login') {
 	menuUpdate();
 }

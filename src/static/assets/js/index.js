@@ -1,13 +1,13 @@
 var loggedInUser;
 
 fetch("/api/hdata/login").then(response => response.json()).then((json) => {
-    if(json.auth) {
+    if (json.auth) {
         console.log("Logged in as " + json.username);
         loggedInUser = json.username;
         try {
             $("loggedInUser").textContent = loggedInUser;
         } catch (err) { }
-        if(typeof page !== 'undefined' && page == 'users') {
+        if (typeof page !== 'undefined' && page == 'users') {
             getUser(loggedInUser);
         }
     } else {
@@ -17,19 +17,19 @@ fetch("/api/hdata/login").then(response => response.json()).then((json) => {
 });
 
 function goToTable(tableName) {
-    if(tableName == "" || tableName === undefined) {
+    if (tableName == "" || tableName === undefined) {
         window.location = "./tables.html";
     } else {
-	    window.location = "./table.html?name=" + tableName;
+        window.location = "./table.html?name=" + tableName;
     }
 }
 
 /* HData functions */
 
 function newTable(redirectUrl = "browse") {
-	var tableName = prompt("Create a new table with the name: ");
+    var tableName = prompt("Create a new table with the name: ");
     if (tableName != null) {
-        console.log("Creating new table with the name: "+tableName);
+        console.log("Creating new table with the name: " + tableName);
         const formData = new URLSearchParams();
         formData.append("tableName", tableName);
         fetch('/api/hdata/createtable', {
@@ -39,26 +39,26 @@ function newTable(redirectUrl = "browse") {
             },
             body: formData
         }).then(response => response.json()).then((data) => {
-            if(data.status == "OK") {
-                if(redirectUrl === "reload") {
+            if (data.status == "OK") {
+                if (redirectUrl === "reload") {
                     location.reload();
-                } else if(redirectUrl === "browse"){
-                    location = './table.html?name='+tableName;
+                } else if (redirectUrl === "browse") {
+                    location = './table.html?name=' + tableName;
                 } else {
                     location = redirectUrl;
                 }
             } else {
                 var errMsg = errorCodeToMsg(data.status);
-                alert("Error creating table: "+tableName+" "+errMsg+" ("+JSON.stringify(data)+")");
+                alert("Error creating table: " + tableName + " " + errMsg + " (" + JSON.stringify(data) + ")");
             }
         });
     }
 }
 
 function deleteTable(tableName, redirectUrl = "reload") {
-    if(confirm('Are you sure you want to DELETE table "'+ tableName +'"?')) {
+    if (confirm('Are you sure you want to DELETE table "' + tableName + '"?')) {
         if (tableName != null) {
-            console.log("Deleting table"+tableName);
+            console.log("Deleting table" + tableName);
             const formData = new URLSearchParams();
             formData.append("tableName", tableName);
             fetch('/api/hdata/deletetable', {
@@ -68,15 +68,15 @@ function deleteTable(tableName, redirectUrl = "reload") {
                 },
                 body: formData
             }).then(response => response.json()).then((data) => {
-                if(data.status == "OK") {
-                    if(redirectUrl === "reload") {
+                if (data.status == "OK") {
+                    if (redirectUrl === "reload") {
                         location.reload();
                     } else {
                         location = redirectUrl;
                     }
                 } else {
                     var errMsg = errorCodeToMsg(data.status);
-                    alert("Error deleting table: "+tableName+" "+errMsg+" ("+JSON.stringify(data)+")");
+                    alert("Error deleting table: " + tableName + " " + errMsg + " (" + JSON.stringify(data) + ")");
                 }
             });
         }
@@ -96,15 +96,15 @@ function setKey(tableName, keyName, value, redirectUrl = "reload") {
             },
             body: formData
         }).then(response => response.json()).then((data) => {
-            if(data.status == "OK") {
-                if(redirectUrl === "reload") {
+            if (data.status == "OK") {
+                if (redirectUrl === "reload") {
                     location.reload();
                 } else {
                     location = redirectUrl;
                 }
             } else {
                 var errMsg = errorCodeToMsg(data.status);
-                alert("Error seting key: "+tableName+" "+errMsg+" ("+JSON.stringify(data)+")");
+                alert("Error seting key: " + tableName + " " + errMsg + " (" + JSON.stringify(data) + ")");
             }
         });
     }
@@ -113,12 +113,12 @@ function setKey(tableName, keyName, value, redirectUrl = "reload") {
 /* page content */
 
 function createTable1D(parentElement, tableName, data) {
-	parentElement.innerHTML = "";
+    parentElement.innerHTML = "";
     var tables = document.createElement('table');
     var tableHeader = document.createElement('th');
     tableHeader.appendChild(document.createTextNode(tableName));
     tables.appendChild(tableHeader);
-    for(var i = 0; i <= data.length-1; i++) {
+    for (var i = 0; i <= data.length - 1; i++) {
         var key = data[i];
         var row = document.createElement('tr');
         var cell = document.createElement('td');
@@ -175,10 +175,10 @@ function updateNavTabs(page) {
         tabInfo = navTabsInfo[i];
         var tab = document.createElement("a");
         tab.setAttribute("class", "nav-tab");
-        if(tabInfo.page === page) {
+        if (tabInfo.page === page) {
             tab.classList.add("active");
         }
-        tab.setAttribute("href", tabInfo.href+"?name="+getAllUrlParams().name);
+        tab.setAttribute("href", tabInfo.href + "?name=" + getAllUrlParams().name);
         tab.appendChild(document.createTextNode(tabInfo.name));
         tabs.appendChild(tab);
     }
@@ -188,12 +188,12 @@ function updateNavTabs(page) {
 function updateTree() {
     var currentTable = getAllUrlParams().name;
     fetch("/api/hdata/gettables").then(response => response.json()).then((data) => {
-        if(data.status !== "OK") {
-            console.log("Could not load table tree: "+data.status+" ("+errorCodeToMsg(data.status)+")");
+        if (data.status !== "OK") {
+            console.log("Could not load table tree: " + data.status + " (" + errorCodeToMsg(data.status) + ")");
         }
         $("navTree").innerHTML = "";
         var treeRoot = document.createElement("div");
-        if(typeof page !== 'undefined' && page == 'tables') {
+        if (typeof page !== 'undefined' && page == 'tables') {
             treeRoot.setAttribute("class", "tree-item active");
         } else {
             treeRoot.setAttribute("class", "tree-item");
@@ -219,15 +219,15 @@ function updateTree() {
         $("navTree").appendChild(treeRoot);
         var treeItems = document.createElement("div");
         treeItems.setAttribute("class", "tree-items");
-        for(var i = 0; i <= data.value.length-1; i++) {
+        for (var i = 0; i <= data.value.length - 1; i++) {
             var tableName = data.value[i];
             var treeItem = document.createElement("div");
-            if(currentTable === tableName) {
+            if (currentTable === tableName) {
                 treeItem.setAttribute("class", "tree-item active");
             } else {
                 treeItem.setAttribute("class", "tree-item");
             }
-            treeItem.setAttribute("onclick", 'goToTable("'+tableName+'")');
+            treeItem.setAttribute("onclick", 'goToTable("' + tableName + '")');
             treeItem.appendChild(document.createTextNode(tableName));
             treeItems.appendChild(treeItem);
         }
@@ -241,46 +241,46 @@ var serverInfo;
 
 function updateInfo() {
     fetch("/api/info")
-    .then(response => response.json())
-    .then((data) => {
-        var serverHost = data["connectionInfo"]["host"] + ":" + data["connectionInfo"]["port"];
-        $("serverHost").textContent = serverHost;
-        if(typeof page !== 'undefined' && page == 'home') {
-            $("hdmaVersion").textContent = data["hdmaVersion"];
-            $("databaseInfo").innerHTML =
-            "<li>Server: " +
-            data["connectionInfo"]["host"] +
-            " on port " +
-            data["connectionInfo"]["port"] +
-            "</li>" +
-            "<li>Server type: HData</li>" +
-            "<li>HData version: " +
-            serverInfo.version +
-            "</li>" +
-            "<li>Number of tables: " +
-            serverInfo.tables +
-            "</li>" +
-            "<li>User: <span id=\"loggedInUser\">" +
-            loggedInUser +
-            "</span>@" +
-            data["connectionInfo"]["host"] +
-            "</li>"
-            ;
-        }
-    });
+        .then(response => response.json())
+        .then((data) => {
+            var serverHost = data["connectionInfo"]["host"] + ":" + data["connectionInfo"]["port"];
+            $("serverHost").textContent = serverHost;
+            if (typeof page !== 'undefined' && page == 'home') {
+                $("hdmaVersion").textContent = data["hdmaVersion"];
+                $("databaseInfo").innerHTML =
+                    "<li>Server: " +
+                    data["connectionInfo"]["host"] +
+                    " on port " +
+                    data["connectionInfo"]["port"] +
+                    "</li>" +
+                    "<li>Server type: HData</li>" +
+                    "<li>HData version: " +
+                    serverInfo.version +
+                    "</li>" +
+                    "<li>Number of tables: " +
+                    serverInfo.tables +
+                    "</li>" +
+                    "<li>User: <span id=\"loggedInUser\">" +
+                    loggedInUser +
+                    "</span>@" +
+                    data["connectionInfo"]["host"] +
+                    "</li>"
+                    ;
+            }
+        });
 }
 
 function updateServerInfo(data) {
     serverInfo = data;
     var html = '<span class="material-icons icon txt-red">link_off</span>&nbsp;<span>Server not connected</span>';
-    if(serverInfo.status == 'OK') {
+    if (serverInfo.status == 'OK') {
         html = '<span class="material-icons icon">link</span>&nbsp;<span>Server:&nbsp;</span> <span id="serverHost">localhost:8888</span>';
     }
     $("serverInfo").title = JSON.stringify(serverInfo);
     $("serverInfo").innerHTML = html;
     try {
         updateInfo();
-    } catch (err) {}
+    } catch (err) { }
 }
 
 fetch("/api/hdata/status").then(response => response.json()).then(data => updateServerInfo(data));

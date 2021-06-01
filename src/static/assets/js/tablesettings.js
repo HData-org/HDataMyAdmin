@@ -6,7 +6,7 @@ document.title = tableName + " - Operations - HDataMyAdmin";
 $("tableName").setAttribute("placeholder", tableName);
 
 function tableAction(action) {
-    if(action === "delete") {
+    if (action === "delete") {
         deleteTable(tableName, "./tables.html");
     }
 }

@@ -12,5 +12,5 @@ $("setKeyForm").onsubmit = (e) => {
     let tableName = form.elements['tableName'].value;
     let keyName = form.elements['keyName'].value;
     let value = form.elements['value'].value;
-    setKey(tableName, keyName, value, "./table.html?name="+tableName);
+    setKey(tableName, keyName, value, "./table.html?name=" + tableName);
 }

@@ -1,7 +1,7 @@
 fetch("/api/hdata/gettables").then(response => response.json()).then((data) => {
-    if(data.status !== "OK") {
+    if (data.status !== "OK") {
         $("tableError").style.display = "block";
-        $("tableErrorText").textContent = "Could not load tables: "+data.status+" ("+errorCodeToMsg(data.status)+")";
+        $("tableErrorText").textContent = "Could not load tables: " + data.status + " (" + errorCodeToMsg(data.status) + ")";
     }
     $("tables").innerHTML = "";
     var tables = document.createElement("table");
@@ -18,7 +18,7 @@ fetch("/api/hdata/gettables").then(response => response.json()).then((data) => {
         var row = document.createElement("tr");
         var cell = document.createElement("td");
         var name = document.createElement("a");
-        name.setAttribute("href", "./table.html?name="+tableName);
+        name.setAttribute("href", "./table.html?name=" + tableName);
         name.setAttribute("class", "txt-bold");
         name.appendChild(document.createTextNode(tableName));
         cell.appendChild(name);
@@ -48,7 +48,7 @@ fetch("/api/hdata/gettables").then(response => response.json()).then((data) => {
                 "class": "trash",
                 "icon": "delete",
                 "href": "#",
-                "onclick": "deleteTable(\""+tableName+"\")"
+                "onclick": "deleteTable(\"" + tableName + "\")"
             }
         };
         cell = document.createElement("td");
@@ -56,11 +56,11 @@ fetch("/api/hdata/gettables").then(response => response.json()).then((data) => {
         for (var a = 0; a < Object.keys(actionsJson).length; a++) {
             var actionInfo = actionsJson[a];
             var action = document.createElement("a");
-            action.setAttribute("href", actionInfo.href+'?name='+tableName);
-            if(actionInfo.onclick !== undefined) {
+            action.setAttribute("href", actionInfo.href + '?name=' + tableName);
+            if (actionInfo.onclick !== undefined) {
                 action.setAttribute("onclick", actionInfo.onclick);
             }
-            action.setAttribute("class", "flex-center "+actionInfo.class);
+            action.setAttribute("class", "flex-center " + actionInfo.class);
             var actionIcon = document.createElement("span");
             actionIcon.setAttribute("class", "material-icons icon");
             actionIcon.appendChild(document.createTextNode(actionInfo.icon));

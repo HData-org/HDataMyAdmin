@@ -1,17 +1,17 @@
 function getUser(currentUser) {
-    fetch("/api/hdata/getuser?username="+currentUser).then(response => response.json()).then((data) => {
-        if(data.status !== "OK") {
+    fetch("/api/hdata/getuser?username=" + currentUser).then(response => response.json()).then((data) => {
+        if (data.status !== "OK") {
             $("tableError").style.display = "block";
-            $("tableErrorText").textContent = "Could not load users: "+data.status+" ("+errorCodeToMsg(data.status)+")";
+            $("tableErrorText").textContent = "Could not load users: " + data.status + " (" + errorCodeToMsg(data.status) + ")";
         }
         $("usersTable").innerHTML = "";
         console.log(data);
         var tableData = data.value;
         var tables = document.createElement("table");
         var tableHeader = document.createElement("tr");
-        /* table headers */       
+        /* table headers */
         var tableHeaders = ["Username", "Permissions", "Tables", "Action"];
-        for(var t = 0; t < tableHeaders.length; t++) {
+        for (var t = 0; t < tableHeaders.length; t++) {
             var tableHeaderTitle = tableHeaders[t];
             console.log(tableHeaderTitle);
             var tableHeaderRow = document.createElement("th");
@@ -23,7 +23,7 @@ function getUser(currentUser) {
         var row = document.createElement("tr");
         var cell = document.createElement("td");
         var name = document.createElement("span");
-        name.appendChild(document.createTextNode(user+" (You)"));
+        name.appendChild(document.createTextNode(user + " (You)"));
         name.setAttribute("class", "txt-bold");
         cell.appendChild(name);
         row.appendChild(cell);
@@ -46,7 +46,7 @@ function getUser(currentUser) {
             var userTableName = tableData.tables[t];
             var userTable = document.createElement("a");
             userTable.setAttribute("class", "label");
-            userTable.setAttribute("href", "./table.html?name="+userTableName);
+            userTable.setAttribute("href", "./table.html?name=" + userTableName);
             userTable.appendChild(document.createTextNode(userTableName));
             userTables.appendChild(userTable);
         }
@@ -58,14 +58,14 @@ function getUser(currentUser) {
                 "name": "Edit",
                 "class": "edit",
                 "icon": "edit",
-                "href": "./userupdate.html?username="+user
+                "href": "./userupdate.html?username=" + user
             },
             1: {
                 "name": "Delete",
                 "class": "trash",
                 "icon": "delete",
                 "href": "#",
-                "onclick": "alert(\"Can not delete user: "+user+"\")"
+                "onclick": "alert(\"Can not delete user: " + user + "\")"
             }
         };
         cell = document.createElement("td");
@@ -73,11 +73,11 @@ function getUser(currentUser) {
         for (var a = 0; a < Object.keys(actionsJson).length; a++) {
             var actionInfo = actionsJson[a];
             var action = document.createElement("a");
-            action.setAttribute("href", actionInfo.href+'?name='+user);
-            if(actionInfo.onclick !== undefined) {
+            action.setAttribute("href", actionInfo.href + '?name=' + user);
+            if (actionInfo.onclick !== undefined) {
                 action.setAttribute("onclick", actionInfo.onclick);
             }
-            action.setAttribute("class", "flex-center "+actionInfo.class);
+            action.setAttribute("class", "flex-center " + actionInfo.class);
             var actionIcon = document.createElement("span");
             actionIcon.setAttribute("class", "material-icons icon");
             actionIcon.appendChild(document.createTextNode(actionInfo.icon));
