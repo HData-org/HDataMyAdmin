@@ -690,6 +690,7 @@ table .icon {
 }
 
 .tree-item {
+	text-decoration: none;
 	display: flex;
 	align-items: center;
 	font-size: 92%;
@@ -702,6 +703,7 @@ table .icon {
 
 .tree-item:hover {
 	background-color: rgba(188, 198, 159, 0.28);
+	color: rgb(74, 75, 72);
 }
 
 .tree-item:active {
