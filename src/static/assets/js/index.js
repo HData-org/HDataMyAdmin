@@ -112,6 +112,15 @@ function setKey(tableName, keyName, value, redirectUrl = "reload") {
 
 /* page content */
 
+function showErrorMsg(id, msg) {
+    $(id).style.display = "block";
+    $(id+"Text").textContent = msg;
+}
+
+function hideErrorMsg(id) {
+    $(id).style.display = "none";
+}
+
 function createTable1D(parentElement, tableName, data) {
     parentElement.innerHTML = "";
     var tables = document.createElement('table');
