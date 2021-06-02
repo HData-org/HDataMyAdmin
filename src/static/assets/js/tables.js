@@ -73,4 +73,6 @@ fetch("/api/hdata/gettables").then(response => response.json()).then((data) => {
         tables.appendChild(row);
     }
     $("tables").appendChild(tables);
+}).catch((error) => {
+    console.log(error);
 });

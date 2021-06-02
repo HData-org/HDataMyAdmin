@@ -14,6 +14,8 @@ fetch("/api/hdata/login").then(response => response.json()).then((json) => {
         console.log("Not logged in, redirecting");
         location = "/login.html";
     }
+}).catch((error) => {
+    console.log(error);
 });
 
 function goToTable(tableName) {
@@ -51,6 +53,9 @@ function newTable(redirectUrl = "browse") {
                 var errMsg = errorCodeToMsg(data.status);
                 alert("Error creating table \"" + tableName + "\": " + errMsg + " (" + JSON.stringify(data) + ")");
             }
+        }).catch((error) => {
+            console.log(error);
+            alert("Error creating table \"" + tableName + "\": " + error);
         });
     }
 }
@@ -78,6 +83,9 @@ function deleteTable(tableName, redirectUrl = "reload") {
                     var errMsg = errorCodeToMsg(data.status);
                     alert("Error deleting table \"" + tableName + "\": " + errMsg + " (" + JSON.stringify(data) + ")");
                 }
+            }).catch((error) => {
+                console.log(error);
+                alert("Error deleting table \"" + tableName + "\": " + error);
             });
         }
     }
@@ -106,6 +114,9 @@ function setKey(tableName, keyName, value, redirectUrl = "reload") {
                 var errMsg = errorCodeToMsg(data.status);
                 alert("Error seting key \"" + keyName + "\": " + errMsg + " (" + JSON.stringify(data) + ")");
             }
+        }).catch((error) => {
+            console.log(error);
+            alert("Error seting key \"" + keyName + "\": " + error);
         });
     }
 }
@@ -241,6 +252,8 @@ function updateTree() {
             treeItems.appendChild(treeItem);
         }
         $("navTree").appendChild(treeItems);
+    }).catch((error) => {
+        console.log(error);
     });
 }
 
@@ -276,6 +289,8 @@ function updateInfo() {
                     "</li>"
                     ;
             }
+        }).catch((error) => {
+            console.log(error);
         });
 }
 
@@ -292,4 +307,4 @@ function updateServerInfo(data) {
     } catch (err) { }
 }
 
-fetch("/api/hdata/status").then(response => response.json()).then(data => updateServerInfo(data));
+fetch("/api/hdata/status").then(response => response.json()).then(data => updateServerInfo(data)).catch((error) => { console.log(error); });

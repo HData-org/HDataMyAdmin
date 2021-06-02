@@ -89,5 +89,8 @@ function getUser(currentUser) {
         }
         tables.appendChild(row);
         $("usersTable").appendChild(tables);
+    }).catch((error) => {
+        console.log(error);
+        showErrorMsg("tableError", "Could not load users: " + error);
     });
 }

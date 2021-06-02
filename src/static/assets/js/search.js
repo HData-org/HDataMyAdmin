@@ -27,6 +27,8 @@ fetch("/api/hdata/gettables").then(response => response.json()).then((data) => {
         select.appendChild(option);
     }
     $("tables").appendChild(select);
+}).catch((error) => {
+    console.log(error);
 });
 
 function showResults(results, type) {
@@ -106,6 +108,7 @@ function search() {
                 showErrorMsg("searchError", "Could not complete search: " + errorCodeToMsg(data.status) + " (" + JSON.stringify(data) + ")");
             }
         }).catch((error) => {
+            console.log(error);
             showErrorMsg("searchError", "Could not complete search: " + error);
         });
     }
