@@ -46,10 +46,11 @@ function showResults(results, type) {
     tableHeader.appendChild(tableHeaderRow);
     table.appendChild(tableHeader);
     for (var i = 0; i < results.length; i++) {
+        var result = results[i];
         var row = document.createElement("tr");
         var cell = document.createElement("td");
         if (type === "queryall") {
-            var tableName = results[i].table;
+            var tableName = result.table;
             var name = document.createElement("a");
             name.setAttribute("href", "./table.html?name=" + tableName);
             name.setAttribute("class", "txt-bold");
@@ -57,6 +58,12 @@ function showResults(results, type) {
             cell.appendChild(name);
             row.appendChild(cell);
         }
+        cell = document.createElement("td");
+        cell.appendChild(document.createTextNode(result.key));
+        row.appendChild(cell);
+        cell = document.createElement("td");
+        cell.appendChild(document.createTextNode(result.value));
+        row.appendChild(cell);
         table.appendChild(row);
     }
     return table;
@@ -90,17 +97,16 @@ function search() {
             body: formData
         }).then(response => response.json()).then((data) => {
             if (data.status == "OK") {
-                $("searchError").style.display = "none";
+                hideErrorMsg("searchError");
                 var searchResults = data.matches;
                 console.log(searchResults);
                 $("searchResults").innerHTML = "";
                 $("searchResults").appendChild(showResults(searchResults, queryType));
             } else {
-                $("searchError").style.display = "block";
-                $("searchErrorText").textContent = "Could not complete search: " + data.status + " (" + errorCodeToMsg(data.status) + ")";
+                showErrorMsg("searchError", "Could not complete search: " + errorCodeToMsg(data.status) + " (" + data.status + ")");
             }
         }).catch((error) => {
-            alert(error);
+            showErrorMsg("searchError", "Could not complete search: " + error);
         });
     }
 }
