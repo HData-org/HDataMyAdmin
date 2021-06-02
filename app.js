@@ -23,7 +23,7 @@ const hdmaVersion = "0.0.1a"
 var connectionInfo
 
 function errorCodeToMsg(code) {
-	switch(code) {
+	switch (code) {
 		case 'OK':
 			return 'All good, no errors'
 		case 'NLI':
@@ -47,12 +47,12 @@ function errorCodeToMsg(code) {
 		case 'EVERR':
 			return 'Evaluation error (error with evaluator when querying)'
 		default:
-			return 'Unknown error ('+code+')'
+			return 'Unknown error (' + code + ')'
 	}
 }
 
 function HDstatus() {
-	conn.status( (res, err) => {
+	conn.status((res, err) => {
 		if (!err) {
 			var response = `\n\rHData Server has the status: ${res.status}, and has ${res.jobs} pending jobs. ${res.tables} tables exist in the database.`
 			console.log(response)
@@ -63,8 +63,8 @@ function HDstatus() {
 }
 
 function connectTo(host, port) {
-	if(host == '' || host == undefined) { host = "127.0.0.1" }
-	if(port == '' || port == undefined) { port = "8888" }
+	if (host == '' || host == undefined) { host = "127.0.0.1" }
+	if (port == '' || port == undefined) { port = "8888" }
 	console.log(`Connecting to HData Server at ${host} on port ${port}...`)
 	var options = {
 		"host": host,
@@ -104,8 +104,8 @@ app.all('/api/*', (req, res, next) => {
 
 app.get('/api/info', (req, res) => {
 	var data = {
-		"hdmaVersion" : hdmaVersion,
-		"connectionInfo" : connectionInfo
+		"hdmaVersion": hdmaVersion,
+		"connectionInfo": connectionInfo
 	};
 	res.json(data);
 })
@@ -130,13 +130,13 @@ app.post('/api/hdata/login', (req, res) => {
 				req.session.login.auth = true
 				req.session.login.username = user
 				console.log(`Logged in as ${user}!`)
-				if(req.session.login.auth) {
+				if (req.session.login.auth) {
 					res.redirect("/")
 				}
 			} else {
 				clearSessionAuth(req)
 				console.log("Invalid username or password")
-				res.redirect("/login.html?error="+data.status)
+				res.redirect("/login.html?error=" + data.status)
 			}
 		} else {
 			console.log(err)
@@ -148,10 +148,10 @@ app.post('/api/hdata/login', (req, res) => {
 app.get('/api/hdata/logout', (req, res) => {
 	clearSessionAuth(req)
 	conn.logout((data, err) => {
-		if(!err) {
-			if(data.status == "OK") {
+		if (!err) {
+			if (data.status == "OK") {
 				console.log("Successfully logged out")
-			} else if(data.status == "NLI") {
+			} else if (data.status == "NLI") {
 				console.log("You need to be logged in to logout")
 			} else {
 				console.log(data)
@@ -167,10 +167,10 @@ app.get('/api/hdata/logout', (req, res) => {
 // needs to be logged in //
 
 app.all('/api/hdata/*', (req, res, next) => {
-	if(req.session.login.auth && req.session.login.auth !== '') {
+	if (req.session.login.auth && req.session.login.auth !== '') {
 		conn.getUser(req.session.login.username, (data, err) => {
-			if(!err) {
-				if(data.status == "NLI") {
+			if (!err) {
+				if (data.status == "NLI") {
 					clearSessionAuth(req)
 					console.log("Corrected auth sess: " + data.status)
 				}
@@ -178,7 +178,7 @@ app.all('/api/hdata/*', (req, res, next) => {
 				console.log(err)
 				res.send(err)
 			}
-			if(req.session.login.auth) {
+			if (req.session.login.auth) {
 				next()
 			} else {
 				res.json(req.session.login)
@@ -198,17 +198,17 @@ app.post('/api/hdata/createuser', (req, res) => {
 	var password = req.body.password
 	var retypePassword = req.body.retypePassword
 	var permissions = req.body.permissions
-	if(password !== retypePassword) {
+	if (password !== retypePassword) {
 		res.redirect("/newuser.html?error=PDNM")
 	} else {
 		conn.createUser(username, password, permissions, (data, err) => {
-			if(!err) {
+			if (!err) {
 				if (data.status == "OK") {
 					console.log("User created!")
 					res.redirect("/users.html")
 				} else {
-					console.log("Insufficient permissions")
-					res.redirect("/newuser.html?error="+data.status)
+					console.log("Creation of new user " + username + " failed: " + errorCodeToMsg(data.status))
+					res.redirect("/newuser.html?error=" + data.status)
 				}
 			} else {
 				console.log(err)
@@ -233,17 +233,18 @@ app.get('/api/hdata/getuser', (req, res) => {
 app.post('/api/hdata/updatepassword', (req, res) => {
 	var password = req.body.newPassword
 	var retypePassword = req.body.retypePassword
-	if(password !== retypePassword) {
+	var username = req.session.login.username
+	if (password !== retypePassword) {
 		res.redirect("/changepassword.html?error=PDNM")
 	} else {
-		conn.updatePassword(req.session.login.username, password, (data, err) => {
-			if(!err) {
+		conn.updatePassword(username, password, (data, err) => {
+			if (!err) {
 				if (data.status == "OK") {
-					console.log("Password updated!")
+					console.log("Password for user " + username + " updated!")
 					res.redirect("/")
 				} else {
-					console.log("Insufficient permissions")
-					res.redirect("/changepassword.html?error="+data.status)
+					console.log("Password update for user " + username + " failed: " + errorCodeToMsg(data.status))
+					res.redirect("/changepassword.html?error=" + data.status)
 				}
 			} else {
 				console.log(err)
@@ -270,7 +271,7 @@ app.get('/api/hdata/queryall', (req, res) => {
 		if (!err) {
 			res.json(data)
 		} else {
-			console.log(err);
+			console.log(err)
 			res.send(err)
 		}
 	})
@@ -282,7 +283,7 @@ app.post('/api/hdata/queryall', (req, res) => {
 		if (!err) {
 			res.json(data)
 		} else {
-			console.log(err);
+			console.log(err)
 			res.send(err)
 		}
 	})
@@ -292,7 +293,7 @@ app.post('/api/hdata/queryall', (req, res) => {
 
 app.get("/api/hdata/*", (req, res, next) => {
 	var tableName = req.query.tableName
-	if(tableName === undefined || tableName == "") {
+	if (tableName === undefined || tableName == "") {
 		res.json({ "status": "TDNE" })
 	} else {
 		next()
@@ -301,7 +302,7 @@ app.get("/api/hdata/*", (req, res, next) => {
 
 app.post("/api/hdata/*", (req, res, next) => {
 	var tableName = req.body.tableName
-	if(tableName === undefined || tableName == "") {
+	if (tableName === undefined || tableName == "") {
 		res.json({ "status": "TDNE" })
 	} else {
 		next()
@@ -315,7 +316,7 @@ app.get('/api/hdata/querytable', (req, res) => {
 		if (!err) {
 			res.json(data)
 		} else {
-			console.log(err);
+			console.log(err)
 			res.send(err)
 		}
 	})
@@ -328,7 +329,7 @@ app.post('/api/hdata/querytable', (req, res) => {
 		if (!err) {
 			res.json(data)
 		} else {
-			console.log(err);
+			console.log(err)
 			res.send(err)
 		}
 	})
@@ -339,11 +340,11 @@ app.post('/api/hdata/createtable', (req, res) => {
 	conn.createTable(tableName, (data, err) => {
 		if (!err) {
 			if (data.status == "OK") {
-				console.log("Table "+tableName+" created!");
-				res.json(data);
+				console.log("Table " + tableName + " created!")
+				res.json(data)
 			} else {
-				console.log(data)
-				res.send(data)
+				console.log("Table creation failed: " + errorCodeToMsg(data.status))
+				res.json(data)
 			}
 		} else {
 			console.log(err)
@@ -356,8 +357,13 @@ app.post('/api/hdata/deletetable', (req, res) => {
 	var tableName = req.body.tableName
 	conn.deleteTable(tableName, (data, err) => {
 		if (!err) {
-			console.log("Table "+tableName+" deleted!");
-			res.json(data)
+			if (data.status == "OK") {
+				console.log("Table " + tableName + " deleted!")
+				res.json(data)
+			} else {
+				console.log("Table deletion for " + tableName + " failed: " + errorCodeToMsg(data.status))
+				res.json(data)
+			}
 		} else {
 			console.log(err)
 			res.send(err)
@@ -385,14 +391,15 @@ app.post('/api/hdata/setkey', (req, res) => {
 	conn.setKey(tableName, keyName, value, (data, err) => {
 		if (!err) {
 			if (data.status == "OK") {
-				console.log("Key "+keyName+" for table "+tableName+" created!");
-				res.json(data);
+				console.log("Key " + keyName + " in table " + tableName + " created!")
+				res.json(data)
 			} else {
-				console.log(data)
-				res.send(data)
+				console.log("Key creation for " + keyName + " in table " + tableName + " failed: " + errorCodeToMsg(data.status))
+				res.json(data)
 			}
 		} else {
 			console.log(err)
+			res.send(err)
 		}
 	})
 })
@@ -400,18 +407,18 @@ app.post('/api/hdata/setkey', (req, res) => {
 app.post('/api/hdata/deletekey', (req, res) => {
 	var tableName = req.body.tableName
 	var keyName = req.body.keyName
-	conn.deleteKey(tableName, keyName, (data,err) => {
+	conn.deleteKey(tableName, keyName, (data, err) => {
 		if (!err) {
 			if (res.status == "OK") {
-				console.log("Key "+keyName+" in "+tableName+" deleted!");
-				res.json(data);
+				console.log("Key " + keyName + " in " + tableName + " deleted!")
+				res.json(data)
 			} else {
-				console.log(data);
-				res.json(data);
+				console.log("Key deletion for " + keyName + " in " + tableName + " failed: " + errorCodeToMsg(data.status))
+				res.json(data)
 			}
 		} else {
-			console.log(err);
-			res.json(err);
+			console.log(err)
+			res.send(err)
 		}
 	})
 })
@@ -431,6 +438,6 @@ app.get('/api/hdata/tablekeys', (req, res) => {
 app.use('/', express.static(path.join(__dirname, 'src/static/')))
 
 app.listen(config.app.port, () => {
-	console.log('HDataMyAdmin listening at http://localhost:%s', config.app.port);
+	console.log('HDataMyAdmin listening at http://localhost:%s', config.app.port)
 	connectTo(config.hdata.host, config.hdata.port)
 })

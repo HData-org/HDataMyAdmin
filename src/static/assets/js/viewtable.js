@@ -7,8 +7,7 @@ $("tableTitle").textContent = tableName;
 
 fetch("/api/hdata/tablekeys?tableName=" + tableName).then(response => response.json()).then((data) => {
     if (data.status !== "OK") {
-        $("tableError").style.display = "block";
-        $("tableErrorText").textContent = "Could not load table: " + data.status + " (" + errorCodeToMsg(data.status) + ")";
+        showErrorMsg("tableError", "Could not load table: " + errorCodeToMsg(data.status) + " (" + data.status + ")");
     }
     createTable1D($("table"), "Key", data.keys);
 });

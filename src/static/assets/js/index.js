@@ -49,7 +49,7 @@ function newTable(redirectUrl = "browse") {
                 }
             } else {
                 var errMsg = errorCodeToMsg(data.status);
-                alert("Error creating table: " + tableName + " " + errMsg + " (" + JSON.stringify(data) + ")");
+                alert("Error creating table \"" + tableName + "\": " + errMsg + " (" + JSON.stringify(data) + ")");
             }
         });
     }
@@ -76,7 +76,7 @@ function deleteTable(tableName, redirectUrl = "reload") {
                     }
                 } else {
                     var errMsg = errorCodeToMsg(data.status);
-                    alert("Error deleting table: " + tableName + " " + errMsg + " (" + JSON.stringify(data) + ")");
+                    alert("Error deleting table \"" + tableName + "\": " + errMsg + " (" + JSON.stringify(data) + ")");
                 }
             });
         }
@@ -104,7 +104,7 @@ function setKey(tableName, keyName, value, redirectUrl = "reload") {
                 }
             } else {
                 var errMsg = errorCodeToMsg(data.status);
-                alert("Error seting key: " + tableName + " " + errMsg + " (" + JSON.stringify(data) + ")");
+                alert("Error seting key \"" + keyName + "\": " + errMsg + " (" + JSON.stringify(data) + ")");
             }
         });
     }
@@ -114,7 +114,7 @@ function setKey(tableName, keyName, value, redirectUrl = "reload") {
 
 function showErrorMsg(id, msg) {
     $(id).style.display = "block";
-    $(id+"Text").textContent = msg;
+    $(id + "Text").textContent = msg;
 }
 
 function hideErrorMsg(id) {

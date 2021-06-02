@@ -1,8 +1,7 @@
 function getUser(currentUser) {
     fetch("/api/hdata/getuser?username=" + currentUser).then(response => response.json()).then((data) => {
         if (data.status !== "OK") {
-            $("tableError").style.display = "block";
-            $("tableErrorText").textContent = "Could not load users: " + data.status + " (" + errorCodeToMsg(data.status) + ")";
+            showErrorMsg("tableError", "Could not load users: " + errorCodeToMsg(data.status) + " (" + data.status + ")");
         }
         $("usersTable").innerHTML = "";
         console.log(data);
