@@ -47,6 +47,28 @@ function errorCodeToMsg(code) {
 	}
 }
 
+function base64ToArrayBuffer(_base64Str) {
+	var binaryString = window.atob(_base64Str);
+	var binaryLen = binaryString.length;
+	var bytes = new Uint8Array(binaryLen);
+	for (var i = 0; i < binaryLen; i++) {
+		var ascii = binaryString.charCodeAt(i);
+		bytes[i] = ascii;
+	}
+	return bytes;
+}
+
+function showDocument(_base64Str, _contentType) {
+	var byte = base64ToArrayBuffer(_base64Str);
+	var blob = new Blob([byte], { type: _contentType });
+	window.open(URL.createObjectURL(blob), "_blank");
+}
+
+function exportJson(json) {
+	console.log(json);
+	showDocument(btoa(JSON.stringify(json)), "text/plain");
+}
+
 if (localStorage.getItem == undefined || localStorage.getItem == '') {
 	localStorage.setItem("menuState", 1);
 }

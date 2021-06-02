@@ -72,6 +72,19 @@ fetch("/api/hdata/gettables").then(response => response.json()).then((data) => {
         }
         tables.appendChild(row);
     }
+    row = document.createElement("tr");
+    row.setAttribute("class", "tb-footer");
+    cell = document.createElement("td");
+    cell.appendChild(document.createTextNode(i + " Tables(s)"));
+    row.appendChild(cell);
+    cell = document.createElement("td");
+    cell.setAttribute("class", "txt-right");
+    var link = document.createElement("a");
+    link.setAttribute("onclick", "exportJson(" + JSON.stringify(data.value) + ")");
+    link.appendChild(document.createTextNode("Show JSON"));
+    cell.appendChild(link);
+    row.appendChild(cell);
+    tables.appendChild(row);
     $("tables").appendChild(tables);
 }).catch((error) => {
     console.log(error);

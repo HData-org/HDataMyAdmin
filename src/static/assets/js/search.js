@@ -68,6 +68,23 @@ function showResults(results, type) {
         row.appendChild(cell);
         table.appendChild(row);
     }
+    row = document.createElement("tr");
+    row.setAttribute("class", "tb-footer");
+    cell = document.createElement("td");
+    cell.setAttribute("colspan", 1);
+    if (type === "queryall") {
+        cell.setAttribute("colspan", 2);
+    }
+    cell.appendChild(document.createTextNode(i + " Result(s)"));
+    row.appendChild(cell);
+    cell = document.createElement("td");
+    cell.setAttribute("class", "txt-right");
+    var link = document.createElement("a");
+    link.setAttribute("onclick", "exportJson(" + JSON.stringify(results) + ")");
+    link.appendChild(document.createTextNode("Show JSON"));
+    cell.appendChild(link);
+    row.appendChild(cell);
+    table.appendChild(row);
     return table;
 }
 
