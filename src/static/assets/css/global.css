@@ -586,6 +586,7 @@ table .icon {
 	padding: 2px 4px;
 	background-color: rgba(225, 228, 220, 0.9);
 	border-radius: 2px;
+	margin: 1px 0;
 }
 
 .label:not(:last-child) {
