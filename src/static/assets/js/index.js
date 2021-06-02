@@ -198,7 +198,7 @@ function updateTree() {
     var currentTable = getAllUrlParams().name;
     fetch("/api/hdata/gettables").then(response => response.json()).then((data) => {
         if (data.status !== "OK") {
-            console.log("Could not load table tree: " + data.status + " (" + errorCodeToMsg(data.status) + ")");
+            console.log("Could not load table tree: " + errorCodeToMsg(data.status) + " (" + JSON.stringify(data) + ")");
         }
         $("navTree").innerHTML = "";
         var treeRoot = document.createElement("div");

@@ -6,7 +6,7 @@ if (typeof tableName !== 'undefined') {
 
 fetch("/api/hdata/gettables").then(response => response.json()).then((data) => {
     if (data.status !== "OK") {
-        console.log("Could not load tables: " + data.status + " (" + errorCodeToMsg(data.status) + ")");
+        console.log("Could not load tables: " + errorCodeToMsg(data.status) + " (" + JSON.stringify(data) + ")");
     }
     $("tables").innerHTML = "";
     var select = document.createElement("select");
@@ -103,7 +103,7 @@ function search() {
                 $("searchResults").innerHTML = "";
                 $("searchResults").appendChild(showResults(searchResults, queryType));
             } else {
-                showErrorMsg("searchError", "Could not complete search: " + errorCodeToMsg(data.status) + " (" + data.status + ")");
+                showErrorMsg("searchError", "Could not complete search: " + errorCodeToMsg(data.status) + " (" + JSON.stringify(data) + ")");
             }
         }).catch((error) => {
             showErrorMsg("searchError", "Could not complete search: " + error);

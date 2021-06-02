@@ -1,6 +1,6 @@
 fetch("/api/hdata/gettables").then(response => response.json()).then((data) => {
     if (data.status !== "OK") {
-        showErrorMsg("tableError", "Could not load tables: " + errorCodeToMsg(data.status) + " (" + data.status + ")");
+        showErrorMsg("tableError", "Could not load tables: " + errorCodeToMsg(data.status) + " (" + JSON.stringify(data) + ")");
     }
     $("tables").innerHTML = "";
     var tables = document.createElement("table");
