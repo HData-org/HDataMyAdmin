@@ -167,21 +167,25 @@ function updateNavTabs(page) {
     var navTabsInfo = {
         0: {
             "name": "Browse",
+            "icon": "view_list",
             "page": "table",
             "href": "./table.html"
         },
         1: {
             "name": "Search",
+            "icon": "search",
             "page": "search",
             "href": "./search.html"
         },
         2: {
             "name": "Set Key",
+            "icon": "vpn_key",
             "page": "setkey",
             "href": "./setkey.html"
         },
         3: {
             "name": "Operations",
+            "icon": "build",
             "page": "operations",
             "href": "./tablesettings.html"
         }
@@ -199,6 +203,12 @@ function updateNavTabs(page) {
             tab.classList.add("active");
         }
         tab.setAttribute("href", tabInfo.href + "?name=" + getAllUrlParams().name);
+        if(tabInfo.icon !== undefined) {
+            var icon = document.createElement("span");
+            icon.setAttribute("class", "material-icons icon");
+            icon.appendChild(document.createTextNode(tabInfo.icon));
+            tab.appendChild(icon);
+        }
         tab.appendChild(document.createTextNode(tabInfo.name));
         tabs.appendChild(tab);
     }

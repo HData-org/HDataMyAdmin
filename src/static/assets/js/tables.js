@@ -26,26 +26,26 @@ fetch("/api/hdata/gettables").then(response => response.json()).then((data) => {
         var actionsJson = {
             0: {
                 "name": "Browse",
-                "class": "browse",
                 "icon": "view_list",
+                "class": "browse",
                 "href": "./table.html"
             },
             1: {
                 "name": "Set Key",
-                "class": "setkey",
                 "icon": "vpn_key",
+                "class": "setkey",
                 "href": "./setkey.html"
             },
             2: {
                 "name": "Operations",
-                "class": "operations",
                 "icon": "build",
+                "class": "operations",
                 "href": "./tablesettings.html"
             },
             3: {
                 "name": "Delete",
-                "class": "trash",
                 "icon": "delete",
+                "class": "trash",
                 "href": "#",
                 "onclick": "deleteTable(\"" + tableName + "\")"
             }
