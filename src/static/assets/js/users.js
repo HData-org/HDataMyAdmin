@@ -1,3 +1,12 @@
+var breadcrumbsInfo = {
+    0: {
+        "name": "User Accounts",
+        "icon": "group",
+        "href": "./users.html"
+    }
+}
+updateBreadcrumbs(breadcrumbsInfo);
+
 function getUser(currentUser) {
     fetch("/api/hdata/getuser?username=" + currentUser).then(response => response.json()).then((data) => {
         if (data.status !== "OK") {
@@ -12,7 +21,6 @@ function getUser(currentUser) {
         var tableHeaders = ["Username", "Permissions", "Tables", "Action"];
         for (var t = 0; t < tableHeaders.length; t++) {
             var tableHeaderTitle = tableHeaders[t];
-            console.log(tableHeaderTitle);
             var tableHeaderRow = document.createElement("th");
             tableHeaderRow.appendChild(document.createTextNode(tableHeaderTitle));
             tableHeader.appendChild(tableHeaderRow);

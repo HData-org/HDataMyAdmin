@@ -15,6 +15,15 @@ if (typeof tableName !== 'undefined') {
         }
     }
     updateBreadcrumbs(breadcrumbsInfo);
+} else {
+    var breadcrumbsInfo = {
+        0: {
+            "name": "Search",
+            "icon": "search",
+            "href": "./search.html"
+        },
+    }
+    updateBreadcrumbs(breadcrumbsInfo);
 }
 
 fetch("/api/hdata/gettables").then(response => response.json()).then((data) => {
