@@ -65,7 +65,7 @@ function getUser(currentUser) {
                 "name": "Edit",
                 "class": "edit",
                 "icon": "edit",
-                "href": "./userupdate.html?username=" + user
+                "href": "./changepassword.html"
             },
             1: {
                 "name": "Delete",

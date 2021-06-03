@@ -231,9 +231,12 @@ app.get('/api/hdata/getuser', (req, res) => {
 })
 
 app.post('/api/hdata/updatepassword', (req, res) => {
+	var username = req.body.username
+	if (username == "" || username === undefined) {
+		username = req.session.login.username
+	}
 	var password = req.body.newPassword
 	var retypePassword = req.body.retypePassword
-	var username = req.session.login.username
 	if (password !== retypePassword) {
 		res.redirect("/changepassword.html?error=PDNM")
 	} else {
