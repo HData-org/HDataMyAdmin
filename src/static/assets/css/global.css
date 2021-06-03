@@ -606,6 +606,10 @@ table .icon {
 	margin-left: 0.5rem;
 }
 
+.actions .icon {
+	margin-right: 0.15rem;
+}
+
 .browse:hover {
 	color: rgb(121, 191, 231);
 }
@@ -788,7 +792,7 @@ table .icon {
     text-decoration: none;
 }
 
-a:hover span:not(.material-icons) {
+.topbar .server-info a:hover span:not(.material-icons) {
 	text-decoration: underline;
 }
 
