@@ -1,6 +1,6 @@
 var breadcrumbsInfo = {
     0: {
-        "name": "User Accounts",
+        "name": "User accounts",
         "icon": "group",
         "href": "./users.html"
     }

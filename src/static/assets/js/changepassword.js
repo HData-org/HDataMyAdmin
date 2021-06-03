@@ -1,5 +1,10 @@
 var breadcrumbsInfo = {
     0: {
+        "name": "User accounts",
+        "icon": "group",
+        "href": "./users.html"
+    },
+    1: {
         "name": "Change password",
         "icon": "password",
         "href": "./changepassword.html"
