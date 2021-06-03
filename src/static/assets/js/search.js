@@ -2,6 +2,19 @@ var page = "search";
 var tableName = getAllUrlParams().name;
 if (typeof tableName !== 'undefined') {
     updateNavTabs(page);
+    var breadcrumbsInfo = {
+        0: {
+            "name": "Tables",
+            "icon": "table_view",
+            "href": "./tables.html"
+        },
+        1: {
+            "name": tableName,
+            "icon": "view_list",
+            "href": "?name=" + tableName
+        }
+    }
+    updateBreadcrumbs(breadcrumbsInfo);
 }
 
 fetch("/api/hdata/gettables").then(response => response.json()).then((data) => {

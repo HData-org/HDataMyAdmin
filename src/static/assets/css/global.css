@@ -783,12 +783,12 @@ table .icon {
 	color: #595959;
 }
 
-#serverInfo {
+.topbar .server-info a {
 	color: #333432;
-	text-decoration: none;
+    text-decoration: none;
 }
 
-#serverInfo:hover span:not(.material-icons) {
+a:hover span:not(.material-icons) {
 	text-decoration: underline;
 }
 
@@ -798,6 +798,24 @@ table .icon {
 
 .topbar #serverInfo {
 	margin-left: 0.45rem;
+}
+
+.topbar .breadcrumbs {
+	display: flex;
+	align-items: center;
+}
+
+.topbar .breadcrumbs .arrow {
+	margin: 0 0.2rem;
+}
+
+.topbar .breadcrumbs a {
+	display: inline-flex;
+	align-items: center;
+}
+
+.topbar .breadcrumbs a .icon {
+	margin-right: 0.2rem;
 }
 
 .topbar .nav-tabs {

@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HDataMyAdmin</title>
-    <!-- CSS -->
-    <link href="./assets/css/global.css" rel="stylesheet">
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>HDataMyAdmin</title>
+	<!-- CSS -->
+	<link href="./assets/css/global.css" rel="stylesheet">
+	<!-- Fonts -->
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
+
 <body class="with-sidebar">
 
 	<div class="sidebar" id="sidebar">
@@ -24,18 +26,21 @@
 			</div>
 			<div class="nav-links txt-center">
 				<a class="nav-link" href="./" title="Home"><span class="material-icons icon"> home </span></a>
-				<a class="nav-link" href="/api/hdata/logout" title="Logout"><span class="material-icons icon"> logout </span></a>
-				<a class="nav-link" href="./settings.html" title="Settings"><span class="material-icons icon"> settings </span></a>
+				<a class="nav-link" href="/api/hdata/logout" title="Logout"><span class="material-icons icon"> logout
+					</span></a>
+				<a class="nav-link" href="./settings.html" title="Settings"><span class="material-icons icon"> settings
+					</span></a>
 			</div>
 		</div>
 		<div class="nav-tree">
-			<div class="tree-item icon-left" onclick="newTable();"><span class="material-icons"> add_circle </span>New Table</div>
+			<div class="tree-item icon-left" onclick="newTable();"><span class="material-icons"> add_circle </span>New
+				Table</div>
 
 			<div class="tree-items" id="navTree">
 				<div class="m-small"></div>
 				<div class="txt-center">
-                    <div class="loader small"></div>
-                </div>
+					<div class="loader small"></div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -46,24 +51,27 @@
 			<div class="server-info">
 				<div class="topbar-container flex-center">
 					<span class="flex-center">
-						<span class="material-icons" id="menuBtn" onclick="menuBtnClicked()" title="Hide panel"> arrow_left </span>
+						<span class="material-icons" id="menuBtn" onclick="menuBtnClicked()" title="Hide panel">
+							arrow_left </span>
 					</span>
 					<a id="serverInfo" class="flex-center" href="./">
 						<span class="material-icons icon">link_off</span>&nbsp;<span>Server: Loading...</span>
 					</a>
+					<span id="breadcrumbs">
+					</span>
 				</div>
 			</div>
 			<div class="nav-tabs" id="navTabs">
-                <div class="has-shadow"></div>
+				<div class="has-shadow"></div>
 				<a class="nav-tab " href="./tables.html"><span class="material-icons icon">table_view</span>Tables</a>
 				<a class="nav-tab " href="./search.html"><span class="material-icons icon">search</span>Search</a>
 				<a class="nav-tab " href="./users.html"><span class="material-icons icon">group</span>User accounts</a>
 			</div>
 		</div>
 
-        <div class="topbar-height"></div>
+		<div class="topbar-height"></div>
 
-        <main class="container big-container">
+		<main class="container big-container">
 
 			<div class="m-smedium"></div>
 
@@ -77,17 +85,18 @@
 			</div>
 
 			<div id="table">
-                <div class="txt-center">
-                    <div class="loader"></div>
-                </div>
-            </div>
+				<div class="txt-center">
+					<div class="loader"></div>
+				</div>
+			</div>
 
-        </main>
+		</main>
 
 	</div>
 
-    <script src="./assets/js/global.js"></script>
-    <script src="./assets/js/index.js"></script>
-    <script src="./assets/js/viewtable.js"></script>
+	<script src="./assets/js/global.js"></script>
+	<script src="./assets/js/index.js"></script>
+	<script src="./assets/js/viewtable.js"></script>
 </body>
+
 </html>

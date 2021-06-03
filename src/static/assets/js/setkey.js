@@ -6,6 +6,20 @@ document.title = tableName + " - Set Key - HDataMyAdmin";
 
 $('tableName').value = tableName;
 
+var breadcrumbsInfo = {
+    0: {
+        "name": "Tables",
+        "icon": "table_view",
+        "href": "./tables.html"
+    },
+    1: {
+        "name": tableName,
+        "icon": "view_list",
+        "href": "?name=" + tableName
+    }
+}
+updateBreadcrumbs(breadcrumbsInfo);
+
 $("setKeyForm").onsubmit = (e) => {
     var form = $("setKeyForm");
     e.preventDefault();

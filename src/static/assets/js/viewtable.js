@@ -5,6 +5,20 @@ updateNavTabs(page);
 document.title = tableName + " - HDataMyAdmin";
 $("tableTitle").textContent = tableName;
 
+var breadcrumbsInfo = {
+    0: {
+        "name": "Tables",
+        "icon": "table_view",
+        "href": "./tables.html"
+    },
+    1: {
+        "name": tableName,
+        "icon": "view_list",
+        "href": "?name=" + tableName
+    }
+}
+updateBreadcrumbs(breadcrumbsInfo);
+
 fetch("/api/hdata/tablekeys?tableName=" + tableName).then(response => response.json()).then((data) => {
     if (data.status !== "OK") {
         showErrorMsg("tableError", "Could not load table: " + errorCodeToMsg(data.status) + " (" + JSON.stringify(data) + ")");

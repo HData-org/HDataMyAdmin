@@ -1,3 +1,12 @@
+var breadcrumbsInfo = {
+    0: {
+        "name": "Tables",
+        "icon": "table_view",
+        "href": "./tables.html"
+    }
+}
+updateBreadcrumbs(breadcrumbsInfo);
+
 fetch("/api/hdata/gettables").then(response => response.json()).then((data) => {
     if (data.status !== "OK") {
         showErrorMsg("tableError", "Could not load tables: " + errorCodeToMsg(data.status) + " (" + JSON.stringify(data) + ")");
@@ -75,7 +84,7 @@ fetch("/api/hdata/gettables").then(response => response.json()).then((data) => {
     row = document.createElement("tr");
     row.setAttribute("class", "tb-footer");
     cell = document.createElement("td");
-    cell.appendChild(document.createTextNode(i + " Tables(s)"));
+    cell.appendChild(document.createTextNode(i + " Table(s)"));
     row.appendChild(cell);
     cell = document.createElement("td");
     cell.setAttribute("class", "txt-right");

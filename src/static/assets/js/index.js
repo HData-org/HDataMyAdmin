@@ -163,6 +163,32 @@ function createTable2D(array) {
     return table;
 }
 
+function updateBreadcrumbs(breadcrumbsInfo) {
+    $("breadcrumbs").innerHTML = "";
+    var breadcrumbs = document.createElement("span");
+    breadcrumbs.setAttribute("class", "breadcrumbs");
+    for (var i = 0; i < Object.keys(breadcrumbsInfo).length; i++) {
+        var breadcrumbInfo = breadcrumbsInfo[i];
+        var arrow = document.createElement("span");
+        arrow.setAttribute("class", "material-icons icon arrow");
+        arrow.appendChild(document.createTextNode("arrow_right"));
+        breadcrumbs.appendChild(arrow);
+        var breadcrumb = document.createElement("a");
+        if(breadcrumbInfo.href !== undefined) {
+            breadcrumb.setAttribute("href", breadcrumbInfo.href);
+        }
+        var icon = document.createElement("span");
+        icon.setAttribute("class", "material-icons icon");
+        icon.appendChild(document.createTextNode(breadcrumbInfo.icon));
+        var name = document.createElement("span");
+        name.appendChild(document.createTextNode(breadcrumbInfo.name));
+        breadcrumb.appendChild(icon);
+        breadcrumb.appendChild(name);
+        breadcrumbs.appendChild(breadcrumb);
+    }
+    $("breadcrumbs").appendChild(breadcrumbs);
+}
+
 function updateNavTabs(page) {
     var navTabsInfo = {
         0: {
