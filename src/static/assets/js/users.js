@@ -1,12 +1,3 @@
-var breadcrumbsInfo = {
-    0: {
-        "name": "User accounts",
-        "icon": "group",
-        "href": "./users.html"
-    }
-}
-updateBreadcrumbs(breadcrumbsInfo);
-
 function getUser(currentUser) {
     fetch("/api/hdata/getuser?username=" + currentUser).then(response => response.json()).then((data) => {
         if (data.status !== "OK") {

@@ -1,6 +1,7 @@
 var page = "search";
 var tableName = getAllUrlParams().name;
 if (typeof tableName !== 'undefined') {
+    document.title = tableName + " - Search - HDataMyAdmin";
     updateNavTabs(page);
     var breadcrumbsInfo = {
         0: {
@@ -13,15 +14,6 @@ if (typeof tableName !== 'undefined') {
             "icon": "view_list",
             "href": "?name=" + tableName
         }
-    }
-    updateBreadcrumbs(breadcrumbsInfo);
-} else {
-    var breadcrumbsInfo = {
-        0: {
-            "name": "Search",
-            "icon": "search",
-            "href": "./search.html"
-        },
     }
     updateBreadcrumbs(breadcrumbsInfo);
 }
