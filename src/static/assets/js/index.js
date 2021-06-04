@@ -61,7 +61,7 @@ function newTable(redirectUrl = "browse") {
 }
 
 function deleteTable(tableName, redirectUrl = "reload") {
-    if (confirm('Are you sure you want to DELETE table "' + tableName + '"?')) {
+    if (confirm("Are you sure you want to DELETE table \"" + tableName + "\"?")) {
         if (tableName != null) {
             console.log("Deleting table" + tableName);
             const formData = new URLSearchParams();
@@ -174,7 +174,7 @@ function updateBreadcrumbs(breadcrumbsInfo) {
         arrow.appendChild(document.createTextNode("arrow_right"));
         breadcrumbs.appendChild(arrow);
         var breadcrumb = document.createElement("a");
-        if(breadcrumbInfo.href !== undefined) {
+        if (breadcrumbInfo.href !== undefined) {
             breadcrumb.setAttribute("href", breadcrumbInfo.href);
         }
         var icon = document.createElement("span");
@@ -229,7 +229,7 @@ function updateNavTabs(page) {
             tab.classList.add("active");
         }
         tab.setAttribute("href", tabInfo.href + "?name=" + getAllUrlParams().name);
-        if(tabInfo.icon !== undefined) {
+        if (tabInfo.icon !== undefined) {
             var icon = document.createElement("span");
             icon.setAttribute("class", "material-icons icon");
             icon.appendChild(document.createTextNode(tabInfo.icon));
@@ -295,6 +295,20 @@ function updateTree() {
 
 updateTree();
 
+function reconnect() {
+    fetch("/api/hdata/reconnect")
+        .then(response => response.json())
+        .then((data) => {
+            if (data.status !== "OK") {
+                console.log("Reconnect failed: " + JSON.stringify(data));
+            } else {
+                location.reload();
+            }
+        }).catch((error) => {
+            console.log("Reconnect failed: " + error);
+        });
+}
+
 var serverInfo;
 
 function updateInfo() {
@@ -335,6 +349,10 @@ function updateServerInfo(data) {
     var html = '<span class="material-icons icon txt-red">link_off</span>&nbsp;<span>Server not connected</span>';
     if (serverInfo.status == 'OK') {
         html = '<span class="material-icons icon">link</span>&nbsp;<span>Server:&nbsp;</span> <span id="serverHost">localhost:8888</span>';
+    } else {
+        if(confirm("Connection to HData server lost, try to reconnect?")) {
+            reconnect();
+        }
     }
     $("serverInfo").title = JSON.stringify(serverInfo);
     $("serverInfo").innerHTML = html;
@@ -343,4 +361,11 @@ function updateServerInfo(data) {
     } catch (err) { }
 }
 
-fetch("/api/hdata/status").then(response => response.json()).then(data => updateServerInfo(data)).catch((error) => { console.log(error); });
+fetch("/api/hdata/status").then(response => response.json())
+    .then(data => updateServerInfo(data))
+    .catch((error) => {
+        console.log(error);
+        if(confirm('Connection to HData server lost, reconnect?')) {
+            reconnect();
+        }
+    });

@@ -121,6 +121,24 @@ app.get('/api/hdata/status', (req, res) => {
 	})
 })
 
+app.get('/api/hdata/reconnect', (req, res) => {
+	console.log("Reconnecting to HData server...")
+	connectTo(config.hdata.host, config.hdata.port)
+	conn.status((data, err) => {
+		if (!err) {
+			if(data.status == "OK") {
+				res.json(data)
+			} else {
+				console.log("Reconcetion failed: " + data.status)
+				res.json(data)
+			}
+		} else {
+			console.log(err)
+			res.send(err)
+		}
+	})
+})
+
 app.post('/api/hdata/login', (req, res) => {
 	var user = req.body.username
 	var password = req.body.password
