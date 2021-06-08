@@ -63,7 +63,7 @@ function newTable(redirectUrl = "browse") {
 function deleteTable(tableName, redirectUrl = "reload") {
     if (confirm("Are you sure you want to DELETE table \"" + tableName + "\"?")) {
         if (tableName != null) {
-            console.log("Deleting table" + tableName);
+            console.log("Deleting table: " + tableName);
             const formData = new URLSearchParams();
             formData.append("tableName", tableName);
             fetch('/api/hdata/deletetable', {
@@ -118,6 +118,38 @@ function setKey(tableName, keyName, value, redirectUrl = "reload") {
             console.log(error);
             alert("Error seting key \"" + keyName + "\": " + error);
         });
+    }
+}
+
+function deleteKey(tableName, keyName, redirectUrl = "reload") {
+    if (confirm("Are you sure you want to DELETE key \"" + keyName + "\"?")) {
+        if (tableName != null) {
+            console.log("Deleting key: " + tableName);
+            const formData = new URLSearchParams();
+            formData.append("tableName", tableName);
+            formData.append("keyName", keyName);
+            fetch('/api/hdata/deletekey', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: formData
+            }).then(response => response.json()).then((data) => {
+                if (data.status == "OK") {
+                    if (redirectUrl === "reload") {
+                        location.reload();
+                    } else {
+                        location = redirectUrl;
+                    }
+                } else {
+                    var errMsg = errorCodeToMsg(data.status);
+                    alert("Error deleting key \"" + keyName + "\": " + errMsg + " (" + JSON.stringify(data) + ")");
+                }
+            }).catch((error) => {
+                console.log(error);
+                alert("Error deleting key \"" + keyName + "\": " + error);
+            });
+        }
     }
 }
 
