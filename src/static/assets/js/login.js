@@ -12,6 +12,12 @@ function updateServerInfo(data) {
     if (serverInfo.status !== 'OK') {
         $("serverError").style.display = "block";
         $("serverErrorText").title = JSON.stringify(serverInfo);
+        setTimeout(() => {
+            if (confirm("Connection to HData server lost, try to reconnect?")) {
+                reconnect();
+            }
+        }, 100)
+
     }
 }
 

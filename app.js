@@ -129,7 +129,7 @@ app.get('/api/hdata/reconnect', (req, res) => {
 			if(data.status == "OK") {
 				res.json(data)
 			} else {
-				console.log("Reconcetion failed: " + data.status)
+				console.log("Reconnection failed: " + data.status)
 				res.json(data)
 			}
 		} else {

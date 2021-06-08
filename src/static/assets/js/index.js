@@ -295,20 +295,6 @@ function updateTree() {
 
 updateTree();
 
-function reconnect() {
-    fetch("/api/hdata/reconnect")
-        .then(response => response.json())
-        .then((data) => {
-            if (data.status !== "OK") {
-                console.log("Reconnect failed: " + JSON.stringify(data));
-            } else {
-                location.reload();
-            }
-        }).catch((error) => {
-            console.log("Reconnect failed: " + error);
-        });
-}
-
 var serverInfo;
 
 function updateInfo() {
@@ -350,7 +336,7 @@ function updateServerInfo(data) {
     if (serverInfo.status == 'OK') {
         html = '<span class="material-icons icon">link</span>&nbsp;<span>Server:&nbsp;</span> <span id="serverHost">localhost:8888</span>';
     } else {
-        if(confirm("Connection to HData server lost, try to reconnect?")) {
+        if (confirm("Connection to HData server lost, try to reconnect?")) {
             reconnect();
         }
     }
@@ -361,11 +347,13 @@ function updateServerInfo(data) {
     } catch (err) { }
 }
 
-fetch("/api/hdata/status").then(response => response.json())
-    .then(data => updateServerInfo(data))
-    .catch((error) => {
-        console.log(error);
-        if(confirm('Connection to HData server lost, reconnect?')) {
-            reconnect();
-        }
-    });
+setTimeout(() => {
+    fetch("/api/hdata/status").then(response => response.json())
+        .then(data => updateServerInfo(data))
+        .catch((error) => {
+            console.log(error);
+            if (confirm('Connection to HData server lost, reconnect?')) {
+                reconnect();
+            }
+        });
+}, 100);

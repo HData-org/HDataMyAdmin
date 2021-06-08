@@ -100,3 +100,20 @@ function menuBtnClicked() {
 if (typeof page == 'undefined' || page !== 'login') {
 	menuUpdate();
 }
+
+function reconnect() {
+	fetch("/api/hdata/reconnect")
+		.then(response => response.json())
+		.then((data) => {
+			if (data.status !== "OK") {
+				console.log("Reconnecting to HData server failed: " + JSON.stringify(data));
+				alert("Reconnecting to HData server failed: " + JSON.stringify(data));
+			} else {
+				setTimeout(() => {
+					location.reload();
+				}, 200);
+			}
+		}).catch((error) => {
+			console.log("Reconnect failed: " + error);
+		});
+}
