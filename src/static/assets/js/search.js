@@ -78,6 +78,9 @@ function showResults(results, type) {
         cell.appendChild(document.createTextNode(result.key));
         row.appendChild(cell);
         cell = document.createElement("td");
+        if (result.value === undefined) {
+            cell.setAttribute("class", "txt-red");
+        }
         cell.appendChild(document.createTextNode(result.value));
         row.appendChild(cell);
         table.appendChild(row);
