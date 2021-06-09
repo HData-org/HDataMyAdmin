@@ -110,7 +110,7 @@ function reconnect() {
 				alert("Reconnecting to HData server failed: " + JSON.stringify(data));
 			} else {
 				setTimeout(() => {
-					location.reload();
+					alert("Reconnection successful! " + JSON.stringify(data));
 				}, 200);
 			}
 		}).catch((error) => {

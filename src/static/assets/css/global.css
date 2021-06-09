@@ -810,7 +810,8 @@ table .icon {
 }
 
 .topbar .breadcrumbs .arrow {
-	margin: 0 0.2rem;
+	margin: 0 0.15rem;
+	color: rgba(89, 89, 89, 0.8);
 }
 
 .topbar .breadcrumbs a {
