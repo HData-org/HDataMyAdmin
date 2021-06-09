@@ -6,7 +6,7 @@ function getUser(currentUser) {
         $("usersTable").innerHTML = "";
         console.log(data);
         var tableData = data.value;
-        var tables = document.createElement("table");
+        var table = document.createElement("table");
         var tableHeader = document.createElement("tr");
         /* table headers */
         var tableHeaders = ["Username", "Permissions", "Tables", "Action"];
@@ -16,7 +16,7 @@ function getUser(currentUser) {
             tableHeaderRow.appendChild(document.createTextNode(tableHeaderTitle));
             tableHeader.appendChild(tableHeaderRow);
         }
-        tables.appendChild(tableHeader);
+        table.appendChild(tableHeader);
         var user = currentUser;
         var row = document.createElement("tr");
         var cell = document.createElement("td");
@@ -71,7 +71,7 @@ function getUser(currentUser) {
         for (var a = 0; a < Object.keys(actionsJson).length; a++) {
             var actionInfo = actionsJson[a];
             var action = document.createElement("a");
-            action.setAttribute("href", actionInfo.href + '?name=' + user);
+            action.setAttribute("href", actionInfo.href + "?name=" + user + "&ref=" + page);
             if (actionInfo.onclick !== undefined) {
                 action.setAttribute("onclick", actionInfo.onclick);
             }
@@ -86,8 +86,22 @@ function getUser(currentUser) {
             cell.appendChild(action);
             row.append(cell);
         }
-        tables.appendChild(row);
-        $("usersTable").appendChild(tables);
+        table.appendChild(row);
+        row = document.createElement("tr");
+        row.setAttribute("class", "tb-footer");
+        cell = document.createElement("td");
+        cell.setAttribute("colspan", 3);
+        cell.appendChild(document.createTextNode(1 + " User(s)* *Only able to show the current user"));
+        row.appendChild(cell);
+        cell = document.createElement("td");
+        cell.setAttribute("class", "txt-right");
+        var link = document.createElement("a");
+        link.setAttribute("onclick", "exportJson(" + JSON.stringify(tableData) + ")");
+        link.appendChild(document.createTextNode("Show JSON"));
+        cell.appendChild(link);
+        row.appendChild(cell);
+        table.appendChild(row);
+        $("usersTable").appendChild(table);
     }).catch((error) => {
         console.log(error);
         showErrorMsg("tableError", "Could not load users: " + error);

@@ -1,3 +1,4 @@
+var ref = getAllUrlParams().ref;
 var username = getAllUrlParams().name;
 
 if (username !== undefined) {
@@ -34,6 +35,10 @@ if (username !== undefined) {
     }
 }
 updateBreadcrumbs(breadcrumbsInfo);
+
+if(ref !== undefined) {
+    $("cancel").href = "./users.html";
+}
 
 var error = getAllUrlParams().error;
 
