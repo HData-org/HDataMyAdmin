@@ -331,8 +331,8 @@ app.post("/api/hdata/*", (req, res, next) => {
 })
 
 app.get('/api/hdata/querytable', (req, res) => {
-	var tableName = req.body.tableName
-	var evaluator = req.body.evaluator
+	var tableName = req.query.tableName
+	var evaluator = req.query.evaluator
 	conn.queryTable(tableName, evaluator, (data, err) => {
 		if (!err) {
 			res.json(data)
