@@ -178,20 +178,8 @@ a.icon.right .material-icons, .button.icon.right .material-icons  {
 	color: #c91414;
 }
 
-.txt-space {
-	letter-spacing: 0.2rem;
-}
-
-.txt-space-small {
-	letter-spacing: 0.1rem;
-}
-
-.txt-space-large {
-	letter-spacing: 0.75rem;
-}
-
-.txt-space-x-large {
-	letter-spacing: 1rem;
+.txt-ww-ba {
+	word-break: break-all;
 }
 
 .txt-upper {
@@ -536,7 +524,6 @@ table th, table td {
 }
 
 table tr {
-	word-break: break-all;
 	/* border-bottom: 1px solid rgba(200, 200, 200, 0.75); */
 }
 

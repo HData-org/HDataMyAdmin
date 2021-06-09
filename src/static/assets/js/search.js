@@ -82,6 +82,7 @@ function showResults(results, type) {
             cell.setAttribute("class", "txt-red");
         }
         cell.appendChild(document.createTextNode(result.value));
+        cell.setAttribute("class", "txt-ww-ba");
         row.appendChild(cell);
         table.appendChild(row);
     }
