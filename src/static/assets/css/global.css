@@ -535,9 +535,10 @@ table th, table td {
 	padding: 8px;
 }
 
-/* table tr {
-	border-bottom: 1px solid rgba(200, 200, 200, 0.75);
-} */
+table tr {
+	word-break: break-all;
+	/* border-bottom: 1px solid rgba(200, 200, 200, 0.75); */
+}
 
 table tr:nth-child(even){
 	background-color: rgb(241, 241, 241);
