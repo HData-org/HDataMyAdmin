@@ -19,6 +19,12 @@ var breadcrumbsInfo = {
 }
 updateBreadcrumbs(breadcrumbsInfo);
 
+var tableData;
+
+function showJSON() {
+    exportJson(tableData);
+}
+
 function showTable(tableData) {
     var table = document.createElement("table");
     var tableHeader = document.createElement("tr");
@@ -35,14 +41,14 @@ function showTable(tableData) {
         var row = document.createElement("tr");
         var cell = document.createElement("td");
         cell = document.createElement("td");
-        cell.appendChild(document.createTextNode(rowData.key));
+        cell.appendChild(document.createTextNode(JSON.stringify(rowData.key)));
         row.appendChild(cell);
         cell = document.createElement("td");
-        if (rowData.value === undefined) {
-            cell.setAttribute("class", "txt-red");
+        cell.appendChild(document.createTextNode(JSON.stringify(rowData.value)));
+        if (rowData.value == undefined) {
+            cell.classList.add("txt-red");
         }
-        cell.appendChild(document.createTextNode(rowData.value));
-        cell.setAttribute("class", "txt-ww-ba");
+        cell.classList.add("txt-ww-ba");
         row.appendChild(cell);
         table.appendChild(row);
     }
@@ -54,7 +60,7 @@ function showTable(tableData) {
     cell = document.createElement("td");
     cell.setAttribute("class", "txt-right");
     var link = document.createElement("a");
-    link.setAttribute("onclick", "exportJson(" + JSON.stringify(tableData) + ")");
+    link.setAttribute("onclick", "showJSON()");
     link.appendChild(document.createTextNode("Show JSON"));
     cell.appendChild(link);
     row.appendChild(cell);
@@ -67,6 +73,7 @@ fetch("/api/hdata/querytable?evaluator=true&tableName=" + tableName).then(respon
     if (data.status !== "OK") {
         showErrorMsg("tableError", "Could not load table: " + errorCodeToMsg(data.status) + " (" + JSON.stringify(data) + ")");
     } else {
+        tableData = data.matches;
         showTable(data.matches);
     }
 }).catch((error) => {

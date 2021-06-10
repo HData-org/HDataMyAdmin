@@ -59,14 +59,14 @@ function base64ToArrayBuffer(_base64Str) {
 }
 
 function showDocument(_base64Str, _contentType) {
-	var byte = base64ToArrayBuffer(_base64Str);
+	var byte = base64ToArrayBuffer(decodeURIComponent(escape(_base64Str)));
 	var blob = new Blob([byte], { type: _contentType });
 	window.open(URL.createObjectURL(blob), "_blank");
 }
 
 function exportJson(json) {
 	console.log(json);
-	showDocument(btoa(JSON.stringify(json)), "text/plain");
+	showDocument(btoa(unescape(encodeURIComponent(JSON.stringify(json)))), "application/json");
 }
 
 if (localStorage.getItem == undefined || localStorage.getItem == '') {

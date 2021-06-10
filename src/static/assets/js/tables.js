@@ -7,10 +7,17 @@ var breadcrumbsInfo = {
 }
 updateBreadcrumbs(breadcrumbsInfo);
 
+var tableData;
+
+function showJSON() {
+    exportJson(tableData);
+}
+
 fetch("/api/hdata/gettables").then(response => response.json()).then((data) => {
     if (data.status !== "OK") {
         showErrorMsg("tableError", "Could not load tables: " + errorCodeToMsg(data.status) + " (" + JSON.stringify(data) + ")");
     }
+    tableData = data.value;
     $("tables").innerHTML = "";
     var tables = document.createElement("table");
     var tableHeader = document.createElement("tr");
@@ -89,7 +96,7 @@ fetch("/api/hdata/gettables").then(response => response.json()).then((data) => {
     cell = document.createElement("td");
     cell.setAttribute("class", "txt-right");
     var link = document.createElement("a");
-    link.setAttribute("onclick", "exportJson(" + JSON.stringify(data.value) + ")");
+    link.setAttribute("onclick", "showJSON()");
     link.appendChild(document.createTextNode("Show JSON"));
     cell.appendChild(link);
     row.appendChild(cell);

@@ -1,3 +1,9 @@
+var tableData;
+
+function showJSON() {
+    exportJson(tableData);
+}
+
 function getUser(currentUser) {
     fetch("/api/hdata/getuser?username=" + currentUser).then(response => response.json()).then((data) => {
         if (data.status !== "OK") {
@@ -5,7 +11,7 @@ function getUser(currentUser) {
         }
         $("usersTable").innerHTML = "";
         console.log(data);
-        var tableData = data.value;
+        tableData = data.value;
         var table = document.createElement("table");
         var tableHeader = document.createElement("tr");
         /* table headers */
@@ -96,7 +102,7 @@ function getUser(currentUser) {
         cell = document.createElement("td");
         cell.setAttribute("class", "txt-right");
         var link = document.createElement("a");
-        link.setAttribute("onclick", "exportJson(" + JSON.stringify(tableData) + ")");
+        link.setAttribute("onclick", "showJSON()");
         link.appendChild(document.createTextNode("Show JSON"));
         cell.appendChild(link);
         row.appendChild(cell);

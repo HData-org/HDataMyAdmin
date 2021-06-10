@@ -18,6 +18,12 @@ if (typeof tableName !== 'undefined') {
     updateBreadcrumbs(breadcrumbsInfo);
 }
 
+var tableData;
+
+function showJSON() {
+    exportJson(tableData);
+}
+
 fetch("/api/hdata/gettables").then(response => response.json()).then((data) => {
     if (data.status !== "OK") {
         console.log("Could not load tables: " + errorCodeToMsg(data.status) + " (" + JSON.stringify(data) + ")");
@@ -75,14 +81,14 @@ function showResults(results, type) {
             row.appendChild(cell);
         }
         cell = document.createElement("td");
-        cell.appendChild(document.createTextNode(result.key));
+        cell.appendChild(document.createTextNode(JSON.stringify(result.key)));
         row.appendChild(cell);
         cell = document.createElement("td");
-        if (result.value === undefined) {
-            cell.setAttribute("class", "txt-red");
+        cell.appendChild(document.createTextNode(JSON.stringify(result.value)));
+        if (result.value == undefined) {
+            cell.classList.add("txt-red");
         }
-        cell.appendChild(document.createTextNode(result.value));
-        cell.setAttribute("class", "txt-ww-ba");
+        cell.classList.add("txt-ww-ba");
         row.appendChild(cell);
         table.appendChild(row);
     }
@@ -98,7 +104,7 @@ function showResults(results, type) {
     cell = document.createElement("td");
     cell.setAttribute("class", "txt-right");
     var link = document.createElement("a");
-    link.setAttribute("onclick", "exportJson(" + JSON.stringify(results) + ")");
+    link.setAttribute("onclick", "showJSON()");
     link.appendChild(document.createTextNode("Show JSON"));
     cell.appendChild(link);
     row.appendChild(cell);
@@ -135,7 +141,7 @@ function search() {
         }).then(response => response.json()).then((data) => {
             if (data.status == "OK") {
                 hideErrorMsg("searchError");
-                var searchResults = data.matches;
+                var searchResults = tableData = data.matches;
                 console.log(searchResults);
                 $("searchResults").innerHTML = "";
                 $("searchResults").appendChild(showResults(searchResults, queryType));
