@@ -517,6 +517,7 @@ select.input {
 table {
 	border-collapse: collapse;
 	width: 100%;
+	margin-bottom: 1rem;
 }
 
 table th, table td {
