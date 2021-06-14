@@ -81,10 +81,10 @@ function showResults(results, type) {
             row.appendChild(cell);
         }
         cell = document.createElement("td");
-        cell.appendChild(document.createTextNode(JSON.stringify(result.key)));
+        cell.appendChild(document.createTextNode(tryStringifyJSON(result.key)));
         row.appendChild(cell);
         cell = document.createElement("td");
-        cell.appendChild(document.createTextNode(JSON.stringify(result.value)));
+        cell.appendChild(document.createTextNode(tryStringifyJSON(result.value)));
         if (result.value == undefined) {
             cell.classList.add("txt-red");
         }

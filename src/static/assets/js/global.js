@@ -69,6 +69,17 @@ function exportJson(json) {
 	showDocument(btoa(unescape(encodeURIComponent(JSON.stringify(json)))), "application/json");
 }
 
+function tryStringifyJSON(jsonString) {
+	try {
+		if (jsonString && typeof jsonString === "object") {
+			return JSON.stringify(jsonString);
+		}
+	}
+	catch (e) { }
+
+	return jsonString;
+}
+
 if (localStorage.getItem == undefined || localStorage.getItem == '') {
 	localStorage.setItem("menuState", 1);
 }

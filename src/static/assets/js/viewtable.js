@@ -41,10 +41,10 @@ function showTable(tableData) {
         var row = document.createElement("tr");
         var cell = document.createElement("td");
         cell = document.createElement("td");
-        cell.appendChild(document.createTextNode(JSON.stringify(rowData.key)));
+        cell.appendChild(document.createTextNode(tryStringifyJSON(rowData.key)));
         row.appendChild(cell);
         cell = document.createElement("td");
-        cell.appendChild(document.createTextNode(JSON.stringify(rowData.value)));
+        cell.appendChild(document.createTextNode(tryStringifyJSON(rowData.value)));
         if (rowData.value == undefined) {
             cell.classList.add("txt-red");
         }
