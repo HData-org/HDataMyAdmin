@@ -36,25 +36,70 @@ function showTable(tableData) {
     tableHeaderRow.appendChild(document.createTextNode("Value"));
     tableHeader.appendChild(tableHeaderRow);
     table.appendChild(tableHeader);
+    tableHeaderRow = document.createElement("th");
+    tableHeaderRow.appendChild(document.createTextNode("Action"));
+    tableHeader.appendChild(tableHeaderRow);
+    table.appendChild(tableHeader);
     for (var i = 0; i < tableData.length; i++) {
         var rowData = tableData[i];
+        var keyName = tryStringifyJSON(rowData.key);
+        var keyValue = tryStringifyJSON(rowData.value);
         var row = document.createElement("tr");
         var cell = document.createElement("td");
         cell = document.createElement("td");
-        cell.appendChild(document.createTextNode(tryStringifyJSON(rowData.key)));
+        cell.appendChild(document.createTextNode(keyName));
         row.appendChild(cell);
         cell = document.createElement("td");
-        cell.appendChild(document.createTextNode(tryStringifyJSON(rowData.value)));
+        cell.appendChild(document.createTextNode(keyValue));
         if (rowData.value == undefined) {
             cell.classList.add("txt-red");
         }
         cell.classList.add("txt-ww-ba");
         row.appendChild(cell);
+        /* actions */
+        var actionsJson = {
+            0: {
+                "name": "Edit",
+                "icon": "edit",
+                "class": "edit",
+                "href": "./setkey.html",
+                "target": "_blank"
+            },
+            1: {
+                "name": "Delete",
+                "icon": "delete",
+                "class": "trash",
+                "href": "#",
+                "onclick": "deleteKey(\"" + tableName + "\", \"" + rowData.key + "\")"
+            }
+        };
+        cell = document.createElement("td");
+        cell.setAttribute("class", "flex-center actions");
+        for (var a = 0; a < Object.keys(actionsJson).length; a++) {
+            var actionInfo = actionsJson[a];
+            var action = document.createElement("a");
+            action.setAttribute("href", actionInfo.href + '?name=' + tableName + "&key=" + keyName + "&value=" + keyValue);
+            if (actionInfo.target !== undefined) {
+                action.setAttribute("target", actionInfo.target);
+            }
+            if (actionInfo.onclick !== undefined) {
+                action.setAttribute("onclick", actionInfo.onclick);
+            }
+            action.setAttribute("class", "flex-center " + actionInfo.class);
+            var actionIcon = document.createElement("span");
+            actionIcon.setAttribute("class", "material-icons icon");
+            actionIcon.appendChild(document.createTextNode(actionInfo.icon));
+            action.appendChild(actionIcon);
+            action.setAttribute("title", actionInfo.name);
+            cell.appendChild(action);
+            row.append(cell);
+        }
         table.appendChild(row);
     }
     row = document.createElement("tr");
     row.setAttribute("class", "tb-footer");
     cell = document.createElement("td");
+    cell.setAttribute("colspan", 2);
     cell.appendChild(document.createTextNode(i + " Key(s)"));
     row.appendChild(cell);
     cell = document.createElement("td");

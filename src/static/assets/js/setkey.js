@@ -20,6 +20,17 @@ var breadcrumbsInfo = {
 }
 updateBreadcrumbs(breadcrumbsInfo);
 
+var keyNameValue = getAllUrlParams().key;
+var keyValue = getAllUrlParams().value;
+if(keyNameValue !== undefined) {
+    $("keyName").value = keyNameValue;
+    $("value").value = keyValue;
+    $("value").focus();
+} else {
+    $("keyName").focus();
+}
+
+
 $("setKeyForm").onsubmit = (e) => {
     var form = $("setKeyForm");
     e.preventDefault();
