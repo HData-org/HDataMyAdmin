@@ -67,37 +67,81 @@ function showResults(results, type) {
     tableHeaderRow.appendChild(document.createTextNode("Value"));
     tableHeader.appendChild(tableHeaderRow);
     table.appendChild(tableHeader);
+    tableHeaderRow = document.createElement("th");
+    tableHeaderRow.appendChild(document.createTextNode("Action"));
+    tableHeader.appendChild(tableHeaderRow);
+    table.appendChild(tableHeader);
     for (var i = 0; i < results.length; i++) {
         var result = results[i];
+        var keyName = tryStringifyJSON(result.key);
+        var keyValue = tryStringifyJSON(result.value);
         var row = document.createElement("tr");
         var cell = document.createElement("td");
         if (type === "queryall") {
-            var tableName = result.table;
+            var resultsTableName = result.table;
             var name = document.createElement("a");
-            name.setAttribute("href", "./table.html?name=" + tableName);
+            name.setAttribute("href", "./table.html?name=" + resultsTableName);
             name.setAttribute("class", "txt-bold");
-            name.appendChild(document.createTextNode(tableName));
+            name.appendChild(document.createTextNode(resultsTableName));
             cell.appendChild(name);
             row.appendChild(cell);
         }
         cell = document.createElement("td");
-        cell.appendChild(document.createTextNode(tryStringifyJSON(result.key)));
+        cell.appendChild(document.createTextNode(keyName));
         row.appendChild(cell);
         cell = document.createElement("td");
-        cell.appendChild(document.createTextNode(tryStringifyJSON(result.value)));
+        cell.appendChild(document.createTextNode(keyValue));
         if (result.value == undefined) {
             cell.classList.add("txt-red");
         }
         cell.classList.add("txt-ww-ba");
         row.appendChild(cell);
+        /* actions */
+        var actionsJson = {
+            0: {
+                "name": "Edit",
+                "icon": "edit",
+                "class": "edit",
+                "href": "./setkey.html",
+                "target": "_blank"
+            },
+            1: {
+                "name": "Delete",
+                "icon": "delete",
+                "class": "trash",
+                "href": "#",
+                "onclick": "deleteKey(\"" + tableName + "\", \"" + keyName + "\")"
+            }
+        };
+        cell = document.createElement("td");
+        cell.setAttribute("class", "flex-center actions");
+        for (var a = 0; a < Object.keys(actionsJson).length; a++) {
+            var actionInfo = actionsJson[a];
+            var action = document.createElement("a");
+            action.setAttribute("href", actionInfo.href + '?name=' + tableName + "&key=" + keyName + "&value=" + keyValue);
+            if (actionInfo.target !== undefined) {
+                action.setAttribute("target", actionInfo.target);
+            }
+            if (actionInfo.onclick !== undefined) {
+                action.setAttribute("onclick", actionInfo.onclick);
+            }
+            action.setAttribute("class", "flex-center " + actionInfo.class);
+            var actionIcon = document.createElement("span");
+            actionIcon.setAttribute("class", "material-icons icon");
+            actionIcon.appendChild(document.createTextNode(actionInfo.icon));
+            action.appendChild(actionIcon);
+            action.setAttribute("title", actionInfo.name);
+            cell.appendChild(action);
+            row.append(cell);
+        }
         table.appendChild(row);
     }
     row = document.createElement("tr");
     row.setAttribute("class", "tb-footer");
     cell = document.createElement("td");
-    cell.setAttribute("colspan", 1);
+    cell.setAttribute("colspan", 2);
     if (type === "queryall") {
-        cell.setAttribute("colspan", 2);
+        cell.setAttribute("colspan", 3);
     }
     cell.appendChild(document.createTextNode(i + " Result(s)"));
     row.appendChild(cell);

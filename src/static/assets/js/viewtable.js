@@ -70,7 +70,7 @@ function showTable(tableData) {
                 "icon": "delete",
                 "class": "trash",
                 "href": "#",
-                "onclick": "deleteKey(\"" + tableName + "\", \"" + rowData.key + "\")"
+                "onclick": "deleteKey(\"" + tableName + "\", \"" + keyName + "\")"
             }
         };
         cell = document.createElement("td");
