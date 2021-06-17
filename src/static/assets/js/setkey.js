@@ -22,9 +22,11 @@ updateBreadcrumbs(breadcrumbsInfo);
 
 var keyNameValue = getAllUrlParams().key;
 var keyValue = getAllUrlParams().value;
-if(keyNameValue !== undefined) {
+if (keyNameValue !== undefined) {
     $("keyName").value = keyNameValue;
-    $("value").value = keyValue;
+    if (keyValue !== undefined) {
+        $("value").value = keyValue;
+    }
     $("value").focus();
 } else {
     $("keyName").focus();
