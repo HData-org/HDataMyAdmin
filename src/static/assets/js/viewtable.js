@@ -128,12 +128,6 @@ function showTable(tableData, tableType) {
     $("table").appendChild(table);
 }
 
-var settings = JSON.parse(localStorage.getItem("settings"));
-if(settings["onlyLoadTableKeys"] == undefined || settings["onlyLoadTableKeys"] == "") {
-    settings["onlyLoadTableKeys"] = false;
-    localStorage.setItem("settings", JSON.stringify(settings));
-}
-
 if (settings["onlyLoadTableKeys"]) {
     fetch("/api/hdata/tablekeys?tableName=" + tableName).then(response => response.json()).then((data) => {
         $("table").innerHTML = "";

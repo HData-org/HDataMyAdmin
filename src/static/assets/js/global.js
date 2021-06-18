@@ -80,6 +80,21 @@ function tryStringifyJSON(jsonString) {
 	return jsonString;
 }
 
+function settingsToLS(settings) {
+	localStorage.setItem("settings", JSON.stringify(settings));
+}
+
+var settings = JSON.parse(localStorage.getItem("settings"));
+if (settings == undefined || settings == "") {
+	settings = {};
+	settingsToLS(settings);
+}
+
+if (settings.onlyLoadTableKeys == undefined || settings.onlyLoadTableKeys == "") {
+	settings.onlyLoadTableKeys = false;
+	settingsToLS(settings);
+}
+
 if (localStorage.getItem == undefined || localStorage.getItem == '') {
 	localStorage.setItem("menuState", 1);
 }
