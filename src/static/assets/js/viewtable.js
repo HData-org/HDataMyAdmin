@@ -25,37 +25,46 @@ function showJSON() {
     exportJson(tableData);
 }
 
-function showTable(tableData) {
+function showTable(tableData, tableType) {
     var table = document.createElement("table");
     var tableHeader = document.createElement("tr");
     var tableHeaderRow = document.createElement("th");
     tableHeaderRow.appendChild(document.createTextNode("Key"));
     tableHeader.appendChild(tableHeaderRow);
     table.appendChild(tableHeader);
-    tableHeaderRow = document.createElement("th");
-    tableHeaderRow.appendChild(document.createTextNode("Value"));
-    tableHeader.appendChild(tableHeaderRow);
-    table.appendChild(tableHeader);
+    if (tableType == "full") {
+        tableHeaderRow = document.createElement("th");
+        tableHeaderRow.appendChild(document.createTextNode("Value"));
+        tableHeader.appendChild(tableHeaderRow);
+        table.appendChild(tableHeader);
+    }
     tableHeaderRow = document.createElement("th");
     tableHeaderRow.appendChild(document.createTextNode("Action"));
     tableHeader.appendChild(tableHeaderRow);
     table.appendChild(tableHeader);
     for (var i = 0; i < tableData.length; i++) {
         var rowData = tableData[i];
-        var keyName = tryStringifyJSON(rowData.key);
-        var keyValue = tryStringifyJSON(rowData.value);
+        if (tableType == "full") {
+            var keyName = tryStringifyJSON(rowData.key);
+            var keyValue = tryStringifyJSON(rowData.value);
+        } else {
+            var keyName = tryStringifyJSON(rowData);
+            var keyValue = "";
+        }
         var row = document.createElement("tr");
         var cell = document.createElement("td");
         cell = document.createElement("td");
         cell.appendChild(document.createTextNode(keyName));
         row.appendChild(cell);
-        cell = document.createElement("td");
-        cell.appendChild(document.createTextNode(keyValue));
-        if (rowData.value == undefined) {
-            cell.classList.add("txt-red");
+        if (tableType == "full") {
+            cell = document.createElement("td");
+            cell.appendChild(document.createTextNode(keyValue));
+            if (rowData.value == undefined) {
+                cell.classList.add("txt-red");
+            }
+            cell.classList.add("txt-ww-ba");
+            row.appendChild(cell);
         }
-        cell.classList.add("txt-ww-ba");
-        row.appendChild(cell);
         /* actions */
         var actionsJson = {
             0: {
@@ -78,7 +87,11 @@ function showTable(tableData) {
         for (var a = 0; a < Object.keys(actionsJson).length; a++) {
             var actionInfo = actionsJson[a];
             var action = document.createElement("a");
-            action.setAttribute("href", actionInfo.href + '?name=' + tableName + "&key=" + keyName + "&value=" + keyValue);
+            var actionLink = actionInfo.href + '?name=' + tableName + "&key=" + keyName + "&keyOnly=true";
+            if (tableType == "full") {
+                actionLink = actionInfo.href + '?name=' + tableName + "&key=" + keyName + "&value=" + keyValue;
+            }
+            action.setAttribute("href", actionLink);
             if (actionInfo.target !== undefined) {
                 action.setAttribute("target", actionInfo.target);
             }
@@ -99,7 +112,9 @@ function showTable(tableData) {
     row = document.createElement("tr");
     row.setAttribute("class", "tb-footer");
     cell = document.createElement("td");
-    cell.setAttribute("colspan", 2);
+    if (tableType == "full") {
+        cell.setAttribute("colspan", 2);
+    }
     cell.appendChild(document.createTextNode(i + " Key(s)"));
     row.appendChild(cell);
     cell = document.createElement("td");
@@ -113,25 +128,36 @@ function showTable(tableData) {
     $("table").appendChild(table);
 }
 
-fetch("/api/hdata/querytable?evaluator=true&tableName=" + tableName).then(response => response.json()).then((data) => {
-    $("table").innerHTML = "";
-    if (data.status !== "OK") {
-        showErrorMsg("tableError", "Could not load table: " + errorCodeToMsg(data.status) + " (" + JSON.stringify(data) + ")");
-    } else {
-        tableData = data.matches;
-        showTable(data.matches);
-    }
-}).catch((error) => {
-    console.log(error);
-    showErrorMsg("tableError", "Could not load users: " + error);
-});
+var settings = JSON.parse(localStorage.getItem("settings"));
+if(settings["onlyLoadTableKeys"] == undefined || settings["onlyLoadTableKeys"] == "") {
+    settings["onlyLoadTableKeys"] = false;
+    localStorage.setItem("settings", JSON.stringify(settings));
+}
 
-// fetch("/api/hdata/tablekeys?tableName=" + tableName).then(response => response.json()).then((data) => {
-//     if (data.status !== "OK") {
-//         showErrorMsg("tableError", "Could not load table: " + errorCodeToMsg(data.status) + " (" + JSON.stringify(data) + ")");
-//     }
-//     createTable1D($("table"), "Key", data.keys);
-// }).catch((error) => {
-//     console.log(error);
-//     showErrorMsg("tableError", "Could not load users: " + error);
-// });
+if (settings["onlyLoadTableKeys"]) {
+    fetch("/api/hdata/tablekeys?tableName=" + tableName).then(response => response.json()).then((data) => {
+        $("table").innerHTML = "";
+        if (data.status !== "OK") {
+            showErrorMsg("tableError", "Could not load table: " + errorCodeToMsg(data.status) + " (" + JSON.stringify(data) + ")");
+        } else {
+            tableData = data.keys;
+            showTable(tableData);
+        }
+    }).catch((error) => {
+        console.log(error);
+        showErrorMsg("tableError", "Could not load users: " + error);
+    });
+} else {
+    fetch("/api/hdata/querytable?evaluator=true&tableName=" + tableName).then(response => response.json()).then((data) => {
+        $("table").innerHTML = "";
+        if (data.status !== "OK") {
+            showErrorMsg("tableError", "Could not load table: " + errorCodeToMsg(data.status) + " (" + JSON.stringify(data) + ")");
+        } else {
+            tableData = data.matches;
+            showTable(tableData, "full");
+        }
+    }).catch((error) => {
+        console.log(error);
+        showErrorMsg("tableError", "Could not load users: " + error);
+    });
+}

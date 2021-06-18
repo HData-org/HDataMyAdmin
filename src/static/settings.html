@@ -70,7 +70,20 @@
 
             <h2 class="title">Settings</h2>
 
-            <p>No settings to set yet!</p>
+			<p>Settings are stored in your browser.</p>
+
+            <h2>Tables</h2>
+
+			<form id="settings">
+				<input type="checkbox" id="onlyLoadTableKeys" name="onlyLoadTableKeys">
+				<label for="onlyLoadTableKeys"> Only load table keys</label>
+			</form>
+
+			<div class="m-xlarge"></div>
+
+			<div class="flex-center">
+				<button class="button primary" onclick="saveSettings()">Save</button>
+			</div>
 
         </main>
 
@@ -78,5 +91,6 @@
 
     <script src="./assets/js/global.js"></script>
     <script src="./assets/js/index.js"></script>
+    <script src="./assets/js/settings.js"></script>
 </body>
 </html>
