@@ -97,7 +97,7 @@ function getUser(currentUser) {
         row.setAttribute("class", "tb-footer");
         cell = document.createElement("td");
         cell.setAttribute("colspan", 3);
-        cell.appendChild(document.createTextNode(1 + " User(s)* *Only able to show the current user"));
+        cell.appendChild(document.createTextNode(1 + " User(s) *Only able to show the current user"));
         row.appendChild(cell);
         cell = document.createElement("td");
         cell.setAttribute("class", "txt-right");
