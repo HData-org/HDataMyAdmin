@@ -164,6 +164,9 @@ function hideErrorMsg(id) {
     $(id).style.display = "none";
 }
 
+var ref = encodeURIComponent(location);
+$("settingsLink").href = "./settings.html?ref="+ref;
+
 function createTable1D(parentElement, tableName, data) {
     parentElement.innerHTML = "";
     var tables = document.createElement('table');

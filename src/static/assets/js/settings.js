@@ -1,3 +1,5 @@
+var ref = getAllUrlParams().ref;
+
 function saveSettings() {
     console.log("Saving settings...");
     var inputs = document.forms["settings"].getElementsByTagName("input");
@@ -11,6 +13,11 @@ function saveSettings() {
         settings[input.name] = settingValue;
     }
     settingsToLS(settings);
+    if (ref !== undefined) {
+        location = ref;
+    } else {
+        location = "./";
+    }
 }
 
 function updateSettingsInputs(settings) {
