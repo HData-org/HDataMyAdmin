@@ -1,3 +1,5 @@
+var currLoc = encodeURIComponent(location);
+
 function getAllUrlParams() {
 	var queries = location.search.slice(1).split("&");
 	var obj = {};

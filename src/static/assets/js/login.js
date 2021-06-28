@@ -1,3 +1,9 @@
+var ref = getAllUrlParams().ref;
+
+if (ref !== undefined) {
+    $("login").action = "/api/hdata/login/?ref=" + ref;
+}
+
 var error = getAllUrlParams().error;
 
 if (error !== undefined && error !== "OK") {

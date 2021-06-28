@@ -142,6 +142,10 @@ app.get('/api/hdata/reconnect', (req, res) => {
 app.post('/api/hdata/login', (req, res) => {
 	var user = req.body.username
 	var password = req.body.password
+	var ref = req.query.ref;
+	if (ref == undefined) {
+		ref = "/"
+	}
 	conn.login(user, password, (data, err) => {
 		if (!err) {
 			if (data.status == "OK" || data.status == "LI") {
@@ -149,7 +153,7 @@ app.post('/api/hdata/login', (req, res) => {
 				req.session.login.username = user
 				console.log(`Logged in as ${user}!`)
 				if (req.session.login.auth) {
-					res.redirect("/")
+					res.redirect(ref)
 				}
 			} else {
 				clearSessionAuth(req)

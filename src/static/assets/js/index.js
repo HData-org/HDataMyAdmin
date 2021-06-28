@@ -12,7 +12,7 @@ fetch("/api/hdata/login").then(response => response.json()).then((json) => {
         }
     } else {
         console.log("Not logged in, redirecting");
-        location = "/login.html";
+        location = "/login.html?ref=" + currLoc;
     }
 }).catch((error) => {
     console.log(error);
@@ -164,8 +164,7 @@ function hideErrorMsg(id) {
     $(id).style.display = "none";
 }
 
-var ref = encodeURIComponent(location);
-$("settingsLink").href = "./settings.html?ref="+ref;
+$("settingsLink").href = "./settings.html?ref=" + currLoc;
 
 function createTable1D(parentElement, tableName, data) {
     parentElement.innerHTML = "";
