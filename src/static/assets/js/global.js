@@ -72,14 +72,14 @@ function exportJson(json) {
 }
 
 function tryStringifyJSON(jsonString) {
-	try {
-		if (jsonString && typeof jsonString === "object") {
-			return JSON.stringify(jsonString);
-		}
-	}
-	catch (e) { }
+	// try {
+	// 	if (jsonString && typeof jsonString === "object") {
+	// 		return JSON.stringify(jsonString);
+	// 	}
+	// }
+	// catch (e) { }
 
-	return jsonString;
+	return JSON.stringify(jsonString);
 }
 
 function settingsToLS(settings) {
@@ -94,6 +94,11 @@ if (settings == undefined || settings == "") {
 
 if (settings.onlyLoadTableKeys == undefined || settings.onlyLoadTableKeys == "") {
 	settings.onlyLoadTableKeys = false;
+	settingsToLS(settings);
+}
+
+if (settings.loadCurrentKeyValue == undefined || settings.loadCurrentKeyValue == "") {
+	settings.loadCurrentKeyValue = true;
 	settingsToLS(settings);
 }
 

@@ -71,15 +71,14 @@ function showTable(tableData, tableType) {
                 "name": "Edit",
                 "icon": "edit",
                 "class": "edit",
-                "href": "./setkey.html",
-                "target": "_blank"
+                "href": "./setkey.html"
             },
             1: {
                 "name": "Delete",
                 "icon": "delete",
                 "class": "trash",
                 "href": "#",
-                "onclick": "deleteKey(\"" + tableName + "\", \"" + keyName + "\")"
+                "onclick": "deleteKey(\"" + tableName + "\", " + keyName + ")"
             }
         };
         cell = document.createElement("td");
@@ -87,9 +86,10 @@ function showTable(tableData, tableType) {
         for (var a = 0; a < Object.keys(actionsJson).length; a++) {
             var actionInfo = actionsJson[a];
             var action = document.createElement("a");
-            var actionLink = actionInfo.href + '?name=' + tableName + "&key=" + keyName + "&keyOnly=true";
             if (tableType == "full") {
-                actionLink = actionInfo.href + '?name=' + tableName + "&key=" + keyName + "&value=" + keyValue;
+                var actionLink = actionInfo.href + '?name=' + tableName + "&key=" + JSON.stringify(rowData.key);
+            } else {
+                var actionLink = actionInfo.href + '?name=' + tableName + "&key=" + JSON.stringify(rowData);
             }
             action.setAttribute("href", actionLink);
             if (actionInfo.target !== undefined) {
