@@ -416,7 +416,7 @@ app.post('/api/hdata/setkey', (req, res) => {
 	conn.setKey(tableName, keyName, value, (data, err) => {
 		if (!err) {
 			if (data.status == "OK") {
-				console.log("Key " + keyName + " in table " + tableName + " created!")
+				console.log("Key " + keyName + " in table " + tableName + " updated!")
 				res.json(data)
 			} else {
 				console.log("Key creation for " + keyName + " in table " + tableName + " failed: " + errorCodeToMsg(data.status))
