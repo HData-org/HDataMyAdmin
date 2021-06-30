@@ -49,7 +49,7 @@ function getValueFromKey(keyName) {
 var keyNameValue = getAllUrlParams().key;
 var loadValue = settings["loadCurrentKeyValue"];
 if (keyNameValue !== undefined) {
-    $("keyName").value = keyNameValue;
+    $("keyName").value = JSON.parse(keyNameValue);
     if (loadValue) {
         getValueFromKey(keyNameValue);
     }
