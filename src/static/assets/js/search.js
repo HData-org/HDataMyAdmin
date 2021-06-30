@@ -103,7 +103,6 @@ function showResults(results, type) {
                 "icon": "edit",
                 "class": "edit",
                 "href": "./setkey.html",
-                "target": "_blank"
             },
             1: {
                 "name": "Delete",
