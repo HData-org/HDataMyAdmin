@@ -1,6 +1,10 @@
 # HDataMyAdmin
 A web interface for HData servers
 
+## Prerequisites
+1. NodeJS, etc.
+2. An accessible HData server
+
 ## Install
 1. Clone repo
 2. Run `npm install`
@@ -18,3 +22,4 @@ A web interface for HData servers
 ```
 
 4. Run `node app.js`
+5. Log into the app with HData server credentials
