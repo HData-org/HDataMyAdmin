@@ -282,13 +282,13 @@ function updateTree() {
             console.log("Could not load table tree: " + errorCodeToMsg(data.status) + " (" + JSON.stringify(data) + ")");
         }
         $("navTree").innerHTML = "";
-        var treeRoot = document.createElement("div");
+        var treeRoot = document.createElement("a");
         if (typeof page !== 'undefined' && page == 'tables') {
             treeRoot.setAttribute("class", "tree-item active");
         } else {
             treeRoot.setAttribute("class", "tree-item");
         }
-        treeRoot.setAttribute("onclick", "goToTable()");
+        treeRoot.setAttribute("href", "./tables.html");
         var icon = document.createElement("span");
         icon.setAttribute("class", "material-icons vam");
         icon.appendChild(document.createTextNode("arrow_drop_down"));
@@ -311,13 +311,13 @@ function updateTree() {
         treeItems.setAttribute("class", "tree-items");
         for (var i = 0; i <= data.value.length - 1; i++) {
             var tableName = data.value[i];
-            var treeItem = document.createElement("div");
+            var treeItem = document.createElement("a");
             if (currentTable === tableName) {
                 treeItem.setAttribute("class", "tree-item active");
             } else {
                 treeItem.setAttribute("class", "tree-item");
             }
-            treeItem.setAttribute("onclick", 'goToTable("' + tableName + '")');
+            treeItem.setAttribute("href", "./table.html?name=" + tableName);
             treeItem.appendChild(document.createTextNode(tableName));
             treeItems.appendChild(treeItem);
         }
