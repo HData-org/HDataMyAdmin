@@ -73,8 +73,8 @@ function showResults(results, type) {
     table.appendChild(tableHeader);
     for (var i = 0; i < results.length; i++) {
         var result = results[i];
-        var keyName = tryStringifyJSON(result.key);
-        var keyValue = tryStringifyJSON(result.value);
+        var keyName = JSON.stringify(result.key);
+        var keyValue = JSON.stringify(result.value);
         var row = document.createElement("tr");
         var cell = document.createElement("td");
         if (type === "queryall") {
@@ -110,7 +110,7 @@ function showResults(results, type) {
                 "icon": "delete",
                 "class": "trash",
                 "href": "#",
-                "onclick": "deleteKey(\"" + tableName + "\", \"" + keyName + "\")"
+                "onclick": "deleteKey(\"" + tableName + "\", " + keyName + ")"
             }
         };
         cell = document.createElement("td");
@@ -118,7 +118,7 @@ function showResults(results, type) {
         for (var a = 0; a < Object.keys(actionsJson).length; a++) {
             var actionInfo = actionsJson[a];
             var action = document.createElement("a");
-            action.setAttribute("href", actionInfo.href + '?name=' + tableName + "&key=" + keyName + "&value=" + keyValue);
+            action.setAttribute("href", actionInfo.href + '?name=' + tableName + "&key=" + keyName);
             if (actionInfo.target !== undefined) {
                 action.setAttribute("target", actionInfo.target);
             }
@@ -158,7 +158,7 @@ function showResults(results, type) {
 
 function search() {
     var evaluator = $("evaluator").value;
-    var tableName = $("tableName").value;
+    tableName = $("tableName").value;
     console.log("Searching \"" + evaluator + "\" in table " + tableName);
     $("results").style.display = "block";
     $("searchResults").innerHTML = "";
