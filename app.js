@@ -13,7 +13,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 var configpath = "config.json"
-var config = { "hdata": { "host": "127.0.0.1", "port": 8888 }, "app": { "port": 3000 } }
+var config = { "hdataServer": { "host": "127.0.0.1", "port": 8888 }, "app": { "port": 3000 } }
 
 if (fs.existsSync(configpath)) {
 	config = JSON.parse(fs.readFileSync(configpath));
@@ -123,7 +123,7 @@ app.get('/api/hdata/status', (req, res) => {
 
 app.get('/api/hdata/reconnect', (req, res) => {
 	console.log("Reconnecting to HData server...")
-	connectTo(config.hdata.host, config.hdata.port)
+	connectTo(config.hdataServer.host, config.hdataServer.port)
 	conn.status((data, err) => {
 		if (!err) {
 			if(data.status == "OK") {
@@ -464,5 +464,5 @@ app.use('/', express.static(path.join(__dirname, 'src/static/')))
 
 app.listen(config.app.port, () => {
 	console.log('HDataMyAdmin listening at http://localhost:%s', config.app.port)
-	connectTo(config.hdata.host, config.hdata.port)
+	connectTo(config.hdataServer.host, config.hdataServer.port)
 })
