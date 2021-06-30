@@ -72,14 +72,14 @@ function exportJson(json) {
 }
 
 function tryStringifyJSON(jsonString) {
-	// try {
-	// 	if (jsonString && typeof jsonString === "object") {
-	// 		return JSON.stringify(jsonString);
-	// 	}
-	// }
-	// catch (e) { }
+	try {
+		if (jsonString && typeof jsonString === "object") {
+			return JSON.stringify(jsonString);
+		}
+	}
+	catch (e) { }
 
-	return JSON.stringify(jsonString);
+	return jsonString;
 }
 
 function settingsToLS(settings) {

@@ -434,7 +434,7 @@ app.post('/api/hdata/deletekey', (req, res) => {
 	var keyName = req.body.keyName
 	conn.deleteKey(tableName, keyName, (data, err) => {
 		if (!err) {
-			if (res.status == "OK") {
+			if (data.status == "OK") {
 				console.log("Key " + keyName + " in " + tableName + " deleted!")
 				res.json(data)
 			} else {

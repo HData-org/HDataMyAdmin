@@ -62,7 +62,7 @@ $("setKeyForm").onsubmit = (e) => {
     var form = $("setKeyForm");
     e.preventDefault();
     let tableName = form.elements['tableName'].value;
-    let keyName = JSON.parse(form.elements['keyName'].value);
-    let value = JSON.parse(form.elements['value'].value);
+    let keyName = form.elements['keyName'].value;
+    let value = form.elements['value'].value;
     setKey(tableName, keyName, value, "./table.html?name=" + tableName);
 }

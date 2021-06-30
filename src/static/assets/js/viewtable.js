@@ -45,10 +45,10 @@ function showTable(tableData, tableType) {
     for (var i = 0; i < tableData.length; i++) {
         var rowData = tableData[i];
         if (tableType == "full") {
-            var keyName = tryStringifyJSON(rowData.key);
-            var keyValue = tryStringifyJSON(rowData.value);
+            var keyName = JSON.stringify(rowData.key);
+            var keyValue = JSON.stringify(rowData.value);
         } else {
-            var keyName = tryStringifyJSON(rowData);
+            var keyName = JSON.stringify(rowData);
             var keyValue = "";
         }
         var row = document.createElement("tr");
