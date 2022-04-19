@@ -26,3 +26,9 @@ This is not to be used in production environments
 
 4. Run `node app.js`
 5. Log into the app with HData server credentials
+
+## Screenshots
+
+![Screenshot of the home tab](/src/static/assets/images/screenshot1.png)
+
+![Screenshot of a table](/src/static/assets/images/screenshot2.png)
