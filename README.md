@@ -1,5 +1,5 @@
 # HDataMyAdmin
-A web interface for HData servers
+A web interface with a similar style to phpMyAdmin for HData servers
 
 ## Note
 This is not to be used in production environments
