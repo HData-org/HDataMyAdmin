@@ -1,6 +1,8 @@
 # HDataMyAdmin
 A web interface for HData servers
-*NOTE* This is not to be used in production environments
+
+## Note
+This is not to be used in production environments
 
 ## Prerequisites
 1. NodeJS, etc.
